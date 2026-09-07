@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro de Experimento - Lab 02</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Coleta de Tempo - Lab 02</h1>
+        
+        <div id="setup-section" class="section active">
+            <h2>Configuração Inicial</h2>
+            <div class="form-group">
+                <label for="participant">Participante:</label>
+                <input type="text" id="participant" placeholder="Nome do participante" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="kata">Kata (Exercício):</label>
+                <input type="text" id="kata" placeholder="Nome ou ID da Kata" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Tratamento (Uso de IA):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="treatment" value="true" checked> Com IA</label>
+                    <label><input type="radio" name="treatment" value="false"> Sem IA</label>
+                </div>
+            </div>
+            
+            <button id="btn-prepare">Preparar</button>
+        </div>
+
+        <div id="confirmation-section" class="section hidden">
+            <h2>Posso começar o cronômetro?</h2>
+            <p>Digite <strong>S</strong> e pressione <strong>Enter</strong> para iniciar.</p>
+            <input type="text" id="confirm-input" maxlength="1" autocomplete="off" autofocus>
+        </div>
+
+        <div id="timer-section" class="section hidden">
+            <div class="info-bar">
+                <span id="info-participant"></span> | 
+                <span id="info-kata"></span> | 
+                <span id="info-treatment"></span>
+            </div>
+            
+            <div class="timer-display" id="timer-display">00:00</div>
+            
+            <p class="instruction blink">Pressione <strong>ENTER</strong> para encerrar o cronômetro.</p>
+        </div>
+
+        <div id="result-section" class="section hidden">
+            <h2 id="result-title">Cronômetro Parado</h2>
+            <p>Tempo final: <span id="final-time-display"></span></p>
+            
+            <div class="form-group" id="result-input-group">
+                <label for="result-data">Qual foi o resultado (testes passando, etc.)?</label>
+                <textarea id="result-data" rows="4" placeholder="Descreva os resultados aqui..."></textarea>
+            </div>
+            
+            <button id="btn-save">Salvar Resultado</button>
+            <button id="btn-reset" class="secondary">Descartar e Novo</button>
+        </div>
+    </div>
+
+    <button id="btn-open-results" class="fab" title="Ver Resultados">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+    </button>
+
+    <div id="results-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Resultados Salvos</h2>
+                <button id="btn-close-results" class="btn-close">&times;</button>
+            </div>
+            
+            <div class="table-responsive">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Participante</th>
+                            <th>Kata</th>
+                            <th>IA?</th>
+                            <th>Tempo</th>
+                            <th>Timeout?</th>
+                            <th>Notas</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-clear-data" class="secondary btn-small btn-danger" style="width: auto;">Limpar Todos os Dados</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
