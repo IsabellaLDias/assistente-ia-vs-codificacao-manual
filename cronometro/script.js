@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let timerInterval = null;
     let secondsElapsed = 0;
+    let startedAt = 0;
     const MAX_TIME_SECONDS = 35 * 60; // 35 minutos
     
     let currentSession = {
@@ -153,10 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSession.id = Date.now().toString();
         currentSession.startTime = new Date().toISOString();
         secondsElapsed = 0;
+        startedAt = Date.now();
         updateTimerDisplay();
         
         timerInterval = setInterval(() => {
-            secondsElapsed++;
+            secondsElapsed = Math.min(MAX_TIME_SECONDS, Math.floor((Date.now() - startedAt) / 1000));
             updateTimerDisplay();
             
             if (secondsElapsed >= MAX_TIME_SECONDS) {
@@ -168,6 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function stopTimer(isTimeout = false) {
+        secondsElapsed = Math.min(MAX_TIME_SECONDS, Math.floor((Date.now() - startedAt) / 1000));
+        isTimeout = isTimeout || secondsElapsed >= MAX_TIME_SECONDS;
         clearInterval(timerInterval);
         document.removeEventListener('keydown', handleTimerStopKey);
         
@@ -195,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
             stopTimer(false);
         }
     }
+
+    document.getElementById('btn-stop').addEventListener('click', () => stopTimer(false));
 
     btnPrepare.addEventListener('click', () => {
         const participant = participantInput.value.trim();

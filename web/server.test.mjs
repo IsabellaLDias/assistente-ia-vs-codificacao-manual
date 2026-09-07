@@ -20,7 +20,15 @@ test('HTTP: real analysis, downloads, invalid compilation and origin protections
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));
   const base=`http://127.0.0.1:${server.address().port}`;
-  assert.equal((await fetch(base)).status,200);
+  const home = await fetch(base);
+  assert.equal(home.status,200);
+  assert.match(await home.text(), /href="#cronometro"/);
+  for (const route of ['/shell.js', '/shell.css', '/metricas/', '/cronometro/', '/cronometro/script.js', '/cronometro/style.css']) {
+    const page = await fetch(`${base}${route}`);
+    assert.equal(page.status, 200, route);
+    assert.match(page.headers.get('content-security-policy'), /frame-ancestors 'self'/);
+  }
+  assert.equal((await fetch(`${base}/cronometro/missing.js`)).status, 404);
   const {token,ready}=await (await fetch(`${base}/api/config`)).json();
   assert.equal(ready,true,'Run setup-metrics.ps1 before integration tests');
   const headers={'Content-Type':'application/json','X-Lab-Token':token};

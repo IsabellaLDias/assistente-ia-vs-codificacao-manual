@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": { "start": "node web/server.mjs", "test:web": "node --test web/server.test.mjs", "build": "node --check web/server.mjs && node --check web/public/app.js" },
+  "scripts": { "start": "node web/server.mjs", "test:web": "node --test web/server.test.mjs", "build": "node --check web/server.mjs && node --check web/public/app.js && node --check web/public/shell.js && node --check cronometro/script.js" },
   "engines": { "node": ">=20" }
 }

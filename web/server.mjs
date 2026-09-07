@@ -80,7 +80,7 @@ export function createServer() {
   return http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Cache-Control', 'no-store');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'self'");
     const json = (status, value) => {res.writeHead(status, {'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify(value));};
     try {
       const expectedHost = `127.0.0.1:${req.socket.localPort}`;
@@ -121,7 +121,7 @@ export function createServer() {
         res.writeHead(200, {'Content-Type':download[2].endsWith('.csv')?'text/csv; charset=utf-8':'text/plain; charset=utf-8', 'Content-Disposition':`attachment; filename="${download[2]}"`});
         return res.end(await readFile(file));
       }
-      const staticFiles = {'/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css']};
+      const staticFiles = {'/':['shell.html','text/html'], '/shell.js':['shell.js','text/javascript'], '/shell.css':['shell.css','text/css'], '/metricas/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css'], '/cronometro/':['../../cronometro/index.html','text/html'], '/cronometro/script.js':['../../cronometro/script.js','text/javascript'], '/cronometro/style.css':['../../cronometro/style.css','text/css']};
       if (req.method === 'GET' && staticFiles[url.pathname]) {
         const [file,type] = staticFiles[url.pathname];
         res.writeHead(200, {'Content-Type':`${type}; charset=utf-8`}); return res.end(await readFile(path.join(assets,file)));

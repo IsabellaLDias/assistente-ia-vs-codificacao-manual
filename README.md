@@ -5,6 +5,12 @@ Experimentação de Software.
 
 ## Artefatos da S01
 
+Execute `iniciar-app.bat` ou `npm start` e abra http://127.0.0.1:3010/.
+O menu reúne o cronômetro e a análise de métricas no mesmo site. A troca de
+tela preserva a sessão do cronômetro e os arquivos da análise enquanto a página
+permanecer aberta. Recarregar ou fechar a página encerra o estado em andamento;
+os resultados já salvos do cronômetro ficam no navegador.
+
 - [Cronômetro e coleta de tempo](cronometro/)
 - [Ambiente, coleta e aplicação web de métricas estáticas](METRICAS.md)
 
