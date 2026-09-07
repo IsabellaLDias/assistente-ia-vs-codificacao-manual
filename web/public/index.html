@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LAB02 · Analisador de código</title><meta name="description" content="Coleta de métricas estáticas de código Java para o experimento LAB02."><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="LAB02 início"><span class="brand-mark">L2</span> LAB02 <span class="brand-detail">/ Experimentação de Software</span></a><span class="connection" id="connection">Verificando ambiente…</span></header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">S01 / QUALIDADE ESTRUTURAL</div><h1>Do código às métricas.</h1><p>Envie o código final de um trial e analise sua estrutura.</p></div><span class="tag">RQ3 <span>COM IA × SEM IA</span></span></div>
+    <div class="workspace">
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-heading"><h2 id="input-title"><span class="step">01</span> Nova análise</h2><span class="muted">Java</span></div>
+        <form id="analysis-form">
+          <fieldset id="inputs">
+            <div class="fields"><label>Participante<input name="participant" id="participant" placeholder="Ex.: Leandro" maxlength="60" required autocomplete="name"></label><label>Kata<input name="kata" id="kata" placeholder="Ex.: kata01" maxlength="60" required></label></div>
+            <fieldset class="treatments"><legend>Tratamento</legend><div class="segmented"><label><input type="radio" name="treatment" value="COM_IA" checked><span>Com assistente de IA</span></label><label><input type="radio" name="treatment" value="SEM_IA"><span>Sem assistente de IA</span></label></div></fieldset>
+            <label class="upload" id="drop-zone" for="files"><span class="upload-symbol" aria-hidden="true">↑</span><strong>Solte seus arquivos Java aqui</strong><span>ou clique para selecionar</span><span class="upload-limit">Até 20 arquivos · 100 KB por arquivo</span><input type="file" id="files" accept=".java" multiple aria-label="Selecionar arquivos Java"></label>
+            <ul id="file-list" class="file-list" aria-label="Arquivos selecionados"></ul>
+            <div class="file-actions"><span id="file-count">Nenhum arquivo selecionado</span><button type="button" class="text-button" id="example">Usar exemplo</button></div>
+            <div class="scope-note"><strong>Apenas código de produção</strong><p>Envie as classes da solução juntas, sem os testes. Fontes Java 11, em UTF-8, sem bibliotecas externas.</p></div>
+            <button type="submit" id="analyze" class="primary" disabled>Analisar código <span aria-hidden="true">→</span></button>
+          </fieldset>
+        </form>
+        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      </section>
+      <section class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-heading"><h2 id="result-title"><span class="step">02</span> Resultado da análise</h2><span class="status-tag" id="result-status">Aguardando código</span></div>
+        <div class="metrics" aria-live="polite">
+          <article class="metric"><div class="metric-label">LINHAS FÍSICAS</div><div class="metric-value" id="loc">—</div><p>LOC · inclui comentários e vazias</p></article>
+          <article class="metric"><div class="metric-label">COMPLEXIDADE MÉDIA</div><div class="metric-value" id="complexity">—</div><p>McCabe por método · CK</p></article>
+          <article class="metric"><div class="metric-label">DUPLICAÇÃO</div><div class="metric-value" id="duplication">—</div><p>Linhas em trechos repetidos · CPD</p></article>
+        </div>
+        <div id="empty-result" class="empty-result"><span class="code-symbol" aria-hidden="true">{ }</span><h3>Seu código, em números.</h3><p>As métricas e o detalhamento por método<br>aparecem aqui após a análise.</p><div class="flow-label">ARQUIVOS JAVA <span>→</span> CK + CPD <span>→</span> CSV</div></div>
+        <div id="result-content" hidden>
+          <div class="result-summary"><p id="summary"></p><div class="downloads"><a id="download-csv" class="secondary">↓ Baixar CSV</a><a id="download-json" class="text-button">JSON</a></div></div>
+          <div class="table-heading"><h3>Complexidade por método</h3><span id="method-count" class="muted"></span></div>
+          <div class="table-scroll"><table><thead><tr><th>Método / classe</th><th>Complexidade</th><th>SLOC</th></tr></thead><tbody id="method-rows"></tbody></table></div>
+          <p class="method-note">Construtores não entram na média. SLOC do método é a contagem do CK.</p>
+        </div>
+        <div class="result-footer"><span>CK 0.7.0</span><span>PMD CPD 7.26.0</span><span>Limiar: 50 tokens</span></div>
+      </section>
+    </div>
+    <footer class="page-footer"><p><strong>O que esta análise responde?</strong> Tamanho, complexidade e repetição do código. A correção da solução depende dos testes de aceitação do kata.</p><span>PROCESSAMENTO LOCAL</span></footer>
+  </main>
+</body></html>

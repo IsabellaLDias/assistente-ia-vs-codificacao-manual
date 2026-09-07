@@ -1,0 +1,17 @@
+# Ferramentas baixadas pelo bootstrap local
+tools/
+
+# A validação é local; os dados reais e relatórios brutos devem ser versionados
+data/metrics/validation.csv
+data/metrics/raw/fixture_*/
+*.class
+# Uploads e análises da interface web; exporte os trials oficiais para o Git.
+data/web-jobs/
+
+# Arquivos temporários e de IDE
+*.tmp
+.idea/
+.vscode/
+target/
+build/
+out/
