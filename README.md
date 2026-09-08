@@ -96,7 +96,9 @@ Após atualizar o código, reinicie o app no painel.
 | [`examples/metrics-fixture/`](examples/metrics-fixture/) | Classe com métricas conhecidas |
 | `data/web-jobs/` | Fontes e relatórios dos envios, ignorados pelo Git |
 | [`METRICAS.md`](METRICAS.md) | Instalação detalhada e coleta pela linha de comando |
-| [`docs/metricas-estaticas.md`](docs/metricas-estaticas.md) | Definições e protocolo de medição |
+| [`docs/desenho-experimento.md`](docs/desenho-experimento.md) | Desenho do experimento, hipóteses, katas e ameaças |
+| [`docs/metricas-estaticas.md`](docs/metricas-estaticas.md) | Definições e protocolo de medição de código |
+| [`katas/`](katas/) | Exercícios autorais (SmartPark e EcoFrete) e testes JUnit |
 
 ## Validação
 
