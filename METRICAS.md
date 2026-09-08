@@ -25,9 +25,10 @@ com nomes repetidos devem ser analisados pelo coletor CLI com suas pastas.
 O programa enviado não é executado: a correção funcional depende dos testes de
 aceitação de cada kata, que ainda não estão integrados ao app.
 
-A interface atende somente neste computador (127.0.0.1). Publicar para o grupo
-requer um servidor com Java, isolamento das análises e controle de acesso. A
-hospedagem Sites/Cloudflare Workers não executa os processos CK/PMD deste projeto.
+O site do grupo está em [arsenal.dev.br/lab02/](https://arsenal.dev.br/lab02/).
+O A.R.S.E.N.A.L encaminha os pedidos ao servidor local, onde Java e CK/PMD executam.
+Consulte o [README](README.md) para configurar o cadastro. Cloudflare fornece o
+túnel; os analisadores não executam em Cloudflare Workers.
 
 Validação do app: npm run build e npm run test:web. O segundo comando executa
 análises reais e verifica upload, exportação e tratamento de código inválido.

@@ -4,6 +4,27 @@ import { readFile } from 'node:fs/promises';
 import { createServer, validatePayload } from './server.mjs';
 
 const sample = { participant:'fixture_web', kata:'validacao', treatment:'COM_IA', files:[{name:'A.java', content:'public class A {}'}] };
+test('A.R.S.E.N.A.L: base path, proxy authentication and public origin', async t => {
+  const server = createServer({basePath:'/lab02', proxyToken:'test-proxy', publicOrigin:'https://arsenal.dev.br'});
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise(resolve => {server.closeAllConnections();server.close(resolve);}));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const headers = {'x-arsenal-proxy-token':'test-proxy', Origin:'https://arsenal.dev.br'};
+  assert.equal((await fetch(`${base}/lab02/`)).status,403);
+  const redirect = await fetch(`${base}/lab02`, {headers, redirect:'manual'});
+  assert.equal(redirect.status,308);
+  assert.equal(redirect.headers.get('location'),'/lab02/');
+  const home = await fetch(`${base}/lab02/`, {headers});
+  assert.equal(home.status,200);
+  assert.match(await home.text(), /src="\/lab02\/metricas\/"/);
+  for (const route of ['metricas/', 'cronometro/', 'shell.js', 'app.js', 'api/config']) {
+    assert.equal((await fetch(`${base}/lab02/${route}`, {headers})).status,200,route);
+  }
+  assert.equal((await fetch(`${base}/lab02/api/config`, {headers:{...headers,Origin:'https://evil.example'}})).status,403);
+  const {token} = await (await fetch(`${base}/lab02/api/config`, {headers})).json();
+  const invalid = await fetch(`${base}/lab02/api/analyze`, {method:'POST', headers:{...headers,'Content-Type':'application/json','X-Lab-Token':token},body:'{}'});
+  assert.equal(invalid.status,400);
+});
 test('upload validation accepts Java, rejects paths, duplicates, oversized files and shell metadata', () => {
   assert.equal(validatePayload(sample).files.length, 1);
   for (const bad of [

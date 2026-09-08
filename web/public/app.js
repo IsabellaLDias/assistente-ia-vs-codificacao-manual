@@ -1,4 +1,5 @@
 const $ = id => document.getElementById(id);
+const appBase = location.pathname.replace(/\/metricas\/?$/, '');
 let files = []; let config; let running = false; let latestResult = null;
 const format = value => value === null || value === '' || value === undefined ? '—' : Number(value).toLocaleString('pt-BR', {maximumFractionDigits:2});
 function notice(message, loading=false) { $('notice').textContent=message; $('notice').hidden=!message; $('notice').className=loading?'notice loading':'notice'; }
@@ -26,7 +27,7 @@ async function addFiles(selection) {
 }
 $('files').addEventListener('change',e=>addFiles(e.target.files));
 for (const name of ['dragover','dragleave','drop']) $('drop-zone').addEventListener(name,event=>{event.preventDefault();$('drop-zone').classList.toggle('dragover',name==='dragover');if(name==='drop')addFiles(event.dataTransfer.files);});
-$('example').addEventListener('click',async()=>{try{const response=await fetch('/api/example');if(!response.ok)throw new Error('Exemplo indisponível.');files=[await response.json()];$('participant').value='Demo';$('kata').value='validacao';notice('Exemplo com duplicação intencional para validar as ferramentas. Não é um trial oficial.');refreshFiles();}catch(e){notice(e.message);}});
+$('example').addEventListener('click',async()=>{try{const response=await fetch(`${appBase}/api/example`);if(!response.ok)throw new Error('Exemplo indisponível.');files=[await response.json()];$('participant').value='Demo';$('kata').value='validacao';notice('Exemplo com duplicação intencional para validar as ferramentas. Não é um trial oficial.');refreshFiles();}catch(e){notice(e.message);}});
 
 function showResult(result) {
   latestResult = result;
@@ -34,7 +35,7 @@ function showResult(result) {
   $('loc').textContent=format(m.loc_physical);$('complexity').textContent=format(m.ck_wmc_mean);$('duplication').textContent=format(m.cpd_duplication_pct_physical)+'%';
   $('result-status').textContent='Análise concluída';$('result-status').className='status-tag success';
   $('summary').textContent=`${m.participante} · ${m.kata} · ${m.tratamento==='COM_IA'?'Com IA':'Sem IA'} — ${m.source_java_files} arquivo(s), ${m.cpd_duplicated_lines_unique} linhas em trechos duplicados.`;
-  $('download-csv').href=`/api/jobs/${result.id}/metrics.csv`;$('download-json').href=`/api/jobs/${result.id}/result.json`;
+  $('download-csv').href=`${appBase}/api/jobs/${result.id}/metrics.csv`;$('download-json').href=`${appBase}/api/jobs/${result.id}/result.json`;
   $('empty-result').hidden=true;$('result-content').hidden=false;$('method-count').textContent=`${m.ck_method_count} métodos`;
   $('method-rows').replaceChildren();
   for (const method of result.methods) {
@@ -50,14 +51,14 @@ $('analysis-form').addEventListener('submit',async event=>{
   for(const id of ['loc','complexity','duplication'])$(id).textContent='—';
   $('result-status').textContent='Analisando…';$('result-status').className='status-tag';$('analyze').textContent='Analisando…';notice('Verificando os fontes e calculando as métricas. Aguarde alguns segundos.',true);
   try {
-    const response=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json','X-Lab-Token':config.token},body:JSON.stringify({participant:$('participant').value,kata:$('kata').value,treatment,files})});
+    const response=await fetch(`${appBase}/api/analyze`,{method:'POST',headers:{'Content-Type':'application/json','X-Lab-Token':config.token},body:JSON.stringify({participant:$('participant').value,kata:$('kata').value,treatment,files})});
     const result=await response.json();
-    if(!response.ok){notice(result.error||'A análise não foi concluída.');if(result.id){const link=document.createElement('a');link.href=`/api/jobs/${result.id}/execution.log`;link.textContent='Baixar registro da execução';$('notice').append(link);}$('result-status').textContent='Análise não concluída';return;}
+    if(!response.ok){notice(result.error||'A análise não foi concluída.');if(result.id){const link=document.createElement('a');link.href=`${appBase}/api/jobs/${result.id}/execution.log`;link.textContent='Baixar registro da execução';$('notice').append(link);}$('result-status').textContent='Análise não concluída';return;}
     showResult(result);notice('');
   } catch(error){notice('Não foi possível conectar ao app. Verifique se o servidor está aberto.');$('result-status').textContent='Falha de conexão';}
   finally {running=false;$('inputs').disabled=false;$('analyze').textContent='Analisar código →';refreshFiles();}
 });
-fetch('/api/config').then(async response=>{if(!response.ok)throw new Error();config=await response.json();$('connection').textContent=config.ready?'Ambiente pronto':'Ambiente incompleto';$('connection').classList.toggle('ready',config.ready);if(!config.ready)notice('Prepare as ferramentas executando scripts/setup-metrics.ps1 na pasta do projeto.');refreshFiles();}).catch(()=>{$('connection').textContent='Sem conexão';notice('Não foi possível verificar o ambiente. Atualize a página.');});
+fetch(`${appBase}/api/config`).then(async response=>{if(!response.ok)throw new Error();config=await response.json();$('connection').textContent=config.ready?'Ambiente pronto':'Ambiente incompleto';$('connection').classList.toggle('ready',config.ready);if(!config.ready)notice('Prepare as ferramentas executando scripts/setup-metrics.ps1 na pasta do projeto.');refreshFiles();}).catch(()=>{$('connection').textContent='Sem conexão';notice('Não foi possível verificar o ambiente. Atualize a página.');});
 
 // Optional browser agent access to the same result currently visible on screen.
 if (document.modelContext?.registerTool) {
@@ -70,7 +71,7 @@ if (document.modelContext?.registerTool) {
       annotations:{readOnlyHint:true,untrustedContentHint:true},
       execute(input) {
         if (input && Object.keys(input).length) throw new Error('This tool takes no parameters.');
-        return latestResult ? {metrics:latestResult.metrics,methods:latestResult.methods,csv:`/api/jobs/${latestResult.id}/metrics.csv`} : {status:running?'running':'no_result'};
+        return latestResult ? {metrics:latestResult.metrics,methods:latestResult.methods,csv:`${appBase}/api/jobs/${latestResult.id}/metrics.csv`} : {status:running?'running':'no_result'};
       }
     },{signal:lifecycle.signal})).catch(()=>{});
   } catch {}

@@ -76,7 +76,12 @@ function run(directory) {
   });
 }
 
-export function createServer() {
+export function createServer(options = {}) {
+  const basePath = options.basePath ?? process.env.ARSENAL_ROUTE ?? '';
+  const proxyToken = options.proxyToken ?? process.env.ARSENAL_PROXY_TOKEN ?? '';
+  const publicOrigin = options.publicOrigin ?? process.env.LAB_PUBLIC_ORIGIN ?? '';
+  if (basePath && !/^\/[a-z0-9-]+$/.test(basePath)) throw new Error('Rota base inválida.');
+  if (publicOrigin && new URL(publicOrigin).origin !== publicOrigin) throw new Error('Informe somente a origem pública, sem caminho.');
   return http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Cache-Control', 'no-store');
@@ -84,10 +89,16 @@ export function createServer() {
     const json = (status, value) => {res.writeHead(status, {'Content-Type':'application/json; charset=utf-8'}); res.end(JSON.stringify(value));};
     try {
       const expectedHost = `127.0.0.1:${req.socket.localPort}`;
+      const proxied = Boolean(proxyToken) && req.headers['x-arsenal-proxy-token'] === proxyToken;
+      if (proxyToken && !proxied) return json(403, {error:'Acesse pelo gateway A.R.S.E.N.A.L.'});
       if (req.headers.host !== expectedHost && req.headers.host !== `localhost:${req.socket.localPort}`) return json(403, {error:'Host não permitido.'});
       const origin = req.headers.origin;
-      if (origin && origin !== `http://${req.headers.host}`) return json(403, {error:'Origem não permitida.'});
+      if (origin && origin !== `http://${req.headers.host}` && !(proxied && publicOrigin && origin === publicOrigin)) return json(403, {error:'Origem não permitida.'});
       const url = new URL(req.url, `http://${expectedHost}`);
+      if (basePath && url.pathname === basePath) {
+        res.writeHead(308, {Location:`${basePath}/${url.search}`}); return res.end();
+      }
+      if (basePath && url.pathname.startsWith(`${basePath}/`)) url.pathname = url.pathname.slice(basePath.length);
       if (req.method === 'GET' && url.pathname === '/api/config') {
         const ready = (await Promise.all([exists(path.join(root,'tools/ck/ck-0.7.0-jar-with-dependencies.jar')), exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd.bat'))])).every(Boolean);
         return json(200, {token, ready});
@@ -124,7 +135,9 @@ export function createServer() {
       const staticFiles = {'/':['shell.html','text/html'], '/shell.js':['shell.js','text/javascript'], '/shell.css':['shell.css','text/css'], '/metricas/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css'], '/cronometro/':['../../cronometro/index.html','text/html'], '/cronometro/script.js':['../../cronometro/script.js','text/javascript'], '/cronometro/style.css':['../../cronometro/style.css','text/css']};
       if (req.method === 'GET' && staticFiles[url.pathname]) {
         const [file,type] = staticFiles[url.pathname];
-        res.writeHead(200, {'Content-Type':`${type}; charset=utf-8`}); return res.end(await readFile(path.join(assets,file)));
+        let content = await readFile(path.join(assets,file));
+        if (type === 'text/html' && basePath) content = content.toString('utf8').replace(/(href|src)="\/(?!\/)/g, `$1="${basePath}/`);
+        res.writeHead(200, {'Content-Type':`${type}; charset=utf-8`}); return res.end(content);
       }
       json(404, {error:'Página não encontrada.'});
     } catch (error) {if (!res.headersSent) json(500, {error:'Não foi possível concluir a solicitação.'}); else res.end();}
