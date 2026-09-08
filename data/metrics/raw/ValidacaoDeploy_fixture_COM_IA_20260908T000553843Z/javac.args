@@ -1,0 +1,8 @@
+--release
+11
+-encoding
+UTF-8
+-proc:none
+-d
+"C:/Users/Leandro Alencar/Desktop/Lab 02 - Experimentação/repo-destino/data/metrics/raw/ValidacaoDeploy_fixture_COM_IA_20260908T000553843Z/build"
+"C:/Users/Leandro Alencar/Desktop/Lab 02 - Experimentação/repo-destino/data/metrics/raw/ValidacaoDeploy_fixture_COM_IA_20260908T000553843Z/source/MetricsFixture.java"

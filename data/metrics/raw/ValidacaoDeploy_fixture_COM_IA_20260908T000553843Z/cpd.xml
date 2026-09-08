@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd xmlns="https://pmd-code.org/schema/cpd-report"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         pmdVersion="7.26.0"
+         timestamp="2026-09-07T21:05:59.2679873-03:00"
+         version="1.0.0"
+         xsi:schemaLocation="https://pmd-code.org/schema/cpd-report https://pmd.github.io/schema/cpd-report_1_0_0.xsd">
+   <file path="C:\Users\Leandro Alencar\Desktop\Lab 02 - Experimentação\repo-destino\data\metrics\raw\ValidacaoDeploy_fixture_COM_IA_20260908T000553843Z\source\MetricsFixture.java"
+         totalNumberOfTokens="176"/>
+   <duplication lines="19" tokens="75">
+      <file begintoken="15"
+            column="35"
+            endcolumn="11"
+            endline="28"
+            endtoken="89"
+            line="10"
+            path="C:\Users\Leandro Alencar\Desktop\Lab 02 - Experimentação\repo-destino\data\metrics\raw\ValidacaoDeploy_fixture_COM_IA_20260908T000553843Z\source\MetricsFixture.java"/>
+      <file begintoken="92"
+            column="36"
+            endcolumn="11"
+            endline="46"
+            endtoken="166"
+            line="28"
+            path="C:\Users\Leandro Alencar\Desktop\Lab 02 - Experimentação\repo-destino\data\metrics\raw\ValidacaoDeploy_fixture_COM_IA_20260908T000553843Z\source\MetricsFixture.java"/>
+      <codefragment><![CDATA[    public int calculateFirstScore(int base, int bonus, int limit, int[] values) {
+        int score = base;
+        if (bonus > 0) {
+            score += bonus;
+        }
+        for (int value : values) {
+            if (value % 2 == 0) {
+                score += value;
+            } else {
+                score -= value;
+            }
+        }
+        if (score < limit) {
+            return score + limit;
+        }
+        return score;
+    }
+
+    public int calculateSecondScore(int base, int bonus, int limit, int[] values) {
+]]></codefragment>
+   </duplication>
+</pmd-cpd>
