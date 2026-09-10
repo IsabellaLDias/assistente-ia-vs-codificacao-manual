@@ -1,0 +1,14 @@
+.git
+.github
+node_modules
+tools/
+data/web-jobs/*
+!data/web-jobs/.gitkeep
+data/metrics/raw/*
+!data/metrics/raw/.gitkeep
+*.tmp
+.idea/
+.vscode/
+target/
+build/
+out/

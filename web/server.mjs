@@ -50,15 +50,24 @@ function run(directory) {
     const env = {...process.env};
     // PowerShell 7's inherited module path can hide Windows PowerShell cmdlets.
     for (const key of Object.keys(env)) if (key.toLowerCase() === 'psmodulepath') delete env[key];
-    const child = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', path.join(root, 'web/run-analysis.ps1'), '-JobDirectory', directory], {cwd:root, windowsHide:true, shell:false, env});
+    const isWin = process.platform === 'win32';
+    const psExecutable = isWin ? 'powershell.exe' : 'pwsh';
+    const psArgs = ['-NoProfile', '-NonInteractive'];
+    if (isWin) psArgs.push('-ExecutionPolicy', 'Bypass');
+    psArgs.push('-File', path.join(root, 'web/run-analysis.ps1'), '-JobDirectory', directory);
+    const child = spawn(psExecutable, psArgs, {cwd:root, windowsHide:true, shell:false, env});
     let output = ''; let timedOut = false;
     const capture = chunk => { output = (output + chunk.toString()).slice(-50000); };
     child.stdout.on('data', capture); child.stderr.on('data', capture);
     const timer = setTimeout(() => {
       timedOut = true;
       // Terminate only this analysis process and its compiler/analyzer children.
-      const stop = spawn('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], {windowsHide:true, shell:false});
-      stop.on('error', () => child.kill());
+      if (isWin) {
+        const stop = spawn('taskkill.exe', ['/PID', String(child.pid), '/T', '/F'], {windowsHide:true, shell:false});
+        stop.on('error', () => child.kill());
+      } else {
+        child.kill('SIGKILL');
+      }
     }, 90000);
     child.on('error', error => {clearTimeout(timer); reject(error);});
     child.on('close', async code => {
@@ -91,7 +100,21 @@ export function createServer(options = {}) {
       const expectedHost = `127.0.0.1:${req.socket.localPort}`;
       const proxied = Boolean(proxyToken) && req.headers['x-arsenal-proxy-token'] === proxyToken;
       if (proxyToken && !proxied) return json(403, {error:'Acesse pelo gateway A.R.S.E.N.A.L.'});
-      if (req.headers.host !== expectedHost && req.headers.host !== `localhost:${req.socket.localPort}`) return json(403, {error:'Host não permitido.'});
+      const reqHost = req.headers.host || '';
+      const allowedHosts = [
+        expectedHost,
+        `localhost:${req.socket.localPort}`,
+        `0.0.0.0:${req.socket.localPort}`,
+        'localhost',
+        '127.0.0.1'
+      ];
+      if (process.env.ALLOWED_HOSTS) {
+        allowedHosts.push(...process.env.ALLOWED_HOSTS.split(',').map(s => s.trim()));
+      }
+      const isHostAllowed = allowedHosts.includes(reqHost) ||
+        reqHost.startsWith('localhost:') ||
+        reqHost.startsWith('127.0.0.1:');
+      if (!isHostAllowed && !proxied) return json(403, {error:'Host não permitido.'});
       const origin = req.headers.origin;
       if (origin && origin !== `http://${req.headers.host}` && !(proxied && publicOrigin && origin === publicOrigin)) return json(403, {error:'Origem não permitida.'});
       const url = new URL(req.url, `http://${expectedHost}`);
@@ -100,7 +123,10 @@ export function createServer(options = {}) {
       }
       if (basePath && url.pathname.startsWith(`${basePath}/`)) url.pathname = url.pathname.slice(basePath.length);
       if (req.method === 'GET' && url.pathname === '/api/config') {
-        const ready = (await Promise.all([exists(path.join(root,'tools/ck/ck-0.7.0-jar-with-dependencies.jar')), exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd.bat'))])).every(Boolean);
+        const ready = (await Promise.all([
+          exists(path.join(root,'tools/ck/ck-0.7.0-jar-with-dependencies.jar')),
+          exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd.bat')).then(ok => ok || exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd')))
+        ])).every(Boolean);
         return json(200, {token, ready});
       }
       if (req.method === 'GET' && url.pathname === '/api/example') {
@@ -146,7 +172,8 @@ export function createServer(options = {}) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.env.PORT || 3010);
+  const host = process.env.HOST || '0.0.0.0';
   const server = createServer();
   server.on('error', error => {console.error(`Não foi possível abrir o app: ${error.message}`); process.exitCode=1;});
-  server.listen(port, '127.0.0.1', () => console.log(`LAB02 · http://127.0.0.1:${port}`));
+  server.listen(port, host, () => console.log(`LAB02 · http://${host === '0.0.0.0' ? '127.0.0.1' : host}:${port}`));
 }

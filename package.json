@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": { "start": "node web/server.mjs", "test:web": "node --test web/server.test.mjs", "build": "node --check web/server.mjs && node --check web/public/app.js && node --check web/public/shell.js && node --check cronometro/script.js" },
+  "scripts": {
+    "start": "node web/server.mjs",
+    "test:web": "node --test web/server.test.mjs",
+    "build": "node --check web/server.mjs && node --check web/public/app.js && node --check web/public/shell.js && node --check cronometro/script.js",
+    "docker:build": "docker build -t lab02-metricas .",
+    "docker:run": "docker run -p 3010:3010 lab02-metricas"
+  },
   "engines": { "node": ">=20" }
 }

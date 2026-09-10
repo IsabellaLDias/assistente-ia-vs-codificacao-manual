@@ -65,6 +65,26 @@ Abra [http://127.0.0.1:3010/](http://127.0.0.1:3010/). Após a preparação inic
 também é possível iniciar com `iniciar-app.bat`. Não há dependências npm para instalar.
 O bootstrap prepara as versões fixadas de CK/PMD em `tools/`.
 
+### Executar com Docker (alternativa multiplataforma)
+
+Como alternativa para rodar o sistema sem precisar instalar JDK ou ferramentas locais no computador hospedeiro (compatível com Linux, macOS e Windows):
+
+```bash
+# Opção 1: Usando Docker Compose (recomendado)
+docker compose up --build
+
+# Opção 2: Usando Docker diretamente
+docker build -t lab02-metricas .
+docker run -p 3010:3010 lab02-metricas
+```
+
+O container já vem com Node.js 20, OpenJDK 17, PowerShell Core (`pwsh`) e os analisadores pré-configurados (CK 0.7.0 e PMD 7.26.0). Abra [http://localhost:3010/](http://localhost:3010/).
+
+Para rodar a suíte de testes dentro do container:
+```bash
+docker run --rm lab02-metricas npm run test:web
+```
+
 ## Hospedagem no A.R.S.E.N.A.L
 
 O Node.js e os analisadores Java executam no computador hospedeiro. O A.R.S.E.N.A.L

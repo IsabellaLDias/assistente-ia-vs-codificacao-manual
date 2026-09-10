@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: assistente-ia-vs-codificacao-manual:latest
+    container_name: lab02-metricas
+    restart: unless-stopped
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - HOST=0.0.0.0
+      # Configurações opcionais para integração com proxy / gateway:
+      # - ARSENAL_ROUTE=/lab02
+      # - ARSENAL_PROXY_TOKEN=seu_token_aqui
+      # - LAB_PUBLIC_ORIGIN=https://arsenal.dev.br
+    volumes:
+      - ./data/web-jobs:/app/data/web-jobs
+      - ./data/metrics:/app/data/metrics

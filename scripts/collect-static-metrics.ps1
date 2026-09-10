@@ -1,4 +1,4 @@
-﻿#requires -Version 5.1
+#requires -Version 5.1
 <#
 .SYNOPSIS
 Coleta métricas estáticas de um único trial Java do LAB02.
@@ -417,10 +417,15 @@ foreach ($segment in $sourceSegments) {
     }
 }
 
-$ckJar = Join-Path $repositoryRoot "tools\ck\ck-$CkVersion-jar-with-dependencies.jar"
-$pmdRoot = Join-Path $repositoryRoot 'tools\pmd'
-$pmdCommand = Get-ChildItem -LiteralPath $pmdRoot -Recurse -File -Filter 'pmd.bat' -ErrorAction SilentlyContinue |
-    Select-Object -First 1
+$ckJar = Join-Path $repositoryRoot "tools/ck/ck-$CkVersion-jar-with-dependencies.jar"
+$pmdRoot = Join-Path $repositoryRoot 'tools/pmd'
+$isUnix = ($null -ne (Get-Variable -Name 'IsLinux' -ErrorAction SilentlyContinue) -and $IsLinux) -or
+          ($null -ne (Get-Variable -Name 'IsMacOS' -ErrorAction SilentlyContinue) -and $IsMacOS)
+$pmdCommand = Get-ChildItem -LiteralPath $pmdRoot -Recurse -File -ErrorAction SilentlyContinue |
+    Where-Object {
+        if ($isUnix) { $_.Name -eq 'pmd' -and -not $_.Name.EndsWith('.bat') }
+        else { $_.Name -eq 'pmd.bat' }
+    } | Select-Object -First 1
 
 if (-not (Test-Path -LiteralPath $ckJar) -or $null -eq $pmdCommand) {
     throw 'Ferramentas não encontradas. Execute .\scripts\setup-metrics.ps1 antes da coleta.'
