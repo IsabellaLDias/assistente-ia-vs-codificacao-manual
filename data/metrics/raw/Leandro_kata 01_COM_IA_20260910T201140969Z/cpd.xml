@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd xmlns="https://pmd-code.org/schema/cpd-report"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         pmdVersion="7.26.0"
+         timestamp="2026-09-10T17:11:43.3219598-03:00"
+         version="1.0.0"
+         xsi:schemaLocation="https://pmd-code.org/schema/cpd-report https://pmd.github.io/schema/cpd-report_1_0_0.xsd">
+   <file path="C:\Users\Leandro Alencar\Desktop\Lab 02 - Experimentação\repo-destino\data\metrics\raw\Leandro_kata 01_COM_IA_20260910T201140969Z\source\TipoVeiculo.java"
+         totalNumberOfTokens="44"/>
+</pmd-cpd>

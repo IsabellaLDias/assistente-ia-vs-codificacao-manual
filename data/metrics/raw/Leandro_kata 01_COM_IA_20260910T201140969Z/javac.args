@@ -1,0 +1,8 @@
+--release
+11
+-encoding
+UTF-8
+-proc:none
+-d
+"C:/Users/Leandro Alencar/Desktop/Lab 02 - Experimentação/repo-destino/data/metrics/raw/Leandro_kata 01_COM_IA_20260910T201140969Z/build"
+"C:/Users/Leandro Alencar/Desktop/Lab 02 - Experimentação/repo-destino/data/metrics/raw/Leandro_kata 01_COM_IA_20260910T201140969Z/source/TipoVeiculo.java"
