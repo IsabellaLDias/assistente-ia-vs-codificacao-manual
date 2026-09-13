@@ -10,5 +10,10 @@
     "docker:build": "docker build -t lab02-metricas .",
     "docker:run": "docker run -p 3010:3010 lab02-metricas"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.23.0"
+  }
 }

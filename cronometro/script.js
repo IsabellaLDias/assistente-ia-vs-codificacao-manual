@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const appBase = location.pathname.replace(/\/cronometro\/?$/, '');
     const setupSection = document.getElementById('setup-section');
     const confirmationSection = document.getElementById('confirmation-section');
     const timerSection = document.getElementById('timer-section');
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     let savedResults = [];
+    let databaseReady = false;
 
     loadResults();
 
@@ -73,17 +75,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function loadResults() {
-        const stored = localStorage.getItem('lab02_results');
-        if (stored) {
-            savedResults = JSON.parse(stored);
+    async function loadResults() {
+        try {
+            const response = await fetch(`${appBase}/api/trials`);
+            if (!response.ok) throw new Error();
+            savedResults = (await response.json()).trials;
+            databaseReady = true;
             renderTable();
+        } catch {
+            databaseReady = false;
+            resultsTbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--danger);">Não foi possível acessar o banco de dados.</td></tr>';
         }
     }
 
-    function saveResults() {
-        localStorage.setItem('lab02_results', JSON.stringify(savedResults));
-        renderTable();
+    async function saveResults() {
+        const response = await fetch(`${appBase}/api/trials`, {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({participant:currentSession.participant, kata:currentSession.kata,
+                treatment:currentSession.treatment ? 'COM_IA' : 'SEM_IA', startedAt:currentSession.startTime,
+                endedAt:currentSession.endTime, elapsedTime:currentSession.timeElapsedFormatted,
+                timedOut:currentSession.timeOut, notes:currentSession.resultNotes})
+        });
+        if (!response.ok) throw new Error('Não foi possível salvar o resultado no banco de dados.');
+        await loadResults();
     }
 
     function renderTable() {
@@ -94,37 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        savedResults.forEach((res, index) => {
+        savedResults.forEach((res) => {
             const tr = document.createElement('tr');
-            
-            const badgeIA = res.treatment 
-                ? '<span class="badge badge-ai">Com IA</span>' 
-                : '<span class="badge badge-noai">Sem IA</span>';
-                
-            const badgeTimeout = res.timeOut 
-                ? '<span class="badge badge-yes">Sim</span>' 
-                : '<span class="badge badge-no">Não</span>';
-
-            tr.innerHTML = `
-                <td>${res.participant}</td>
-                <td>${res.kata}</td>
-                <td>${badgeIA}</td>
-                <td style="font-family: 'Fira Code', monospace; font-weight: bold;">${res.timeElapsedFormatted}</td>
-                <td>${badgeTimeout}</td>
-                <td class="notes-cell" title="${res.resultNotes}">${res.resultNotes || '-'}</td>
-                <td><button class="secondary btn-small btn-danger" data-index="${index}" style="margin: 0;">Excluir</button></td>
-            `;
+            const field = value => { const cell = document.createElement('td'); cell.textContent = value; return cell; };
+            const badge = (label, className) => { const cell = document.createElement('td'); const tag = document.createElement('span'); tag.className = `badge ${className}`; tag.textContent = label; cell.append(tag); return cell; };
+            const elapsed = field(`${String(Math.floor(res.elapsed_seconds / 60)).padStart(2,'0')}:${String(res.elapsed_seconds % 60).padStart(2,'0')}`);
+            elapsed.style.fontFamily = "'Fira Code', monospace"; elapsed.style.fontWeight = 'bold';
+            const notes = field(res.notes || '-'); notes.className = 'notes-cell'; notes.title = res.notes || '';
+            tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, field('Registro permanente'));
             resultsTbody.appendChild(tr);
-        });
-
-        document.querySelectorAll('.btn-danger[data-index]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(e.target.getAttribute('data-index'));
-                if (confirm('Tem certeza que deseja excluir este resultado?')) {
-                    savedResults.splice(idx, 1);
-                    saveResults();
-                }
-            });
         });
     }
 
@@ -246,12 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    btnSave.addEventListener('click', () => {
+    btnSave.addEventListener('click', async () => {
         currentSession.resultNotes = resultData.value.trim();
-
-        savedResults.push({...currentSession});
-
-        saveResults();
+        if (!databaseReady) { alert('O banco de dados não está disponível. O resultado não foi salvo.'); return; }
+        btnSave.disabled = true;
+        try { await saveResults(); }
+        catch (error) { alert(error.message); return; }
+        finally { btnSave.disabled = false; }
 
         participantInput.value = '';
         kataInput.value = '';
@@ -276,12 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     btnClearData.addEventListener('click', () => {
-        if (savedResults.length === 0) return;
-        
-        if (confirm('CUIDADO: Tem certeza que deseja apagar TODOS os resultados salvos nesta máquina? Isso não pode ser desfeito.')) {
-            savedResults = [];
-            saveResults();
-            closeModal();
-        }
+        alert('Os resultados são registros permanentes do experimento e não podem ser apagados por esta tela.');
     });
 });

@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createServer, validatePayload } from './server.mjs';
+import { validateTrial } from './database.mjs';
 
 const sample = { participant:'fixture_web', kata:'validacao', treatment:'COM_IA', files:[{name:'A.java', content:'public class A {}'}] };
 test('A.R.S.E.N.A.L: base path, proxy authentication and public origin', async t => {
@@ -34,6 +35,25 @@ test('upload validation accepts Java, rejects paths, duplicates, oversized files
     {...sample,files:[{name:'A.java',content:'a'.repeat(100001)}]},
     {...sample,files:[{name:'A.java',content:'// CPD-OFF'}]},
   ]) assert.throws(()=>validatePayload(bad));
+});
+
+test('trial validation accepts an experimental result and rejects malformed data', () => {
+  const trial = {participant:'Leandro', kata:'kata01', treatment:'COM_IA', elapsedTime:'12:34', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:12:34.000Z', timedOut:false, notes:'Testes aprovados'};
+  assert.equal(validateTrial(trial).elapsedSeconds, 754);
+  assert.throws(() => validateTrial({...trial, elapsedTime:'36:00'}));
+  assert.throws(() => validateTrial({...trial, treatment:'true'}));
+});
+
+test('HTTP: saves and lists timer trials through the configured database', async t => {
+  const stored = []; const database = {enabled:true, async listTrials(){return stored;}, async saveTrial(id, trial){const value={id, participant:trial.participant, kata:trial.kata, treatment:trial.treatment, elapsed_seconds:trial.elapsedSeconds, timed_out:trial.timedOut, notes:trial.notes};stored.unshift(value);return value;}};
+  const server = createServer({database});
+  await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
+  t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const trial = {participant:'Leandro', kata:'kata01', treatment:'SEM_IA', elapsedTime:'01:05', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:01:05.000Z', timedOut:false, notes:'ok'};
+  const created = await fetch(`${base}/api/trials`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(trial)});
+  assert.equal(created.status,201);assert.equal((await created.json()).trial.elapsed_seconds,65);
+  const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,1);
 });
 
 test('HTTP: real analysis, downloads, invalid compilation and origin protections', {timeout:90000}, async t => {

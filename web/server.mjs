@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomUUID, randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
+import { LabDatabase, validateTrial } from './database.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const assets = path.join(root, 'web/public');
@@ -89,6 +90,7 @@ export function createServer(options = {}) {
   const basePath = options.basePath ?? process.env.ARSENAL_ROUTE ?? '';
   const proxyToken = options.proxyToken ?? process.env.ARSENAL_PROXY_TOKEN ?? '';
   const publicOrigin = options.publicOrigin ?? process.env.LAB_PUBLIC_ORIGIN ?? '';
+  const database = options.database ?? new LabDatabase(options.databaseUrl);
   if (basePath && !/^\/[a-z0-9-]+$/.test(basePath)) throw new Error('Rota base inválida.');
   if (publicOrigin && new URL(publicOrigin).origin !== publicOrigin) throw new Error('Informe somente a origem pública, sem caminho.');
   return http.createServer(async (req, res) => {
@@ -127,7 +129,19 @@ export function createServer(options = {}) {
           exists(path.join(root,'tools/ck/ck-0.7.0-jar-with-dependencies.jar')),
           exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd.bat')).then(ok => ok || exists(path.join(root,'tools/pmd/pmd-bin-7.26.0/bin/pmd')))
         ])).every(Boolean);
-        return json(200, {token, ready});
+        return json(200, {token, ready, database:database.enabled});
+      }
+      if (req.method === 'GET' && url.pathname === '/api/trials') {
+        if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
+        return json(200, {trials:await database.listTrials()});
+      }
+      if (req.method === 'POST' && url.pathname === '/api/trials') {
+        if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
+        let trial;
+        try { trial = validateTrial(await body(req)); } catch (error) { return json(400, {error:error.message}); }
+        const id = randomUUID();
+        try { return json(201, {trial:await database.saveTrial(id, trial)}); }
+        catch (error) { return json(503, {error:'Não foi possível salvar o trial no banco de dados.'}); }
       }
       if (req.method === 'GET' && url.pathname === '/api/example') {
         return json(200, {name:'MetricsFixture.java', content:await readFile(path.join(root,'examples/metrics-fixture/src/main/java/br/ufc/lab02/MetricsFixture.java'),'utf8')});
@@ -147,8 +161,9 @@ export function createServer(options = {}) {
           await writeFile(path.join(directory,'request.json'), JSON.stringify(payload));
           for (const f of payload.files) await writeFile(path.join(directory,'source',f.name), f.content, 'utf8');
           const result = await run(directory);
+          if (database.enabled) await database.saveAnalysis(id, payload, result);
           return json(200, {id, ...result});
-        } catch (error) {return json(422, {id, error:error.message});}
+        } catch (error) {return json(database.enabled ? 503 : 422, {id, error:error.message});}
         finally {busy=false;}
       }
       const download = /^\/api\/jobs\/([a-f0-9-]{36})\/(metrics\.csv|result\.json|execution\.log)$/.exec(url.pathname);

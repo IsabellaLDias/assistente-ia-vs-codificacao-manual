@@ -23,9 +23,10 @@ pressione **Enter** para começar. Encerre com **Enter** na tela do cronômetro 
 com o botão **Encerrar cronômetro**. O limite é **35 minutos**. Registre o resultado
 dos testes e salve; o botão de resultados abre o histórico.
 
-Os resultados salvos ficam no navegador usado na coleta e não são sincronizados
-entre computadores. Trocar de tela pelo menu preserva a sessão. Fechar ou
-recarregar a página perde o trial ainda não salvo.
+Ao salvar, o resultado é registrado no PostgreSQL do LAB02 e aparece no histórico
+para qualquer pessoa que acesse o site. Trocar de tela pelo menu preserva a sessão.
+Fechar ou recarregar a página perde somente o trial ainda não salvo. Registros
+salvos são permanentes na interface para preservar a rastreabilidade do experimento.
 
 ### Métricas de código
 
@@ -45,9 +46,9 @@ classes da solução juntas, sem testes e sem nomes de arquivo repetidos.
 
 O servidor verifica a compilação e calcula as métricas. **Os testes de aceitação
 dos katas continuam separados:** a análise estrutural não comprova correção funcional.
-Cada envio gera um relatório independente; use o resultado final de cada trial
-para evitar duplicidade na consolidação. Fontes enviados e relatórios são armazenados
-no computador hospedeiro e ignorados pelo Git.
+Cada envio gera um relatório independente e é registrado no PostgreSQL, junto com
+as métricas, métodos e fontes enviados. Arquivos CSV, JSON e logs também permanecem
+no computador hospedeiro como cópia de auditoria e são ignorados pelo Git.
 
 ## Executar localmente
 
@@ -99,7 +100,7 @@ gerencia o processo e publica a rota através do Cloudflare Tunnel.
 | Porta | `4115` |
 | Prefixo | Manter `/lab02` |
 | Inicialização automática | Ativada |
-| Variável de ambiente | `LAB_PUBLIC_ORIGIN=https://arsenal.dev.br` |
+| Variáveis de ambiente | `LAB_PUBLIC_ORIGIN=https://arsenal.dev.br` e `LAB_DATABASE_URL` |
 
 O gateway fornece `PORT`, `ARSENAL_ROUTE` e `ARSENAL_PROXY_TOKEN`. O backend valida
 o token do gateway e a origem dos pedidos. O site não possui login de usuários.
@@ -110,7 +111,7 @@ Após atualizar o código, reinicie o app no painel.
 
 | Caminho | Conteúdo |
 | --- | --- |
-| [`cronometro/`](cronometro/) | Cronômetro e histórico local |
+| [`cronometro/`](cronometro/) | Cronômetro e histórico persistido no banco |
 | [`web/`](web/) | Servidor, API, menu e interface de métricas |
 | [`scripts/`](scripts/) | Preparação, coleta e validação |
 | [`examples/metrics-fixture/`](examples/metrics-fixture/) | Classe com métricas conhecidas |
