@@ -17,6 +17,12 @@ test('A.R.S.E.N.A.L: base path, proxy authentication and public origin', async t
   assert.equal(redirect.headers.get('location'),'/lab02/');
   const home = await fetch(`${base}/lab02/`, {headers});
   assert.equal(home.status,200);
+  const policy = home.headers.get('content-security-policy');
+  assert.match(policy, /script-src 'self' https:\/\/static\.cloudflareinsights\.com;/);
+  assert.match(policy, /connect-src 'self' https:\/\/cloudflareinsights\.com;/);
+  assert.match(policy, /style-src 'self';/);
+  const timer = await fetch(`${base}/lab02/cronometro/`, {headers});
+  assert.doesNotMatch(await timer.text(), /\sstyle\s*=/i);
   assert.match(await home.text(), /src="\/lab02\/metricas\/"/);
   for (const route of ['metricas/', 'cronometro/', 'shell.js', 'app.js', 'api/config']) {
     assert.equal((await fetch(`${base}/lab02/${route}`, {headers})).status,200,route);
@@ -41,7 +47,8 @@ test('trial validation accepts an experimental result and rejects malformed data
   const trial = {participant:'Leandro', kata:'kata01', treatment:'COM_IA', elapsedTime:'12:34', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:12:34.000Z', timedOut:false, notes:'Testes aprovados'};
   assert.equal(validateTrial(trial).elapsedSeconds, 754);
   assert.equal(validateTrial({...trial, sourceFiles:[{name:'Solucao.java',content:'public class Solucao {}'}]}).sourceFiles.length, 1);
-  assert.equal(validateTrial({...trial, sourceFiles:[{name:'anotacoes.txt',content:'Testes do trial'}]}).sourceFiles.length, 1);
+  assert.equal(validateTrial({...trial, sourceFiles:[{name:'texto-do-trial.txt',content:'Testes do trial'}]}).sourceFiles.length, 1);
+  assert.throws(() => validateTrial({...trial, sourceFiles:Array.from({length:21}, (_, i) => ({name:`texto-${i}.txt`,content:'texto'}))}));
   assert.throws(() => validateTrial({...trial, elapsedTime:'36:00'}));
   assert.throws(() => validateTrial({...trial, treatment:'true'}));
   assert.throws(() => validateTrial({...trial, sourceFiles:[{name:'../Solucao.java',content:'class X {}'}]}));
@@ -56,10 +63,14 @@ test('HTTP: saves, edits and lists timer trials through the configured database'
   const trial = {participant:'Leandro', kata:'kata01', treatment:'SEM_IA', elapsedTime:'01:05', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:01:05.000Z', timedOut:false, notes:'ok', sourceFiles:[{name:'Solucao.java',content:'public class Solucao {}'}]};
   const created = await fetch(`${base}/api/trials`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(trial)});
   assert.equal(created.status,201);const createdTrial=(await created.json()).trial;assert.equal(createdTrial.elapsed_seconds,65);
+  const textFiles = [{name:'texto-do-trial.txt',content:'Solução digitada no textarea'}];
+  const textResult = await fetch(`${base}/api/trials`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...trial,sourceFiles:textFiles})});
+  assert.equal(textResult.status,201);
+  assert.deepEqual((await textResult.json()).trial.source_files,textFiles);
   const updated = await fetch(`${base}/api/trials/${createdTrial.id}`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({...trial,kata:'kata02',elapsedTime:'02:00',endedAt:'2026-09-13T10:02:00.000Z',notes:'corrigido'})});
   assert.equal(updated.status,200);assert.equal((await updated.json()).trial.elapsed_seconds,120);
   const pdf = await fetch(`${base}/api/trials/${createdTrial.id}/report.pdf`); assert.equal(pdf.status,200); assert.equal(pdf.headers.get('content-type'),'application/pdf'); assert.equal(Buffer.from(await pdf.arrayBuffer()).subarray(0,4).toString(), '%PDF');
-  const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,1);
+  const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,2);
 });
 
 test('HTTP: real analysis, downloads, invalid compilation and origin protections', {timeout:90000}, async t => {

@@ -20,10 +20,10 @@ export function validateTrial(data) {
 }
 
 export function validateTrialSourceFiles(files) {
-  if (!Array.isArray(files) || files.length > 20) throw new Error('Envie no máximo 20 arquivos Java.');
+  if (!Array.isArray(files) || files.length > 20) throw new Error('Envie no máximo 20 anexos, contando o texto digitado.');
   const names = new Set(); let total = 0;
   return files.map(file => {
-    if (!file || typeof file.name !== 'string' || !/^[A-Za-z_$][A-Za-z0-9_$]*\.(?:java|txt)$/i.test(file.name)) throw new Error('Use arquivos .java ou .txt com nomes válidos, sem pastas.');
+    if (!file || typeof file.name !== 'string' || !/^[A-Za-z_$][A-Za-z0-9_$-]*\.(?:java|txt)$/i.test(file.name)) throw new Error('Use arquivos .java ou .txt com nomes válidos, sem pastas.');
     if (names.has(file.name.toLowerCase())) throw new Error('Há nomes de arquivos repetidos.');
     names.add(file.name.toLowerCase());
     if (typeof file.content !== 'string' || !file.content.trim() || Buffer.byteLength(file.content) > 100000 || file.content.includes('\0')) throw new Error('Cada arquivo deve conter código UTF-8 e ter no máximo 100 KB.');

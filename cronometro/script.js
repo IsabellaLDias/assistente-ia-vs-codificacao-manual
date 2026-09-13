@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const additions = [];
             for (const file of incoming) {
-                if (!/^[A-Za-z_$][A-Za-z0-9_$]*\.(?:java|txt)$/i.test(file.name) || file.size > 100000) throw new Error('Selecione arquivos .java ou .txt válidos, de até 100 KB cada.');
+                if (!/^[A-Za-z_$][A-Za-z0-9_$-]*\.(?:java|txt)$/i.test(file.name) || file.size > 100000) throw new Error('Selecione arquivos .java ou .txt válidos, de até 100 KB cada.');
                 if ([...currentSession.sourceFiles, ...additions].some(existing => existing.name.toLowerCase() === file.name.toLowerCase())) throw new Error(`O arquivo ${file.name} já foi anexado.`);
                 additions.push({name:file.name, content:new TextDecoder('utf-8', {fatal:true}).decode(await file.arrayBuffer())});
             }
@@ -123,19 +123,30 @@ document.addEventListener('DOMContentLoaded', () => {
             renderTable();
         } catch {
             databaseReady = false;
-            resultsTbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--danger);">Não foi possível acessar o banco de dados.</td></tr>';
+            resultsTbody.innerHTML = '<tr><td colspan="8" class="table-message error-message">Não foi possível acessar o banco de dados.</td></tr>';
         }
     }
 
     async function saveResults() {
+        const sourceFiles = [...currentSession.sourceFiles];
+        if (trialText.value.trim()) {
+            let name = 'texto-do-trial.txt';
+            let suffix = 2;
+            while (sourceFiles.some(file => file.name.toLowerCase() === name)) name = `texto-do-trial-${suffix++}.txt`;
+            sourceFiles.push({name, content:trialText.value});
+        }
+        if (sourceFiles.length > 20) throw new Error('Envie no máximo 20 anexos, contando o texto digitado.');
         const response = await fetch(`${appBase}/api/trials`, {
             method: 'POST', headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({participant:currentSession.participant, kata:currentSession.kata,
                 treatment:currentSession.treatment ? 'COM_IA' : 'SEM_IA', startedAt:currentSession.startTime,
                 endedAt:currentSession.endTime, elapsedTime:currentSession.timeElapsedFormatted,
-                timedOut:currentSession.timeOut, notes:currentSession.resultNotes, sourceFiles:[...currentSession.sourceFiles, ...(trialText.value.trim() ? [{name:'texto-do-trial.txt', content:trialText.value}] : [])]})
+                timedOut:currentSession.timeOut, notes:currentSession.resultNotes, sourceFiles})
         });
-        if (!response.ok) throw new Error('Não foi possível salvar o resultado no banco de dados.');
+        if (!response.ok) {
+            const details = await response.json().catch(() => ({}));
+            throw new Error(details.error || 'Não foi possível salvar o resultado no banco de dados.');
+        }
         await loadResults();
     }
 
@@ -143,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsTbody.innerHTML = '';
         
         if (savedResults.length === 0) {
-            resultsTbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Nenhum resultado salvo ainda.</td></tr>';
+            resultsTbody.innerHTML = '<tr><td colspan="8" class="table-message">Nenhum resultado salvo ainda.</td></tr>';
             return;
         }
 
@@ -152,15 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const field = value => { const cell = document.createElement('td'); cell.textContent = value; return cell; };
             const badge = (label, className) => { const cell = document.createElement('td'); const tag = document.createElement('span'); tag.className = `badge ${className}`; tag.textContent = label; cell.append(tag); return cell; };
             const elapsed = field(`${String(Math.floor(res.elapsed_seconds / 60)).padStart(2,'0')}:${String(res.elapsed_seconds % 60).padStart(2,'0')}`);
-            elapsed.style.fontFamily = "'Fira Code', monospace"; elapsed.style.fontWeight = 'bold';
+            elapsed.className = 'elapsed-cell';
             const notes = field(res.notes || '-'); notes.className = 'notes-cell'; notes.title = res.notes || '';
             const actions = document.createElement('td');
             const edit = document.createElement('button');
-            edit.type = 'button'; edit.className = 'secondary btn-small'; edit.style.margin = '0'; edit.textContent = 'Editar';
+            edit.type = 'button'; edit.className = 'secondary btn-small trial-edit'; edit.textContent = 'Editar';
             edit.addEventListener('click', () => openEditor(res)); actions.append(edit);
             const fileCount = Array.isArray(res.source_files) ? res.source_files.length : 0;
             const code = field(fileCount ? `${fileCount} arquivo(s)` : 'Sem anexo');
-            const report = document.createElement('a'); report.className = 'secondary btn-small'; report.href = `${appBase}/api/trials/${res.id}/report.pdf`; report.textContent = 'PDF'; report.style.margin = '0 0 0 .4rem'; actions.append(report);
+            const report = document.createElement('a'); report.className = 'secondary btn-small trial-report'; report.href = `${appBase}/api/trials/${res.id}/report.pdf`; report.textContent = 'PDF'; actions.append(report);
             tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, code, actions);
             resultsTbody.appendChild(tr);
         });
@@ -240,11 +251,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (isTimeout) {
             resultTitle.textContent = "Tempo Esgotado!";
-            resultTitle.style.color = "var(--danger)";
+            resultTitle.classList.add('error-message');
             resultData.placeholder = "Tempo esgotado. Descreva quantos testes estavam passando e outros resultados...";
         } else {
             resultTitle.textContent = "Resultado do trial";
-            resultTitle.style.color = "var(--text-main)";
+            resultTitle.classList.remove('error-message');
             resultData.placeholder = 'Ex.: 8 de 10 testes passaram.';
         }
         

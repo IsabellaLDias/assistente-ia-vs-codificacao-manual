@@ -500,6 +500,13 @@ tbody tr:hover {
 .badge-ai { background-color: var(--primary); color: white; }
 .badge-noai { background-color: var(--text-muted); color: white; }
 
+#btn-clear-data { width: auto; }
+.table-message { text-align: center; color: var(--text-muted); }
+.error-message { color: var(--danger); }
+.elapsed-cell { font-family: 'Fira Code', monospace; font-weight: bold; }
+.trial-edit { margin: 0; }
+.trial-report { margin: 0 0 0 .4rem; }
+
 .hidden {
     display: none !important;
 }
