@@ -143,6 +143,14 @@ export function createServer(options = {}) {
         try { return json(201, {trial:await database.saveTrial(id, trial)}); }
         catch (error) { return json(503, {error:'Não foi possível salvar o trial no banco de dados.'}); }
       }
+      const trialId = /^\/api\/trials\/([a-f0-9-]{36})$/.exec(url.pathname);
+      if (req.method === 'PATCH' && trialId) {
+        if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
+        let trial;
+        try { trial = validateTrial(await body(req)); } catch (error) { return json(400, {error:error.message}); }
+        try { return json(200, {trial:await database.updateTrial(trialId[1], trial, randomUUID())}); }
+        catch (error) { return json(error.message === 'Trial não encontrado.' ? 404 : 503, {error:error.message === 'Trial não encontrado.' ? error.message : 'Não foi possível atualizar o trial no banco de dados.'}); }
+      }
       if (req.method === 'GET' && url.pathname === '/api/example') {
         return json(200, {name:'MetricsFixture.java', content:await readFile(path.join(root,'examples/metrics-fixture/src/main/java/br/ufc/lab02/MetricsFixture.java'),'utf8')});
       }

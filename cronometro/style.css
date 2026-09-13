@@ -109,7 +109,7 @@ label {
     font-size: 0.95rem;
 }
 
-input[type="text"], textarea {
+input[type="text"], textarea, select {
     width: 100%;
     padding: 0.875rem 1rem;
     border: 1px solid var(--border);
@@ -121,7 +121,7 @@ input[type="text"], textarea {
     transition: all 0.2s ease;
 }
 
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--primary);
     background-color: #ffffff;
@@ -394,6 +394,9 @@ button.btn-danger:hover {
 .modal-overlay.active .modal-content {
     transform: scale(1) translateY(0);
 }
+
+.editor-form { max-width: 560px; }
+.editor-note { margin: -0.4rem 0 1.5rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.45; }
 
 .modal-header {
     display: flex;

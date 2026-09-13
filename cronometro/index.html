@@ -104,6 +104,20 @@
         </div>
     </div>
 
+    <div id="editor-modal" class="modal-overlay hidden" aria-hidden="true">
+        <form id="editor-form" class="modal-content editor-form">
+            <div class="modal-header"><h2>Editar resultado</h2><button type="button" id="btn-close-editor" class="btn-close" aria-label="Fechar">&times;</button></div>
+            <p class="editor-note">A versão anterior ficará registrada para manter a rastreabilidade do experimento.</p>
+            <div class="form-group"><label for="edit-participant">Participante</label><input id="edit-participant" maxlength="60" required></div>
+            <div class="form-group"><label for="edit-kata">Kata</label><input id="edit-kata" maxlength="60" required></div>
+            <div class="form-group"><label for="edit-treatment">Tratamento</label><select id="edit-treatment"><option value="COM_IA">Com IA</option><option value="SEM_IA">Sem IA</option></select></div>
+            <div class="form-group"><label for="edit-elapsed">Tempo final (MM:SS)</label><input id="edit-elapsed" inputmode="numeric" pattern="[0-3][0-9]:[0-5][0-9]" placeholder="00:00" required></div>
+            <div class="form-group"><label><input id="edit-timeout" type="checkbox"> Tempo esgotado</label></div>
+            <div class="form-group"><label for="edit-notes">Resultado e observações</label><textarea id="edit-notes" rows="4" maxlength="4000"></textarea></div>
+            <button id="btn-update" type="submit">Salvar alterações</button>
+        </form>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

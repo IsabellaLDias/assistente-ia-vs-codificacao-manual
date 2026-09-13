@@ -29,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnOpenResults = document.getElementById('btn-open-results');
     const btnCloseResults = document.getElementById('btn-close-results');
     const resultsModal = document.getElementById('results-modal');
+    const editorModal = document.getElementById('editor-modal');
+    const editorForm = document.getElementById('editor-form');
+    const editParticipant = document.getElementById('edit-participant');
+    const editKata = document.getElementById('edit-kata');
+    const editTreatment = document.getElementById('edit-treatment');
+    const editElapsed = document.getElementById('edit-elapsed');
+    const editTimeout = document.getElementById('edit-timeout');
+    const editNotes = document.getElementById('edit-notes');
+    const btnUpdate = document.getElementById('btn-update');
 
     let timerInterval = null;
     let secondsElapsed = 0;
@@ -49,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let savedResults = [];
     let databaseReady = false;
+    let editingTrial = null;
 
     loadResults();
 
@@ -68,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnOpenResults.addEventListener('click', openModal);
     btnCloseResults.addEventListener('click', closeModal);
+    document.getElementById('btn-close-editor').addEventListener('click', closeEditor);
     
     resultsModal.addEventListener('click', (e) => {
         if (e.target === resultsModal) {
@@ -115,10 +126,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const elapsed = field(`${String(Math.floor(res.elapsed_seconds / 60)).padStart(2,'0')}:${String(res.elapsed_seconds % 60).padStart(2,'0')}`);
             elapsed.style.fontFamily = "'Fira Code', monospace"; elapsed.style.fontWeight = 'bold';
             const notes = field(res.notes || '-'); notes.className = 'notes-cell'; notes.title = res.notes || '';
-            tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, field('Registro permanente'));
+            const actions = document.createElement('td');
+            const edit = document.createElement('button');
+            edit.type = 'button'; edit.className = 'secondary btn-small'; edit.style.margin = '0'; edit.textContent = 'Editar';
+            edit.addEventListener('click', () => openEditor(res)); actions.append(edit);
+            tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, actions);
             resultsTbody.appendChild(tr);
         });
     }
+
+    editorForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!editingTrial) return;
+        const [minutes, seconds] = editElapsed.value.split(':').map(Number);
+        const elapsedSeconds = minutes * 60 + seconds;
+        if (!Number.isFinite(elapsedSeconds) || minutes > 35 || seconds > 59 || elapsedSeconds > MAX_TIME_SECONDS) { alert('Informe um tempo entre 00:00 e 35:00.'); return; }
+        const started = new Date(editingTrial.started_at);
+        const ended = new Date(started.getTime() + elapsedSeconds * 1000);
+        btnUpdate.disabled = true;
+        try {
+            const response = await fetch(`${appBase}/api/trials/${editingTrial.id}`, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({participant:editParticipant.value, kata:editKata.value, treatment:editTreatment.value, elapsedTime:editElapsed.value, startedAt:started.toISOString(), endedAt:ended.toISOString(), timedOut:editTimeout.checked, notes:editNotes.value})});
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Não foi possível atualizar o resultado.');
+            await loadResults(); closeEditor();
+        } catch (error) { alert(error.message); }
+        finally { btnUpdate.disabled = false; }
+    });
 
     function switchSection(hideElement, showElement) {
         hideElement.classList.remove('active');
@@ -271,4 +304,25 @@ document.addEventListener('DOMContentLoaded', () => {
     btnClearData.addEventListener('click', () => {
         alert('Os resultados são registros permanentes do experimento e não podem ser apagados por esta tela.');
     });
+
+    editorModal.addEventListener('click', event => { if (event.target === editorModal) closeEditor(); });
+
+    function openEditor(trial) {
+        editingTrial = trial;
+        editParticipant.value = trial.participant;
+        editKata.value = trial.kata;
+        editTreatment.value = trial.treatment;
+        editElapsed.value = `${String(Math.floor(trial.elapsed_seconds / 60)).padStart(2,'0')}:${String(trial.elapsed_seconds % 60).padStart(2,'0')}`;
+        editTimeout.checked = trial.timed_out;
+        editNotes.value = trial.notes || '';
+        editorModal.classList.remove('hidden');
+        requestAnimationFrame(() => editorModal.classList.add('active'));
+        editParticipant.focus();
+    }
+
+    function closeEditor() {
+        editorModal.classList.remove('active');
+        setTimeout(() => editorModal.classList.add('hidden'), 300);
+        editingTrial = null;
+    }
 });

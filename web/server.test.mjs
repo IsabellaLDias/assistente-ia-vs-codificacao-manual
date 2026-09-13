@@ -44,15 +44,17 @@ test('trial validation accepts an experimental result and rejects malformed data
   assert.throws(() => validateTrial({...trial, treatment:'true'}));
 });
 
-test('HTTP: saves and lists timer trials through the configured database', async t => {
-  const stored = []; const database = {enabled:true, async listTrials(){return stored;}, async saveTrial(id, trial){const value={id, participant:trial.participant, kata:trial.kata, treatment:trial.treatment, elapsed_seconds:trial.elapsedSeconds, timed_out:trial.timedOut, notes:trial.notes};stored.unshift(value);return value;}};
+test('HTTP: saves, edits and lists timer trials through the configured database', async t => {
+  const stored = []; const database = {enabled:true, async listTrials(){return stored;}, async saveTrial(id, trial){const value={id, participant:trial.participant, kata:trial.kata, treatment:trial.treatment, elapsed_seconds:trial.elapsedSeconds, timed_out:trial.timedOut, notes:trial.notes, started_at:trial.startedAt};stored.unshift(value);return value;}, async updateTrial(id, trial){const value=stored.find(row=>row.id===id);if(!value)throw new Error('Trial não encontrado.');Object.assign(value,{participant:trial.participant,kata:trial.kata,treatment:trial.treatment,elapsed_seconds:trial.elapsedSeconds,timed_out:trial.timedOut,notes:trial.notes});return value;}};
   const server = createServer({database});
   await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
   t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));
   const base = `http://127.0.0.1:${server.address().port}`;
   const trial = {participant:'Leandro', kata:'kata01', treatment:'SEM_IA', elapsedTime:'01:05', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:01:05.000Z', timedOut:false, notes:'ok'};
   const created = await fetch(`${base}/api/trials`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(trial)});
-  assert.equal(created.status,201);assert.equal((await created.json()).trial.elapsed_seconds,65);
+  assert.equal(created.status,201);const createdTrial=(await created.json()).trial;assert.equal(createdTrial.elapsed_seconds,65);
+  const updated = await fetch(`${base}/api/trials/${createdTrial.id}`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({...trial,kata:'kata02',elapsedTime:'02:00',endedAt:'2026-09-13T10:02:00.000Z',notes:'corrigido'})});
+  assert.equal(updated.status,200);assert.equal((await updated.json()).trial.elapsed_seconds,120);
   const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,1);
 });
 

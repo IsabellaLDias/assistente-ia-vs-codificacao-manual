@@ -27,6 +27,8 @@ Ao salvar, o resultado é registrado no PostgreSQL do LAB02 e aparece no histór
 para qualquer pessoa que acesse o site. Trocar de tela pelo menu preserva a sessão.
 Fechar ou recarregar a página perde somente o trial ainda não salvo. Registros
 salvos são permanentes na interface para preservar a rastreabilidade do experimento.
+Use **Editar** no histórico para corrigir participante, kata, tratamento, tempo,
+timeout ou observações. A versão anterior é guardada no banco antes da alteração.
 
 ### Métricas de código
 

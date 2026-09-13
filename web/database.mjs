@@ -36,6 +36,11 @@ export class LabDatabase {
         timed_out BOOLEAN NOT NULL, notes TEXT NOT NULL DEFAULT '', created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
       CREATE INDEX IF NOT EXISTS lab02_trial_created_at_idx ON lab02_trial (created_at DESC);
+      CREATE TABLE IF NOT EXISTS lab02_trial_revision (
+        id UUID PRIMARY KEY, trial_id UUID NOT NULL REFERENCES lab02_trial(id),
+        previous_value JSONB NOT NULL, revised_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+      CREATE INDEX IF NOT EXISTS lab02_trial_revision_trial_id_idx ON lab02_trial_revision (trial_id, revised_at DESC);
       CREATE TABLE IF NOT EXISTS lab02_analysis (
         id UUID PRIMARY KEY, participant VARCHAR(60) NOT NULL, kata VARCHAR(60) NOT NULL,
         treatment VARCHAR(10) NOT NULL CHECK (treatment IN ('COM_IA','SEM_IA')),
@@ -63,6 +68,21 @@ export class LabDatabase {
     await this.initialize();
     const {rows} = await this.pool.query(`SELECT id, participant, kata, treatment, started_at, ended_at, elapsed_seconds, timed_out, notes, created_at FROM lab02_trial ORDER BY created_at DESC LIMIT 500`);
     return rows;
+  }
+
+  async updateTrial(id, input, revisionId) {
+    await this.initialize();
+    const trial = validateTrial(input);
+    const {rows} = await this.pool.query(
+      `WITH previous AS (SELECT to_jsonb(t) AS value FROM lab02_trial t WHERE id = $1),
+       audit AS (INSERT INTO lab02_trial_revision (id, trial_id, previous_value) SELECT $10, $1, value FROM previous)
+       UPDATE lab02_trial SET participant=$2, kata=$3, treatment=$4, started_at=$5, ended_at=$6,
+       elapsed_seconds=$7, timed_out=$8, notes=$9 WHERE id=$1
+       RETURNING id, participant, kata, treatment, started_at, ended_at, elapsed_seconds, timed_out, notes, created_at`,
+      [id, trial.participant, trial.kata, trial.treatment, trial.startedAt, trial.endedAt, trial.elapsedSeconds, trial.timedOut, trial.notes, revisionId]
+    );
+    if (!rows[0]) throw new Error('Trial não encontrado.');
+    return rows[0];
   }
 
   async saveAnalysis(id, payload, result) {
