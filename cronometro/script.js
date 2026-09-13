@@ -235,15 +235,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSession.timeElapsedFormatted = formatTime(secondsElapsed);
         currentSession.timeOut = isTimeout;
         
-        finalTimeDisplay.textContent = currentSession.timeElapsedFormatted;
+        finalTimeDisplay.value = currentSession.timeElapsedFormatted;
+        finalTimeDisplay.setCustomValidity('');
         
         if (isTimeout) {
             resultTitle.textContent = "Tempo Esgotado!";
             resultTitle.style.color = "var(--danger)";
             resultData.placeholder = "Tempo esgotado. Descreva quantos testes estavam passando e outros resultados...";
         } else {
-            resultTitle.textContent = "Cronômetro Parado";
+            resultTitle.textContent = "Resultado do trial";
             resultTitle.style.color = "var(--text-main)";
+            resultData.placeholder = 'Ex.: 8 de 10 testes passaram.';
         }
         
         switchSection(timerSection, resultSection);
@@ -302,7 +304,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    finalTimeDisplay.addEventListener('input', () => finalTimeDisplay.setCustomValidity(''));
+
     btnSave.addEventListener('click', async () => {
+        if (btnSave.disabled) return;
+        const value = finalTimeDisplay.value.trim();
+        const validFormat = /^\d{2}:[0-5]\d$/.test(value);
+        const [minutes, seconds] = value.split(':').map(Number);
+        const duration = minutes * 60 + seconds;
+        finalTimeDisplay.setCustomValidity(validFormat && duration <= MAX_TIME_SECONDS ? '' : 'Informe um tempo entre 00:00 e 35:00, no formato MM:SS.');
+        if (!finalTimeDisplay.reportValidity()) return;
+        currentSession.timeElapsedFormatted = value;
+        currentSession.endTime = new Date(Date.parse(currentSession.startTime) + duration * 1000).toISOString();
+        currentSession.timeOut = duration === MAX_TIME_SECONDS;
         currentSession.resultNotes = resultData.value.trim();
         if (!databaseReady) { alert('O banco de dados não está disponível. O resultado não foi salvo.'); return; }
         btnSave.disabled = true;
@@ -324,6 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnReset.addEventListener('click', () => {
         if (confirm('Deseja descartar este resultado e criar um novo?')) {
             // Reset everything
+            trialText.value = '';
+            currentSession.sourceFiles = []; trialFilesInput.value = ''; renderAttachedFiles();
             participantInput.value = '';
             kataInput.value = '';
             treatmentRadios[0].checked = true;

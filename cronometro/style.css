@@ -321,6 +321,10 @@ button.btn-danger:hover {
 }
 
 #final-time-display {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
     font-family: 'Fira Code', monospace;
     font-weight: 700;
     color: var(--text-main);
@@ -394,6 +398,8 @@ button.btn-danger:hover {
 .modal-overlay.active .modal-content {
     transform: scale(1) translateY(0);
 }
+
+.final-time-field { text-align: center; }
 
 input[type="file"] { width:100%; padding:.65rem; border:1px dashed var(--border); border-radius:var(--radius-md); background:#f8fafc; box-sizing:border-box; }
 .upload-help { display:block; margin-top:.5rem; color:var(--text-muted); font-size:.82rem; }

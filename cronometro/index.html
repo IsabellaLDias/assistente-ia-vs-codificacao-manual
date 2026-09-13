@@ -53,25 +53,28 @@
         </div>
 
         <div id="result-section" class="section hidden">
-            <h2 id="result-title">Cronômetro Parado</h2>
-            <p>Tempo final: <span id="final-time-display"></span></p>
+            <h2 id="result-title">Resultado do trial</h2>
+            <div class="form-group final-time-field">
+                <label for="final-time-display">Tempo final (MM:SS)</label>
+                <input type="text" id="final-time-display" value="00:00" maxlength="5" pattern="[0-9]{2}:[0-5][0-9]" required aria-describedby="time-help">
+                <small id="time-help" class="upload-help">Ajuste entre 00:00 e 35:00 antes de salvar.</small>
+            </div>
             
             <div class="form-group" id="result-input-group">
-                <label for="result-data">Qual foi o resultado (testes passando, etc.)?</label>
-                <textarea id="result-data" rows="4" placeholder="Descreva os resultados aqui..."></textarea>
+                <label for="result-data">Resultado dos testes</label>
+                <textarea id="result-data" rows="2" maxlength="4000" placeholder="Ex.: 8 de 10 testes passaram."></textarea>
             </div>
 
             <div class="form-group">
-                <label for="trial-files">Código ou texto produzido (opcional)</label>
+                <label for="trial-files">Arquivos (opcional)</label>
                 <input type="file" id="trial-files" accept=".java,.txt,text/plain" multiple>
-                <small class="upload-help">Anexe arquivos Java ou texto: até 20 arquivos, 100 KB cada.</small>
+                <small class="upload-help">.java ou .txt · até 20 arquivos de 100 KB.</small>
                 <ul id="trial-file-list" class="attached-files" aria-label="Arquivos de código ou texto anexados"></ul>
             </div>
 
             <div class="form-group">
-                <label for="trial-text">Texto produzido (opcional)</label>
-                <textarea id="trial-text" rows="5" maxlength="100000" placeholder="Cole ou escreva aqui código, pseudocódigo, anotações ou a solução em texto."></textarea>
-                <small class="upload-help">O texto será salvo como anexo no banco e identificado no relatório PDF.</small>
+                <label for="trial-text">Solução em texto (opcional)</label>
+                <textarea id="trial-text" rows="5" maxlength="100000" placeholder="Cole seu código ou escreva a solução."></textarea>
             </div>
             
             <button id="btn-save">Salvar Resultado</button>
