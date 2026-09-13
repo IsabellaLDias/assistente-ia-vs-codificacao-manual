@@ -1,5 +1,6 @@
 # Ferramentas baixadas pelo bootstrap local
 tools/
+node_modules/
 
 # A validação é local; os dados reais e relatórios brutos devem ser versionados
 data/metrics/validation.csv
