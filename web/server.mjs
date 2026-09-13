@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { randomUUID, randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { LabDatabase, validateTrial } from './database.mjs';
+import { createTrialPdf } from './report.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const assets = path.join(root, 'web/public');
@@ -150,6 +151,17 @@ export function createServer(options = {}) {
         try { trial = validateTrial(await body(req)); } catch (error) { return json(400, {error:error.message}); }
         try { return json(200, {trial:await database.updateTrial(trialId[1], trial, randomUUID())}); }
         catch (error) { return json(error.message === 'Trial não encontrado.' ? 404 : 503, {error:error.message === 'Trial não encontrado.' ? error.message : 'Não foi possível atualizar o trial no banco de dados.'}); }
+      }
+      const reportId = /^\/api\/trials\/([a-f0-9-]{36})\/report\.pdf$/.exec(url.pathname);
+      if (req.method === 'GET' && reportId) {
+        if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
+        try {
+          const trial = await database.getTrial(reportId[1]);
+          if (!trial) return json(404, {error:'Trial não encontrado.'});
+          const report = await createTrialPdf(trial);
+          res.writeHead(200, {'Content-Type':'application/pdf', 'Content-Disposition':`attachment; filename="lab02-${trial.id}.pdf"`});
+          return res.end(report);
+        } catch { return json(503, {error:'Não foi possível gerar o relatório PDF.'}); }
       }
       if (req.method === 'GET' && url.pathname === '/api/example') {
         return json(200, {name:'MetricsFixture.java', content:await readFile(path.join(root,'examples/metrics-fixture/src/main/java/br/ufc/lab02/MetricsFixture.java'),'utf8')});

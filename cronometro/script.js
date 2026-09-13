@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultData = document.getElementById('result-data');
     const btnSave = document.getElementById('btn-save');
     const btnReset = document.getElementById('btn-reset');
+    const trialFilesInput = document.getElementById('trial-files');
+    const trialFileList = document.getElementById('trial-file-list');
+    const trialText = document.getElementById('trial-text');
     
     const resultsTbody = document.getElementById('results-tbody');
     const btnClearData = document.getElementById('btn-clear-data');
@@ -53,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         endTime: null,
         timeElapsedFormatted: '',
         timeOut: false,
-        resultNotes: ''
+        resultNotes: '',
+        sourceFiles: []
     };
     
     let savedResults = [];
@@ -61,6 +65,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let editingTrial = null;
 
     loadResults();
+
+    function renderAttachedFiles() {
+        trialFileList.replaceChildren();
+        currentSession.sourceFiles.forEach((file, index) => {
+            const item = document.createElement('li'); const name = document.createElement('span'); name.textContent = file.name;
+            const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'secondary'; remove.textContent = 'Remover'; remove.addEventListener('click', () => { currentSession.sourceFiles.splice(index, 1); renderAttachedFiles(); });
+            item.append(name, remove); trialFileList.append(item);
+        });
+    }
+
+    trialFilesInput.addEventListener('change', async event => {
+        const incoming = Array.from(event.target.files);
+        if (currentSession.sourceFiles.length + incoming.length > 20) { alert('Envie no máximo 20 arquivos Java.'); return; }
+        try {
+            const additions = [];
+            for (const file of incoming) {
+                if (!/^[A-Za-z_$][A-Za-z0-9_$]*\.(?:java|txt)$/i.test(file.name) || file.size > 100000) throw new Error('Selecione arquivos .java ou .txt válidos, de até 100 KB cada.');
+                if ([...currentSession.sourceFiles, ...additions].some(existing => existing.name.toLowerCase() === file.name.toLowerCase())) throw new Error(`O arquivo ${file.name} já foi anexado.`);
+                additions.push({name:file.name, content:new TextDecoder('utf-8', {fatal:true}).decode(await file.arrayBuffer())});
+            }
+            currentSession.sourceFiles.push(...additions); renderAttachedFiles();
+        } catch (error) { alert(error.message || 'Não foi possível ler os arquivos.'); }
+        event.target.value = '';
+    });
 
     function openModal() {
         resultsModal.classList.remove('hidden');
@@ -105,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({participant:currentSession.participant, kata:currentSession.kata,
                 treatment:currentSession.treatment ? 'COM_IA' : 'SEM_IA', startedAt:currentSession.startTime,
                 endedAt:currentSession.endTime, elapsedTime:currentSession.timeElapsedFormatted,
-                timedOut:currentSession.timeOut, notes:currentSession.resultNotes})
+                timedOut:currentSession.timeOut, notes:currentSession.resultNotes, sourceFiles:[...currentSession.sourceFiles, ...(trialText.value.trim() ? [{name:'texto-do-trial.txt', content:trialText.value}] : [])]})
         });
         if (!response.ok) throw new Error('Não foi possível salvar o resultado no banco de dados.');
         await loadResults();
@@ -130,7 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const edit = document.createElement('button');
             edit.type = 'button'; edit.className = 'secondary btn-small'; edit.style.margin = '0'; edit.textContent = 'Editar';
             edit.addEventListener('click', () => openEditor(res)); actions.append(edit);
-            tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, actions);
+            const fileCount = Array.isArray(res.source_files) ? res.source_files.length : 0;
+            const code = field(fileCount ? `${fileCount} arquivo(s)` : 'Sem anexo');
+            const report = document.createElement('a'); report.className = 'secondary btn-small'; report.href = `${appBase}/api/trials/${res.id}/report.pdf`; report.textContent = 'PDF'; report.style.margin = '0 0 0 .4rem'; actions.append(report);
+            tr.append(field(res.participant), field(res.kata), badge(res.treatment === 'COM_IA' ? 'Com IA' : 'Sem IA', res.treatment === 'COM_IA' ? 'badge-ai' : 'badge-noai'), elapsed, badge(res.timed_out ? 'Sim' : 'Não', res.timed_out ? 'badge-yes' : 'badge-no'), notes, code, actions);
             resultsTbody.appendChild(tr);
         });
     }
@@ -283,6 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
         kataInput.value = '';
         treatmentRadios[0].checked = true;
         resultData.value = '';
+        trialText.value = '';
+        currentSession.sourceFiles = []; trialFilesInput.value = ''; renderAttachedFiles();
         confirmInput.value = '';
         
         switchSection(resultSection, setupSection);

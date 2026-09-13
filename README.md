@@ -52,6 +52,13 @@ Cada envio gera um relatório independente e é registrado no PostgreSQL, junto 
 as métricas, métodos e fontes enviados. Arquivos CSV, JSON e logs também permanecem
 no computador hospedeiro como cópia de auditoria e são ignorados pelo Git.
 
+### Anexos e relatório do cronômetro
+
+Ao encerrar um trial, anexe opcionalmente até 20 arquivos `.java` ou `.txt` e/ou
+escreva código, pseudocódigo ou anotações no campo **Texto produzido**. Esses
+conteúdos ficam associados ao registro no PostgreSQL. No histórico, use **PDF**
+para baixar um relatório com os dados do trial, observações e a lista de anexos.
+
 ## Executar localmente
 
 Requisitos: **Windows, Node.js 20+ e JDK 17+** (validado com JDK 21), com `node`,

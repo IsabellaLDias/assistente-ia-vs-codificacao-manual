@@ -395,6 +395,12 @@ button.btn-danger:hover {
     transform: scale(1) translateY(0);
 }
 
+input[type="file"] { width:100%; padding:.65rem; border:1px dashed var(--border); border-radius:var(--radius-md); background:#f8fafc; box-sizing:border-box; }
+.upload-help { display:block; margin-top:.5rem; color:var(--text-muted); font-size:.82rem; }
+.attached-files { list-style:none; padding:0; margin:.75rem 0 0; }
+.attached-files li { display:flex; justify-content:space-between; align-items:center; gap:.75rem; padding:.45rem .65rem; border:1px solid var(--border); border-radius:6px; margin-top:.4rem; font:500 .82rem 'Fira Code', monospace; }
+.attached-files button { width:auto; margin:0; padding:.25rem .5rem; font-size:.75rem; }
+
 .editor-form { max-width: 560px; }
 .editor-note { margin: -0.4rem 0 1.5rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.45; }
 

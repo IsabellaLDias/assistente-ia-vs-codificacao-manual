@@ -60,6 +60,19 @@
                 <label for="result-data">Qual foi o resultado (testes passando, etc.)?</label>
                 <textarea id="result-data" rows="4" placeholder="Descreva os resultados aqui..."></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="trial-files">Código ou texto produzido (opcional)</label>
+                <input type="file" id="trial-files" accept=".java,.txt,text/plain" multiple>
+                <small class="upload-help">Anexe arquivos Java ou texto: até 20 arquivos, 100 KB cada.</small>
+                <ul id="trial-file-list" class="attached-files" aria-label="Arquivos de código ou texto anexados"></ul>
+            </div>
+
+            <div class="form-group">
+                <label for="trial-text">Texto produzido (opcional)</label>
+                <textarea id="trial-text" rows="5" maxlength="100000" placeholder="Cole ou escreva aqui código, pseudocódigo, anotações ou a solução em texto."></textarea>
+                <small class="upload-help">O texto será salvo como anexo no banco e identificado no relatório PDF.</small>
+            </div>
             
             <button id="btn-save">Salvar Resultado</button>
             <button id="btn-reset" class="secondary">Descartar e Novo</button>
@@ -91,6 +104,7 @@
                             <th>Tempo</th>
                             <th>Timeout?</th>
                             <th>Notas</th>
+                            <th>Código</th>
                             <th>Ações</th>
                         </tr>
                     </thead>

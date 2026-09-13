@@ -40,21 +40,25 @@ test('upload validation accepts Java, rejects paths, duplicates, oversized files
 test('trial validation accepts an experimental result and rejects malformed data', () => {
   const trial = {participant:'Leandro', kata:'kata01', treatment:'COM_IA', elapsedTime:'12:34', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:12:34.000Z', timedOut:false, notes:'Testes aprovados'};
   assert.equal(validateTrial(trial).elapsedSeconds, 754);
+  assert.equal(validateTrial({...trial, sourceFiles:[{name:'Solucao.java',content:'public class Solucao {}'}]}).sourceFiles.length, 1);
+  assert.equal(validateTrial({...trial, sourceFiles:[{name:'anotacoes.txt',content:'Testes do trial'}]}).sourceFiles.length, 1);
   assert.throws(() => validateTrial({...trial, elapsedTime:'36:00'}));
   assert.throws(() => validateTrial({...trial, treatment:'true'}));
+  assert.throws(() => validateTrial({...trial, sourceFiles:[{name:'../Solucao.java',content:'class X {}'}]}));
 });
 
 test('HTTP: saves, edits and lists timer trials through the configured database', async t => {
-  const stored = []; const database = {enabled:true, async listTrials(){return stored;}, async saveTrial(id, trial){const value={id, participant:trial.participant, kata:trial.kata, treatment:trial.treatment, elapsed_seconds:trial.elapsedSeconds, timed_out:trial.timedOut, notes:trial.notes, started_at:trial.startedAt};stored.unshift(value);return value;}, async updateTrial(id, trial){const value=stored.find(row=>row.id===id);if(!value)throw new Error('Trial não encontrado.');Object.assign(value,{participant:trial.participant,kata:trial.kata,treatment:trial.treatment,elapsed_seconds:trial.elapsedSeconds,timed_out:trial.timedOut,notes:trial.notes});return value;}};
+  const stored = []; const database = {enabled:true, async listTrials(){return stored;}, async getTrial(id){return stored.find(row=>row.id===id) ?? null;}, async saveTrial(id, trial){const value={id, participant:trial.participant, kata:trial.kata, treatment:trial.treatment, elapsed_seconds:trial.elapsedSeconds, timed_out:trial.timedOut, notes:trial.notes, started_at:trial.startedAt, ended_at:trial.endedAt, source_files:trial.sourceFiles};stored.unshift(value);return value;}, async updateTrial(id, trial){const value=stored.find(row=>row.id===id);if(!value)throw new Error('Trial não encontrado.');Object.assign(value,{participant:trial.participant,kata:trial.kata,treatment:trial.treatment,elapsed_seconds:trial.elapsedSeconds,timed_out:trial.timedOut,notes:trial.notes});return value;}};
   const server = createServer({database});
   await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
   t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));
   const base = `http://127.0.0.1:${server.address().port}`;
-  const trial = {participant:'Leandro', kata:'kata01', treatment:'SEM_IA', elapsedTime:'01:05', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:01:05.000Z', timedOut:false, notes:'ok'};
+  const trial = {participant:'Leandro', kata:'kata01', treatment:'SEM_IA', elapsedTime:'01:05', startedAt:'2026-09-13T10:00:00.000Z', endedAt:'2026-09-13T10:01:05.000Z', timedOut:false, notes:'ok', sourceFiles:[{name:'Solucao.java',content:'public class Solucao {}'}]};
   const created = await fetch(`${base}/api/trials`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(trial)});
   assert.equal(created.status,201);const createdTrial=(await created.json()).trial;assert.equal(createdTrial.elapsed_seconds,65);
   const updated = await fetch(`${base}/api/trials/${createdTrial.id}`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({...trial,kata:'kata02',elapsedTime:'02:00',endedAt:'2026-09-13T10:02:00.000Z',notes:'corrigido'})});
   assert.equal(updated.status,200);assert.equal((await updated.json()).trial.elapsed_seconds,120);
+  const pdf = await fetch(`${base}/api/trials/${createdTrial.id}/report.pdf`); assert.equal(pdf.status,200); assert.equal(pdf.headers.get('content-type'),'application/pdf'); assert.equal(Buffer.from(await pdf.arrayBuffer()).subarray(0,4).toString(), '%PDF');
   const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,1);
 });
 
