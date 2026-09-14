@@ -25,13 +25,12 @@ export function createTrialPdf(trial) {
     document.text(content, {lineGap:2});
   }
   const pages = document.bufferedPageRange();
-  const generatedAt = new Date().toLocaleString('pt-BR');
   for (let index = pages.start; index < pages.start + pages.count; index++) {
     document.switchToPage(index);
     const bottomMargin = document.page.margins.bottom;
     document.page.margins.bottom = 0;
     document.font('Helvetica').fillColor('#64748b').fontSize(8)
-      .text(`Gerado em ${generatedAt} - Pagina ${index + 1} de ${pages.count}`, 54, 766, {align:'center', width:487, lineBreak:false})
+      .text(`Pagina ${index + 1} de ${pages.count}`, 54, 766, {align:'center', width:487, lineBreak:false})
       .text(`Registro ${trial.id}`, 54, 780, {align:'center', width:487, lineBreak:false});
     document.page.margins.bottom = bottomMargin;
   }
