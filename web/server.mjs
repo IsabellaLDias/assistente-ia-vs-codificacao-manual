@@ -145,6 +145,14 @@ export function createServer(options = {}) {
         catch (error) { return json(503, {error:'Não foi possível salvar o trial no banco de dados.'}); }
       }
       const trialId = /^\/api\/trials\/([a-f0-9-]{36})$/.exec(url.pathname);
+      if (req.method === 'DELETE' && trialId) {
+        if (req.headers['x-lab-token'] !== token) return json(403, {error:'Atualize a página e tente novamente.'});
+        if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
+        try {
+          if (!await database.deleteTrial(trialId[1])) return json(404, {error:'Trial não encontrado.'});
+          return json(200, {deleted:true});
+        } catch { return json(503, {error:'Não foi possível excluir o trial do banco de dados.'}); }
+      }
       if (req.method === 'PATCH' && trialId) {
         if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
         let trial;

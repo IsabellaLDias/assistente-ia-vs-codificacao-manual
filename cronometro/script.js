@@ -169,6 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const edit = document.createElement('button');
             edit.type = 'button'; edit.className = 'secondary btn-small trial-edit'; edit.textContent = 'Editar';
             edit.addEventListener('click', () => openEditor(res)); actions.append(edit);
+            const remove = document.createElement('button');
+            remove.type = 'button'; remove.className = 'secondary btn-small error-message'; remove.textContent = 'Excluir';
+            remove.addEventListener('click', async () => {
+                if (!confirm(`Excluir o registro de ${res.participant} — ${res.kata}? O código anexado e o histórico de edições também serão apagados. Esta ação não pode ser desfeita.`)) return;
+                remove.disabled = true;
+                try {
+                    const config = await fetch(`${appBase}/api/config`);
+                    if (!config.ok) throw new Error('Não foi possível autorizar a exclusão.');
+                    const {token} = await config.json();
+                    const response = await fetch(`${appBase}/api/trials/${res.id}`, {method:'DELETE', headers:{'X-Lab-Token':token}});
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.error || 'Não foi possível excluir o registro.');
+                    await loadResults();
+                } catch (error) { alert(error.message); }
+                finally { remove.disabled = false; }
+            });
+            actions.append(remove);
             const fileCount = Array.isArray(res.source_files) ? res.source_files.length : 0;
             const code = field(fileCount ? `${fileCount} arquivo(s)` : 'Sem anexo');
             const report = document.createElement('a'); report.className = 'secondary btn-small trial-report'; report.href = `${appBase}/api/trials/${res.id}/report.pdf`; report.textContent = 'PDF'; actions.append(report);
@@ -362,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     btnClearData.addEventListener('click', () => {
-        alert('Os resultados são registros permanentes do experimento e não podem ser apagados por esta tela.');
+        alert('Os resultados estão salvos no banco de dados. Use Excluir no registro desejado para apagá-lo.');
     });
 
     editorModal.addEventListener('click', event => { if (event.target === editorModal) closeEditor(); });

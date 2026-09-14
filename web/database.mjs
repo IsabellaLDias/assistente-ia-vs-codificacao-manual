@@ -101,6 +101,26 @@ export class LabDatabase {
     return rows[0];
   }
 
+  async deleteTrial(id) {
+    await this.initialize();
+    const client = await this.pool.connect();
+    try {
+      await client.query('BEGIN');
+      const existing = await client.query('SELECT id FROM lab02_trial WHERE id=$1 FOR UPDATE', [id]);
+      if (!existing.rowCount) {
+        await client.query('ROLLBACK');
+        return false;
+      }
+      await client.query('DELETE FROM lab02_trial_revision WHERE trial_id=$1', [id]);
+      await client.query('DELETE FROM lab02_trial WHERE id=$1', [id]);
+      await client.query('COMMIT');
+      return true;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally { client.release(); }
+  }
+
   async getTrial(id) {
     await this.initialize();
     const {rows} = await this.pool.query(`SELECT id, participant, kata, treatment, started_at, ended_at, elapsed_seconds, timed_out, notes, source_files, created_at FROM lab02_trial WHERE id=$1`, [id]);

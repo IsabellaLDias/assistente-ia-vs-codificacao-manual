@@ -73,6 +73,24 @@ test('HTTP: saves, edits and lists timer trials through the configured database'
   const list = await fetch(`${base}/api/trials`); assert.equal(list.status,200);assert.equal((await list.json()).trials.length,2);
 });
 
+test('HTTP: deletion requires token, deletes only selected trial and handles missing records', async t => {
+  const id = '11111111-1111-4111-8111-111111111111';
+  const ids = new Set([id, '22222222-2222-4222-8222-222222222222']);
+  const server = createServer({database:{enabled:true, async deleteTrial(value){return ids.delete(value);}}});
+  await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
+  t.after(() => new Promise(resolve => {server.closeAllConnections(); server.close(resolve);}));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const endpoint = `${base}/api/trials/${id}`;
+  assert.equal((await fetch(endpoint,{method:'DELETE'})).status,403);
+  assert.equal(ids.size,2);
+  const {token} = await (await fetch(`${base}/api/config`)).json();
+  const headers = {'X-Lab-Token':token};
+  assert.equal((await fetch(endpoint,{method:'DELETE',headers:{...headers,Origin:'https://evil.example'}})).status,403);
+  assert.equal((await fetch(endpoint,{method:'DELETE',headers})).status,200);
+  assert.equal(ids.size,1);
+  assert.equal((await fetch(endpoint,{method:'DELETE',headers})).status,404);
+});
+
 test('HTTP: real analysis, downloads, invalid compilation and origin protections', {timeout:90000}, async t => {
   const server=createServer();
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
