@@ -41,6 +41,10 @@ Ao concluir, baixe os relatórios **CSV** e **JSON**.
 | LOC | Linhas físicas, incluindo comentários e linhas vazias | Coletor |
 | Complexidade média | Complexidade ciclomática por método, sem construtores | CK 0.7.0 |
 | Duplicação | Percentual de linhas em trechos repetidos; limiar de 50 tokens | PMD CPD 7.26.0 |
+| Tempo de CPU | Latência média de execução por cálculo em microssegundos ($\mu s$) | Benchmark JVM |
+| Memória no Heap | Bytes alocados na memória por cálculo | ThreadMXBean |
+| Aninhamento | Profundidade máxima de blocos aninhados (`maxNestedBlocksQty`) | CK 0.7.0 |
+| Violações de Código | Alertas de performance e boas práticas do Java | PMD 7.26.0 |
 
 São aceitos até **20 arquivos `.java`**, de até **100 KB cada**, com limite total
 de **1 MB**. Use **UTF-8 e sintaxe Java 11**, sem bibliotecas externas. Envie as
@@ -128,8 +132,7 @@ Após atualizar o código, reinicie o app no painel.
 | [`METRICAS.md`](METRICAS.md) | Instalação detalhada e coleta pela linha de comando |
 | [`docs/desenho-experimento.md`](docs/desenho-experimento.md) | Desenho do experimento, hipóteses, katas e ameaças |
 | [`docs/metricas-estaticas.md`](docs/metricas-estaticas.md) | Definições e protocolo de medição de código |
-| [`katas/`](katas/) | Exercícios autorais (SmartPark e EcoFrete) e testes JUnit |
-
+| [`katas/`](katas/) | Exercícios autorais (SmartPark, EcoFrete, BellaVista e VidaPlus) e testes JUnit |
 ## Validação
 
 Com as ferramentas preparadas:

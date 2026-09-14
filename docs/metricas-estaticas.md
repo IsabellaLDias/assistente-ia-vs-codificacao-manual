@@ -43,8 +43,18 @@ impede que testes, binários e artefatos de IDE contaminem os indicadores.
 | loc_ck_sloc | Soma de SLOC do CK quando há uma única classe por arquivo; vazio quando há múltiplas classes, para não somar intervalos sobrepostos. |
 | ck_wmc_mean | Média da coluna wmc de method.csv do CK, isto é, complexidade McCabe média por método. |
 | ck_wmc_median, ck_wmc_max, ck_wmc_sum | Estatísticas auxiliares dos mesmos valores de WMC. |
+| ck_max_nested_blocks | Profundidade máxima de blocos aninhados (`if/for/while`) detectada pelo CK. |
+| ck_cbo_mean | Acoplamento médio entre objetos (CBO — Coupling Between Objects) do CK. |
+| ck_rfc_mean | Resposta média da classe (RFC — Response For a Class) do CK. |
+| ck_lcom_mean | Falta média de coesão dos métodos (LCOM — Lack of Cohesion in Methods) do CK. |
 | cpd_duplicated_lines_unique | União das linhas de todas as ocorrências presentes no XML do CPD. As duas cópias contam; blocos sobrepostos não são contados duas vezes. |
 | cpd_duplication_pct_physical | 100 × cpd_duplicated_lines_unique / loc_physical. |
+| bench_time_us | Tempo médio de execução de 1 cálculo em microssegundos ($\mu s$), obtido após warmup JIT de 5.000 iterações e 20.000 repetições. |
+| bench_allocated_bytes | Média de bytes de memória alocados no Heap da JVM por cálculo (via `ThreadMXBean`). |
+| bench_throughput_ops | Estimativa de vazão de cálculos por segundo (throughput). |
+| pmd_performance_violations | Violações de regras de performance do Java detectadas pelo PMD. |
+| pmd_bestpractices_violations | Violações de regras de boas práticas do Java detectadas pelo PMD. |
+| pmd_total_violations | Total de violações estáticas reportadas pelo PMD. |
 
 O relatório XML do CPD é preservado porque contém line e endline para cada
 ocorrência. O script falha se PMD registrar erro de análise, em vez de gravar
@@ -74,9 +84,11 @@ data/metrics/static_metrics.csv possui uma linha por trial e inclui:
 schema_version,trial_id,participante,kata,tratamento,source_sha256,
 source_java_files,analysis_utc,java_version,ck_version,pmd_version,constructors_included,
 loc_physical,loc_ck_sloc,ck_method_count,ck_wmc_sum,ck_wmc_mean,
-ck_wmc_median,ck_wmc_max,cpd_min_tokens,cpd_duplication_groups,
-cpd_occurrences,cpd_duplicated_lines_unique,
-cpd_duplication_pct_physical,status,artifacts_dir
+ck_wmc_median,ck_wmc_max,ck_max_nested_blocks,ck_cbo_mean,ck_rfc_mean,ck_lcom_mean,
+cpd_min_tokens,cpd_duplication_groups,cpd_occurrences,cpd_duplicated_lines_unique,
+cpd_duplication_pct_physical,bench_time_us,bench_allocated_bytes,bench_throughput_ops,
+pmd_performance_violations,pmd_bestpractices_violations,pmd_total_violations,
+status,artifacts_dir
 ~~~
 
 source_sha256 identifica exatamente o conjunto de fontes analisado. A pasta

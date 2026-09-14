@@ -33,6 +33,10 @@ function showResult(result) {
   latestResult = result;
   const m=result.metrics;
   $('loc').textContent=format(m.loc_physical);$('complexity').textContent=format(m.ck_wmc_mean);$('duplication').textContent=format(m.cpd_duplication_pct_physical)+'%';
+  if($('bench-time')) $('bench-time').textContent=m.bench_time_us?`${format(m.bench_time_us)} µs`:'—';
+  if($('bench-mem')) $('bench-mem').textContent=m.bench_allocated_bytes?`${format(m.bench_allocated_bytes)} B`:'—';
+  if($('nested-blocks')) $('nested-blocks').textContent=m.ck_max_nested_blocks!==undefined&&m.ck_max_nested_blocks!==null?format(m.ck_max_nested_blocks):'—';
+  if($('pmd-violations')) $('pmd-violations').textContent=m.pmd_total_violations!==undefined&&m.pmd_total_violations!==null?format(m.pmd_total_violations):'—';
   $('result-status').textContent='Análise concluída';$('result-status').className='status-tag success';
   $('summary').textContent=`${m.participante} · ${m.kata} · ${m.tratamento==='COM_IA'?'Com IA':'Sem IA'} — ${m.source_java_files} arquivo(s), ${m.cpd_duplicated_lines_unique} linhas em trechos duplicados.`;
   $('download-csv').href=`${appBase}/api/jobs/${result.id}/metrics.csv`;$('download-json').href=`${appBase}/api/jobs/${result.id}/result.json`;
@@ -48,7 +52,7 @@ $('analysis-form').addEventListener('submit',async event=>{
   const treatment=new FormData(event.currentTarget).get('treatment');
   running=true;$('inputs').disabled=true;$('result-content').hidden=true;$('empty-result').hidden=false;
   latestResult=null;
-  for(const id of ['loc','complexity','duplication'])$(id).textContent='—';
+  for(const id of ['loc','complexity','duplication','bench-time','bench-mem','nested-blocks','pmd-violations'])if($(id))$(id).textContent='—';
   $('result-status').textContent='Analisando…';$('result-status').className='status-tag';$('analyze').textContent='Analisando…';notice('Verificando os fontes e calculando as métricas. Aguarde alguns segundos.',true);
   try {
     const response=await fetch(`${appBase}/api/analyze`,{method:'POST',headers:{'Content-Type':'application/json','X-Lab-Token':config.token},body:JSON.stringify({participant:$('participant').value,kata:$('kata').value,treatment,files})});
