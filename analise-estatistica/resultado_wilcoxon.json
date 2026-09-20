@@ -1,0 +1,82 @@
+{
+  "fonte": "dados_pareados_rq1_rq2.csv",
+  "unidade_pareada": "participante × kata",
+  "participantes_com_pares_completos": [
+    "Luis Henrique Gonçalves Barbosa"
+  ],
+  "rq1_tempo": {
+    "aplicavel": true,
+    "alternativa": "less",
+    "n_pares": 4,
+    "n_nao_nulos": 4,
+    "zeros_descartados": 0,
+    "diferencas_after_menos_before": [
+      -1351.0,
+      -1465.0,
+      -1078.0,
+      -1192.0
+    ],
+    "postos_absolutos": [
+      3.0,
+      4.0,
+      1.0,
+      2.0
+    ],
+    "W_positivo": 0,
+    "W_negativo": 10.0,
+    "W_minimo": 0,
+    "p_exato": 0.0625,
+    "p_bilateral": 0.125,
+    "rank_biserial_after_menos_before": -1.0,
+    "alpha": 0.05,
+    "rejeita_H0": false,
+    "hipotese": "H1: tempo(COM_IA) < tempo(SEM_IA)",
+    "sem_ia_segundos": {
+      "n": 4,
+      "mediana": 1332.5,
+      "q1": 1212.5,
+      "q3": 1451.25,
+      "iqr": 238.75,
+      "minimo": 1130.0,
+      "maximo": 1530.0
+    },
+    "com_ia_segundos": {
+      "n": 4,
+      "mediana": 58.5,
+      "q1": 51.0,
+      "q3": 67.25,
+      "iqr": 16.25,
+      "minimo": 48.0,
+      "maximo": 74.0
+    },
+    "reducao_entre_medianas_segundos": 1274.0,
+    "reducao_entre_medianas_percentual": 95.60975609756098,
+    "mediana_diferencas_pareadas_segundos": -1271.5
+  },
+  "rq2_corretude": {
+    "aplicavel": false,
+    "motivo": "Todas as diferenças pareadas são zero; não há postos não nulos para o teste de Wilcoxon.",
+    "n_pares": 4,
+    "n_nao_nulos": 0,
+    "zeros_descartados": 4,
+    "hipotese": "H1: taxa(COM_IA) != taxa(SEM_IA)",
+    "sem_ia": {
+      "n": 4,
+      "mediana": 1.0,
+      "q1": 1.0,
+      "q3": 1.0,
+      "iqr": 0.0,
+      "minimo": 1.0,
+      "maximo": 1.0
+    },
+    "com_ia": {
+      "n": 4,
+      "mediana": 1.0,
+      "q1": 1.0,
+      "q3": 1.0,
+      "iqr": 0.0,
+      "minimo": 1.0,
+      "maximo": 1.0
+    }
+  }
+}
