@@ -1,0 +1,82 @@
+{
+  "fonte": "dados_pareados_rq1_rq2.csv",
+  "unidade_pareada": "participante",
+  "participantes": [
+    "Isabella Luiza Dias dos Santos",
+    "Leandro Alencar Pereira Clemente",
+    "Luis Henrique Gonçalves Barbosa"
+  ],
+  "rq1_tempo": {
+    "aplicavel": true,
+    "alternativa": "less",
+    "n_pares": 3,
+    "n_nao_nulos": 3,
+    "zeros_descartados": 0,
+    "diferencas_after_menos_before": [
+      -1814.5,
+      -1308.0,
+      -1274.0
+    ],
+    "postos_absolutos": [
+      3.0,
+      2.0,
+      1.0
+    ],
+    "W_positivo": 0,
+    "W_negativo": 6.0,
+    "W_minimo": 0,
+    "p_exato": 0.125,
+    "p_bilateral": 0.25,
+    "rank_biserial_after_menos_before": -1.0,
+    "alpha": 0.05,
+    "rejeita_H0": false,
+    "hipotese": "H1: tempo(COM_IA) < tempo(SEM_IA)",
+    "sem_ia_segundos": {
+      "n": 3,
+      "mediana": 1366.0,
+      "q1": 1349.25,
+      "q3": 1609.5,
+      "iqr": 260.25,
+      "minimo": 1332.5,
+      "maximo": 1853.0
+    },
+    "com_ia_segundos": {
+      "n": 3,
+      "mediana": 58.0,
+      "q1": 48.25,
+      "q3": 58.25,
+      "iqr": 10.0,
+      "minimo": 38.5,
+      "maximo": 58.5
+    },
+    "reducao_entre_medianas_segundos": 1308.0,
+    "reducao_entre_medianas_percentual": 95.75402635431918,
+    "mediana_diferencas_pareadas_segundos": -1308.0
+  },
+  "rq2_corretude": {
+    "aplicavel": false,
+    "motivo": "Todas as diferenças pareadas são zero; não há postos não nulos para o teste de Wilcoxon.",
+    "n_pares": 3,
+    "n_nao_nulos": 0,
+    "zeros_descartados": 3,
+    "hipotese": "H1: taxa(COM_IA) != taxa(SEM_IA)",
+    "sem_ia": {
+      "n": 3,
+      "mediana": 1.0,
+      "q1": 1.0,
+      "q3": 1.0,
+      "iqr": 0.0,
+      "minimo": 1.0,
+      "maximo": 1.0
+    },
+    "com_ia": {
+      "n": 3,
+      "mediana": 1.0,
+      "q1": 1.0,
+      "q3": 1.0,
+      "iqr": 0.0,
+      "minimo": 1.0,
+      "maximo": 1.0
+    }
+  }
+}
