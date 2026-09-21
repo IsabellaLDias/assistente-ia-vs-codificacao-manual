@@ -1,0 +1,17 @@
+participante,kata,condicao,classe,loc,wmc,cbo,rfc,lcom
+Leandro,kata01,COM_IA,TarifadorEstacionamento,47,10,N/A,N/A,N/A
+Luis,kata01,COM_IA,TarifadorEstacionamento,47,10,N/A,N/A,N/A
+Isabella,kata01,SEM_IA,TarifadorEstacionamento,67,11,N/A,N/A,N/A
+Luis,kata01,SEM_IA,TarifadorEstacionamento,101,21,N/A,N/A,N/A
+Isabella,kata02,COM_IA,TarifadorLogistica,50,10,N/A,N/A,N/A
+Luis,kata02,COM_IA,TarifadorLogistica,43,10,N/A,N/A,N/A
+Leandro,kata02,SEM_IA,TarifadorLogistica,31,15,N/A,N/A,N/A
+Luis,kata02,SEM_IA,TarifadorLogistica,88,17,N/A,N/A,N/A
+Luis,kata03,COM_IA,TarifadorHospedagem,49,11,N/A,N/A,N/A
+Leandro,kata03,COM_IA,TarifadorHospedagem,18,10,N/A,N/A,N/A
+Isabella,kata03,SEM_IA,TarifadorHospedagem,68,17,N/A,N/A,N/A
+Luis,kata03,SEM_IA,TarifadorHospedagem,99,20,N/A,N/A,N/A
+Isabella,kata04,COM_IA,TarifadorPlanoSaude,40,10,N/A,N/A,N/A
+Leandro,kata04,COM_IA,TarifadorPlanoSaude,15,10,N/A,N/A,N/A
+Luis,kata04,COM_IA,TarifadorPlanoSaude,39,10,N/A,N/A,N/A
+Luis,kata04,SEM_IA,TarifadorPlanoSaude,87,17,N/A,N/A,N/A
