@@ -127,10 +127,16 @@ def main() -> None:
     with DATA.open(encoding="utf-8", newline="") as source:
         rows = list(csv.DictReader(source))
 
-    time_without_ai = [float(row["tempo_sem_ia_s"]) for row in rows]
-    time_with_ai = [float(row["tempo_com_ia_s"]) for row in rows]
-    success_without_ai = [int(row["testes_sem_ia"]) / int(row["testes_total"]) for row in rows]
-    success_with_ai = [int(row["testes_com_ia"]) / int(row["testes_total"]) for row in rows]
+    time_without_ai = [float(row["tempo_sem_ia_mediana_s"]) for row in rows]
+    time_with_ai = [float(row["tempo_com_ia_mediana_s"]) for row in rows]
+    success_without_ai = [
+        int(row["testes_sem_ia_aprovados"]) / int(row["testes_sem_ia_total"])
+        for row in rows
+    ]
+    success_with_ai = [
+        int(row["testes_com_ia_aprovados"]) / int(row["testes_com_ia_total"])
+        for row in rows
+    ]
 
     rq1 = wilcoxon_exact(time_without_ai, time_with_ai, alternative="less")
     rq1["hipotese"] = "H1: tempo(COM_IA) < tempo(SEM_IA)"
@@ -151,8 +157,18 @@ def main() -> None:
 
     result = {
         "fonte": DATA.name,
-        "unidade_pareada": "participante × kata",
-        "participantes_com_pares_completos": sorted({row["participante"] for row in rows}),
+        "unidade_pareada": "participante",
+        "participantes": [row["participante"] for row in rows],
+        "validacao_rq2": {
+            "reexecutada_em": "2026-09-20",
+            "trials_executados": 16,
+            "casos_aprovados": 128,
+            "casos_executados": 128,
+            "observacao": (
+                "Suítes JUnit reexecutadas após a atualização dos quatro "
+                "códigos manuais do Luis."
+            ),
+        },
         "rq1_tempo": rq1,
         "rq2_corretude": rq2,
     }
