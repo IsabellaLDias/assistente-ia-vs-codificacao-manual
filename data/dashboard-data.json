@@ -1,0 +1,892 @@
+{
+  "gerado_em": "2026-09-22T22:45:00Z",
+  "kpis": {
+    "total_trials": 16,
+    "total_participantes": 3,
+    "total_katas": 4,
+    "total_testes_junit": 128,
+    "testes_aprovados_junit": 128,
+    "taxa_sucesso_testes_pct": 100.0,
+    "tempo_mediana_com_ia_s": 58,
+    "tempo_mediana_sem_ia_s": 1425,
+    "tempo_mediana_com_ia_formatado": "00:58",
+    "tempo_mediana_sem_ia_formatado": "23:45",
+    "reducao_tempo_pct": -95.9,
+    "loc_mediana_com_ia": 43,
+    "loc_mediana_sem_ia": 87,
+    "reducao_loc_pct": -50.6,
+    "wmc_mediana_com_ia": 10,
+    "wmc_mediana_sem_ia": 17,
+    "reducao_wmc_pct": -41.2,
+    "densidade_wmc_loc_com_ia": 0.233,
+    "densidade_wmc_loc_sem_ia": 0.195,
+    "duplicacao_cpd_pct": 0.0
+  },
+  "katas": {
+    "kata01": {
+      "id": "kata01",
+      "nome": "SmartPark · Tarifador de Estacionamento",
+      "classe": "TarifadorEstacionamento",
+      "pacote": "br.ufc.lab02.estacionamento",
+      "descricao": "Cálculo de permanência com tolerância de 15 min, tarifa base, frações adicionais, teto diário e convênio.",
+      "testes_total": 8,
+      "benchmark": {
+        "bench_time_us": 0.082,
+        "bench_allocated_bytes": 32.0,
+        "bench_throughput_ops": 12195000
+      }
+    },
+    "kata02": {
+      "id": "kata02",
+      "nome": "EcoFrete · Tarifador de Logística",
+      "classe": "TarifadorLogistica",
+      "pacote": "br.ufc.lab02.logistica",
+      "descricao": "Cálculo de frete rodoviário baseado em peso real vs. peso cubado, modalidade (Expresso/Econômico) e sobretaxa para cargas perigosas/frágeis.",
+      "testes_total": 8,
+      "benchmark": {
+        "bench_time_us": 0.095,
+        "bench_allocated_bytes": 48.0,
+        "bench_throughput_ops": 10526000
+      }
+    },
+    "kata03": {
+      "id": "kata03",
+      "nome": "BellaVista · Tarifador de Hospedagem",
+      "classe": "TarifadorHospedagem",
+      "pacote": "br.ufc.lab02.hospedagem",
+      "descricao": "Gestão de reservas de hotel, cálculo de diárias por categoria de quarto, baixa/alta temporada, café da manhã e taxa de cancelamento.",
+      "testes_total": 8,
+      "benchmark": {
+        "bench_time_us": 0.088,
+        "bench_allocated_bytes": 40.0,
+        "bench_throughput_ops": 11363000
+      }
+    },
+    "kata04": {
+      "id": "kata04",
+      "nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "classe": "TarifadorPlanoSaude",
+      "pacote": "br.ufc.lab02.saude",
+      "descricao": "Cálculo de mensalidade conforme 10 faixas etárias regulamentadas pela ANS, categorias de plano (Individual/Família), coparticipação e acomodação.",
+      "testes_total": 8,
+      "benchmark": {
+        "bench_time_us": 0.11,
+        "bench_allocated_bytes": 56.0,
+        "bench_throughput_ops": 9090000
+      }
+    }
+  },
+  "comparativo_katas": [
+    {
+      "kata_id": "kata01",
+      "nome": "SmartPark · Tarifador de Estacionamento",
+      "descricao": "Cálculo de permanência com tolerância de 15 min, tarifa base, frações adicionais, teto diário e convênio.",
+      "amostras_com_ia": 2,
+      "amostras_sem_ia": 2,
+      "wmc_mediana_com_ia": 10.0,
+      "wmc_mediana_sem_ia": 16.0,
+      "diff_wmc": -6.0,
+      "loc_mediana_com_ia": 47.0,
+      "loc_mediana_sem_ia": 84.0,
+      "diff_loc": -37.0,
+      "tempo_mediana_com_ia": 68.5,
+      "tempo_mediana_sem_ia": 1699.5,
+      "diff_tempo": -1631.0,
+      "benchmark": {
+        "bench_time_us": 0.082,
+        "bench_allocated_bytes": 32.0,
+        "bench_throughput_ops": 12195000
+      }
+    },
+    {
+      "kata_id": "kata02",
+      "nome": "EcoFrete · Tarifador de Logística",
+      "descricao": "Cálculo de frete rodoviário baseado em peso real vs. peso cubado, modalidade (Expresso/Econômico) e sobretaxa para cargas perigosas/frágeis.",
+      "amostras_com_ia": 2,
+      "amostras_sem_ia": 2,
+      "wmc_mediana_com_ia": 10.0,
+      "wmc_mediana_sem_ia": 16.0,
+      "diff_wmc": -6.0,
+      "loc_mediana_com_ia": 46.5,
+      "loc_mediana_sem_ia": 59.5,
+      "diff_loc": -13.0,
+      "tempo_mediana_com_ia": 55.0,
+      "tempo_mediana_sem_ia": 1248.0,
+      "diff_tempo": -1193.0,
+      "benchmark": {
+        "bench_time_us": 0.095,
+        "bench_allocated_bytes": 48.0,
+        "bench_throughput_ops": 10526000
+      }
+    },
+    {
+      "kata_id": "kata03",
+      "nome": "BellaVista · Tarifador de Hospedagem",
+      "descricao": "Gestão de reservas de hotel, cálculo de diárias por categoria de quarto, baixa/alta temporada, café da manhã e taxa de cancelamento.",
+      "amostras_com_ia": 2,
+      "amostras_sem_ia": 2,
+      "wmc_mediana_com_ia": 10.5,
+      "wmc_mediana_sem_ia": 18.5,
+      "diff_wmc": -8.0,
+      "loc_mediana_com_ia": 33.5,
+      "loc_mediana_sem_ia": 83.5,
+      "diff_loc": -50.0,
+      "tempo_mediana_com_ia": 56.0,
+      "tempo_mediana_sem_ia": 1631.0,
+      "diff_tempo": -1575.0,
+      "benchmark": {
+        "bench_time_us": 0.088,
+        "bench_allocated_bytes": 40.0,
+        "bench_throughput_ops": 11363000
+      }
+    },
+    {
+      "kata_id": "kata04",
+      "nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "descricao": "Cálculo de mensalidade conforme 10 faixas etárias regulamentadas pela ANS, categorias de plano (Individual/Família), coparticipação e acomodação.",
+      "amostras_com_ia": 3,
+      "amostras_sem_ia": 1,
+      "wmc_mediana_com_ia": 10,
+      "wmc_mediana_sem_ia": 17,
+      "diff_wmc": -7,
+      "loc_mediana_com_ia": 39,
+      "loc_mediana_sem_ia": 87,
+      "diff_loc": -48,
+      "tempo_mediana_com_ia": 48,
+      "tempo_mediana_sem_ia": 1240,
+      "diff_tempo": -1192,
+      "benchmark": {
+        "bench_time_us": 0.11,
+        "bench_allocated_bytes": 56.0,
+        "bench_throughput_ops": 9090000
+      }
+    }
+  ],
+  "comparativo_participantes": [
+    {
+      "participante": "Isabella",
+      "trials_com_ia": 2,
+      "trials_sem_ia": 2,
+      "tempo_com_ia_s": 38.5,
+      "tempo_sem_ia_s": 1853.0,
+      "diff_tempo_s": -1814.5,
+      "reducao_tempo_pct": -97.9,
+      "loc_com_ia": 45.0,
+      "loc_sem_ia": 67.5,
+      "wmc_com_ia": 10.0,
+      "wmc_sem_ia": 14.0,
+      "testes_passados": 32,
+      "testes_total": 32
+    },
+    {
+      "participante": "Leandro",
+      "trials_com_ia": 3,
+      "trials_sem_ia": 1,
+      "tempo_com_ia_s": 58,
+      "tempo_sem_ia_s": 1366,
+      "diff_tempo_s": -1308,
+      "reducao_tempo_pct": -95.8,
+      "loc_com_ia": 18,
+      "loc_sem_ia": 31,
+      "wmc_com_ia": 10,
+      "wmc_sem_ia": 15,
+      "testes_passados": 32,
+      "testes_total": 32
+    },
+    {
+      "participante": "Luis",
+      "trials_com_ia": 4,
+      "trials_sem_ia": 4,
+      "tempo_com_ia_s": 58.5,
+      "tempo_sem_ia_s": 1332.5,
+      "diff_tempo_s": -1274.0,
+      "reducao_tempo_pct": -95.6,
+      "loc_com_ia": 45.0,
+      "loc_sem_ia": 93.5,
+      "wmc_com_ia": 10.0,
+      "wmc_sem_ia": 18.5,
+      "testes_passados": 64,
+      "testes_total": 64
+    }
+  ],
+  "wilcoxon": {
+    "fonte": "dados_pareados_rq1_rq2.csv",
+    "unidade_pareada": "participante",
+    "participantes": [
+      "Isabella Luiza Dias dos Santos",
+      "Leandro Alencar Pereira Clemente",
+      "Luis Henrique Gonçalves Barbosa"
+    ],
+    "validacao_rq2": {
+      "reexecutada_em": "2026-09-20",
+      "trials_executados": 16,
+      "casos_aprovados": 128,
+      "casos_executados": 128,
+      "observacao": "Suítes JUnit reexecutadas após a atualização dos quatro códigos manuais do Luis."
+    },
+    "rq1_tempo": {
+      "aplicavel": true,
+      "alternativa": "less",
+      "n_pares": 3,
+      "n_nao_nulos": 3,
+      "zeros_descartados": 0,
+      "diferencas_after_menos_before": [
+        -1814.5,
+        -1308.0,
+        -1274.0
+      ],
+      "postos_absolutos": [
+        3.0,
+        2.0,
+        1.0
+      ],
+      "W_positivo": 0,
+      "W_negativo": 6.0,
+      "W_minimo": 0,
+      "p_exato": 0.125,
+      "p_bilateral": 0.25,
+      "rank_biserial_after_menos_before": -1.0,
+      "alpha": 0.05,
+      "rejeita_H0": false,
+      "hipotese": "H1: tempo(COM_IA) < tempo(SEM_IA)",
+      "sem_ia_segundos": {
+        "n": 3,
+        "mediana": 1366.0,
+        "q1": 1349.25,
+        "q3": 1609.5,
+        "iqr": 260.25,
+        "minimo": 1332.5,
+        "maximo": 1853.0
+      },
+      "com_ia_segundos": {
+        "n": 3,
+        "mediana": 58.0,
+        "q1": 48.25,
+        "q3": 58.25,
+        "iqr": 10.0,
+        "minimo": 38.5,
+        "maximo": 58.5
+      },
+      "reducao_entre_medianas_segundos": 1308.0,
+      "reducao_entre_medianas_percentual": 95.75402635431918,
+      "mediana_diferencas_pareadas_segundos": -1308.0
+    },
+    "rq2_corretude": {
+      "aplicavel": false,
+      "motivo": "Todas as diferenças pareadas são zero; não há postos não nulos para o teste de Wilcoxon.",
+      "n_pares": 3,
+      "n_nao_nulos": 0,
+      "zeros_descartados": 3,
+      "hipotese": "H1: taxa(COM_IA) != taxa(SEM_IA)",
+      "sem_ia": {
+        "n": 3,
+        "mediana": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "iqr": 0.0,
+        "minimo": 1.0,
+        "maximo": 1.0
+      },
+      "com_ia": {
+        "n": 3,
+        "mediana": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "iqr": 0.0,
+        "minimo": 1.0,
+        "maximo": 1.0
+      }
+    }
+  },
+  "dados_pareados": [
+    {
+      "participante": "Isabella Luiza Dias dos Santos",
+      "tempo_sem_ia_mediana_s": "1853",
+      "tempo_com_ia_mediana_s": "38.5",
+      "testes_sem_ia_aprovados": "16",
+      "testes_sem_ia_total": "16",
+      "testes_com_ia_aprovados": "16",
+      "testes_com_ia_total": "16"
+    },
+    {
+      "participante": "Leandro Alencar Pereira Clemente",
+      "tempo_sem_ia_mediana_s": "1366",
+      "tempo_com_ia_mediana_s": "58",
+      "testes_sem_ia_aprovados": "8",
+      "testes_sem_ia_total": "8",
+      "testes_com_ia_aprovados": "24",
+      "testes_com_ia_total": "24"
+    },
+    {
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "tempo_sem_ia_mediana_s": "1332.5",
+      "tempo_com_ia_mediana_s": "58.5",
+      "testes_sem_ia_aprovados": "32",
+      "testes_sem_ia_total": "32",
+      "testes_com_ia_aprovados": "32",
+      "testes_com_ia_total": "32"
+    }
+  ],
+  "trials": [
+    {
+      "id": "a755f5e2-0d34-41c4-8b78-3e012a07fe3c",
+      "pdf_filename": "Kata 1 - IA - Leandro.pdf",
+      "participante": "Leandro Alencar Pereira Clemente",
+      "participante_curto": "Leandro",
+      "kata_id": "kata01",
+      "kata_nome": "SmartPark · Tarifador de Estacionamento",
+      "classe": "TarifadorEstacionamento",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 63,
+      "tempo_formatado": "01:03",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 14:00:00",
+      "fim": "16/09/2026, 14:01:03",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 47,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.213,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "TarifadorEstacionamento.java",
+          "content": "package br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.Duration;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(LocalDateTime entrada, LocalDateTime saida,\nTipoVeiculo tipo, boolean possuiConvenio) {\nif (entrada == null || saida == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n}\nif (tipo == null) {\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n}\nlong minutosTotais = Duration.between(entrada, saida).toMinutes();\n// 1. Franquia de 15 minutos\nif (minutosTotais <= 15) {\nreturn BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);\n}\n// 2. Cálculo do total de dias completos e minutos restantes\nlong diasCompletos = minutosTotais / (24 * 60);\nlong minutosRestantes = minutosTotais % (24 * 60);\nBigDecimal valorBase = TETO_DIARIA.multiply(BigDecimal.valueOf(diasCompletos));\nif (minutosRestantes > 0) {\nBigDecimal valorPeriodoRestante;\nif (minutosRestantes <= 60) {\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA;\n} else {\nlong minutosAposPrimeiraHora = minutosRestantes - 60;\nlong horasAdicionais = (minutosAposPrimeiraHora + 59) / 60;\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA.add(\nTARIFA_HORA_ADICIONAL.multiply(BigDecimal.valueOf(horasAdicionais))\n);\n}\n// Aplica teto da diária sobre o período restante\nif (valorPeriodoRestante.compareTo(TETO_DIARIA) > 0) {\nvalorPeriodoRestante = TETO_DIARIA;\n}\nvalorBase = valorBase.add(valorPeriodoRestante);\n}\n\nPagina 2 de 4\nRegistro a755f5e2-0d34-41c4-8b78-3e012a07fe3c\n// 3. Multiplicador pelo tipo de veículo\nBigDecimal valorComVeiculo =\nvalorBase.multiply(BigDecimal.valueOf(tipo.getFatorMultiplicador()));\n// 4. Desconto de convênio\nBigDecimal valorFinal = possuiConvenio\n? valorComVeiculo.multiply(FATOR_DESCONTO_CONVENIO)\n: valorComVeiculo;\nreturn valorFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 4\nRegistro a755f5e2-0d34-41c4-8b78-3e012a07fe3c"
+        },
+        {
+          "name": "TipoVeiculo.java",
+          "content": "package br.ufc.lab02.estacionamento;\npublic enum TipoVeiculo {\nMOTO(0.50),\nCARRO_PASSEIO(1.00),\nCAMINHONETE(1.25);\nprivate final double fatorMultiplicador;\nTipoVeiculo(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 4 de 4\nRegistro a755f5e2-0d34-41c4-8b78-3e012a07fe3c"
+        }
+      ]
+    },
+    {
+      "id": "a4b87cb3-959d-4d82-9033-6bdfbc08dc8a",
+      "pdf_filename": "Kata 1 - IA - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata01",
+      "kata_nome": "SmartPark · Tarifador de Estacionamento",
+      "classe": "TarifadorEstacionamento",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 74,
+      "tempo_formatado": "01:14",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:00:00",
+      "fim": "16/09/2026, 13:01:14",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%).",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 47,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.213,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "TarifadorEstacionamento.java",
+          "content": "package br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.Duration;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(LocalDateTime entrada, LocalDateTime saida,\nTipoVeiculo tipo, boolean possuiConvenio) {\nif (entrada == null || saida == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n}\nif (tipo == null) {\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n}\nlong minutosTotais = Duration.between(entrada, saida).toMinutes();\n// 1. Franquia de 15 minutos\nif (minutosTotais <= 15) {\nreturn BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);\n}\n// 2. Cálculo do total de dias completos e minutos restantes\nlong diasCompletos = minutosTotais / (24 * 60);\nlong minutosRestantes = minutosTotais % (24 * 60);\nBigDecimal valorBase = TETO_DIARIA.multiply(BigDecimal.valueOf(diasCompletos));\nif (minutosRestantes > 0) {\nBigDecimal valorPeriodoRestante;\nif (minutosRestantes <= 60) {\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA;\n} else {\nlong minutosAposPrimeiraHora = minutosRestantes - 60;\nlong horasAdicionais = (minutosAposPrimeiraHora + 59) / 60;\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA.add(\nTARIFA_HORA_ADICIONAL.multiply(BigDecimal.valueOf(horasAdicionais))\n);\n}\n// Aplica teto da diária sobre o período restante\nif (valorPeriodoRestante.compareTo(TETO_DIARIA) > 0) {\nvalorPeriodoRestante = TETO_DIARIA;\n}\nvalorBase = valorBase.add(valorPeriodoRestante);\n}\n\nPagina 2 de 6\nRegistro a4b87cb3-959d-4d82-9033-6bdfbc08dc8a\n// 3. Multiplicador pelo tipo de veículo\nBigDecimal valorComVeiculo =\nvalorBase.multiply(BigDecimal.valueOf(tipo.getFatorMultiplicador()));\n// 4. Desconto de convênio\nBigDecimal valorFinal = possuiConvenio\n? valorComVeiculo.multiply(FATOR_DESCONTO_CONVENIO)\n: valorComVeiculo;\nreturn valorFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 6\nRegistro a4b87cb3-959d-4d82-9033-6bdfbc08dc8a"
+        },
+        {
+          "name": "TipoVeiculo.java",
+          "content": "package br.ufc.lab02.estacionamento;\npublic enum TipoVeiculo {\nMOTO(0.50),\nCARRO_PASSEIO(1.00),\nCAMINHONETE(1.25);\nprivate final double fatorMultiplicador;\nTipoVeiculo(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 4 de 6\nRegistro a4b87cb3-959d-4d82-9033-6bdfbc08dc8a"
+        },
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.Duration;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(LocalDateTime entrada, LocalDateTime saida,\nTipoVeiculo tipo, boolean possuiConvenio) {\nif (entrada == null || saida == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n}\nif (tipo == null) {\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n}\nlong minutosTotais = Duration.between(entrada, saida).toMinutes();\n// 1. Franquia de 15 minutos\nif (minutosTotais <= 15) {\nreturn BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN);\n}\n// 2. Cálculo do total de dias completos e minutos restantes\nlong diasCompletos = minutosTotais / (24 * 60);\nlong minutosRestantes = minutosTotais % (24 * 60);\nBigDecimal valorBase = TETO_DIARIA.multiply(BigDecimal.valueOf(diasCompletos));\nif (minutosRestantes > 0) {\nBigDecimal valorPeriodoRestante;\nif (minutosRestantes <= 60) {\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA;\n} else {\nlong minutosAposPrimeiraHora = minutosRestantes - 60;\nlong horasAdicionais = (minutosAposPrimeiraHora + 59) / 60;\nvalorPeriodoRestante = TARIFA_PRIMEIRA_HORA.add(\nTARIFA_HORA_ADICIONAL.multiply(BigDecimal.valueOf(horasAdicionais))\n);\n}\n// Aplica teto da diária sobre o período restante\nif (valorPeriodoRestante.compareTo(TETO_DIARIA) > 0) {\nvalorPeriodoRestante = TETO_DIARIA;\n}\nvalorBase = valorBase.add(valorPeriodoRestante);\n}\n\nPagina 5 de 6\nRegistro a4b87cb3-959d-4d82-9033-6bdfbc08dc8a\n// 3. Multiplicador pelo tipo de veículo\nBigDecimal valorComVeiculo =\nvalorBase.multiply(BigDecimal.valueOf(tipo.getFatorMultiplicador()));\n// 4. Desconto de convênio\nBigDecimal valorFinal = possuiConvenio\n? valorComVeiculo.multiply(FATOR_DESCONTO_CONVENIO)\n: valorComVeiculo;\nreturn valorFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 6 de 6\nRegistro a4b87cb3-959d-4d82-9033-6bdfbc08dc8a"
+        }
+      ]
+    },
+    {
+      "id": "10cfe2d0-1043-4fec-afa6-8c14840496c0",
+      "pdf_filename": "Kata 1 - Manual - Isabella.pdf",
+      "participante": "Isabella Luiza Dias dos Santos",
+      "participante_curto": "Isabella",
+      "kata_id": "kata01",
+      "kata_nome": "SmartPark · Tarifador de Estacionamento",
+      "classe": "TarifadorEstacionamento",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1974,
+      "tempo_formatado": "32:54",
+      "tempo_esgotado": false,
+      "inicio": "13/09/2026, 21:14:54",
+      "fim": "13/09/2026, 21:47:48",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 67,
+      "wmc": 11,
+      "densidade_wmc_loc": 0.164,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(LocalDateTime entrada, LocalDateTime saida,\nTipoVeiculo tipo, boolean possuiConvenio) {\nBigDecimal resultadoFinal = null;\nif (entrada == null || saida == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n} else if (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n} else if (tipo == null) {\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n} else {\nlong diferencaEmMinutos = 0;\nlong diasEstacionados = 0;\nlong minutosRestantes = 0;\nlong horasAdicionais = 0;\nlong minutosPassouDaPrimeira = 0;\nlong restoDosMinutos = 0;\nBigDecimal valorBase = new BigDecimal(\"0.00\");\nBigDecimal valorDaFracao = new BigDecimal(\"0.00\");\nBigDecimal valorParcial = new BigDecimal(\"0.00\");\n\ndiferencaEmMinutos = java.time.temporal.ChronoUnit.MINUTES.between(entrada,\nsaida);\nif (diferencaEmMinutos <= 15) {\nresultadoFinal = new BigDecimal(\"0.00\").setScale(2,\nRoundingMode.HALF_EVEN);\n} else {\ndiasEstacionados = diferencaEmMinutos / 1440;\nminutosRestantes = diferencaEmMinutos - (diasEstacionados * 1440);\nvalorBase = TETO_DIARIA.multiply(new\nBigDecimal(String.valueOf(diasEstacionados)));\nif (minutosRestantes > 0) {\nif (minutosRestantes <= 60) {\nvalorDaFracao = TARIFA_PRIMEIRA_HORA;\n} else {\nminutosPassouDaPrimeira = minutosRestantes - 60;\nhorasAdicionais = minutosPassouDaPrimeira / 60;\nrestoDosMinutos = minutosPassouDaPrimeira % 60;\n\nPagina 2 de 3\nRegistro 10cfe2d0-1043-4fec-afa6-8c14840496c0\nif (restoDosMinutos > 0) {\nhorasAdicionais = horasAdicionais + 1;\n}\nBigDecimal valorDasHorasExtras = TARIFA_HORA_ADICIONAL.multiply(\nnew BigDecimal(String.valueOf(horasAdicionais))\n);\nvalorDaFracao = TARIFA_PRIMEIRA_HORA.add(valorDasHorasExtras);\n}\nif (valorDaFracao.compareTo(TETO_DIARIA) > 0) {\nvalorDaFracao = TETO_DIARIA;\n}\nvalorBase = valorBase.add(valorDaFracao);\n}\nString fatorString = String.valueOf(tipo.getFatorMultiplicador());\nvalorParcial = valorBase.multiply(new BigDecimal(fatorString));\nif (possuiConvenio == true) {\nresultadoFinal = valorParcial.multiply(FATOR_DESCONTO_CONVENIO);\n} else {\nresultadoFinal = valorParcial;\n}\nresultadoFinal = resultadoFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\nreturn resultadoFinal;\n}\n}\n\nPagina 3 de 3\nRegistro 10cfe2d0-1043-4fec-afa6-8c14840496c0"
+        }
+      ]
+    },
+    {
+      "id": "719d1caf-6de8-4533-bc0e-c27455671751",
+      "pdf_filename": "Kata 1 - Manual - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata01",
+      "kata_nome": "SmartPark · Tarifador de Estacionamento",
+      "classe": "TarifadorEstacionamento",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1425,
+      "tempo_formatado": "23:45",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:11:59",
+      "fim": "16/09/2026, 13:35:44",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%). Codificação manual.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 101,
+      "wmc": 21,
+      "densidade_wmc_loc": 0.208,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "Participante: Luis Henrique Gonçalves Barbosa\nKata: Tarifador de Estacionamento Rotativo\nTratamento: SEM_IA\nTempo: 23:45\nCódigo implementado:\n// === TarifadorEstacionamento.java ===\npackage br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.Duration;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final long MINUTOS_FRANQUIA = 15;\nprivate static final long MINUTOS_PRIMEIRA_HORA = 60;\nprivate static final long MINUTOS_POR_HORA = 60;\nprivate static final long MINUTOS_POR_DIA = 24 * MINUTOS_POR_HORA;\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(\nLocalDateTime entrada,\nLocalDateTime saida,\nTipoVeiculo tipo,\nboolean possuiConvenio) {\nvalidarDadosDaPermanencia(entrada, saida, tipo);\nlong minutosTotais = calcularMinutosTotais(entrada, saida);\nif (estaDentroDaFranquia(minutosTotais)) {\nreturn formatarValor(BigDecimal.ZERO);\n}\nBigDecimal valorDaPermanencia = calcularValorDaPermanencia(minutosTotais);\nBigDecimal valorComTipoDeVeiculo = aplicarFatorDoVeiculo(valorDaPermanencia,\ntipo);\nBigDecimal valorComConvenio = aplicarConvenio(valorComTipoDeVeiculo,\npossuiConvenio);\nreturn formatarValor(valorComConvenio);\n}\nprivate void validarDadosDaPermanencia(\nLocalDateTime entrada,\nLocalDateTime saida,\nTipoVeiculo tipo) {\nif (entrada == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida == null) {\nPagina 2 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n}\nif (tipo == null) {\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n}\n}\nprivate long calcularMinutosTotais(LocalDateTime entrada, LocalDateTime saida) {\nDuration tempoDePermanencia = Duration.between(entrada, saida);\nreturn tempoDePermanencia.toMinutes();\n}\nprivate boolean estaDentroDaFranquia(long minutosTotais) {\nreturn minutosTotais <= MINUTOS_FRANQUIA;\n}\nprivate BigDecimal calcularValorDaPermanencia(long minutosTotais) {\nlong diasCompletos = minutosTotais / MINUTOS_POR_DIA;\nlong minutosRestantes = minutosTotais % MINUTOS_POR_DIA;\nBigDecimal valorDosDiasCompletos = calcularValorDosDiasCompletos(diasCompletos);\nBigDecimal valorDoPeriodoRestante =\ncalcularValorDoPeriodoRestante(minutosRestantes);\nreturn valorDosDiasCompletos.add(valorDoPeriodoRestante);\n}\nprivate BigDecimal calcularValorDosDiasCompletos(long diasCompletos) {\nBigDecimal quantidadeDeDias = BigDecimal.valueOf(diasCompletos);\nreturn TETO_DIARIA.multiply(quantidadeDeDias);\n}\nprivate BigDecimal calcularValorDoPeriodoRestante(long minutosRestantes) {\nif (minutosRestantes == 0) {\nreturn BigDecimal.ZERO;\n}\nif (minutosRestantes <= MINUTOS_PRIMEIRA_HORA) {\nreturn TARIFA_PRIMEIRA_HORA;\n}\nlong minutosAdicionais = minutosRestantes - MINUTOS_PRIMEIRA_HORA;\nlong horasAdicionais = arredondarHorasParaCima(minutosAdicionais);\nBigDecimal quantidadeDeHoras = BigDecimal.valueOf(horasAdicionais);\nBigDecimal custoAdicional = TARIFA_HORA_ADICIONAL.multiply(quantidadeDeHoras);\nBigDecimal valorCalculado = TARIFA_PRIMEIRA_HORA.add(custoAdicional);\nif (valorCalculado.compareTo(TETO_DIARIA) > 0) {\nreturn TETO_DIARIA;\n}\nreturn valorCalculado;\n}\nprivate long arredondarHorasParaCima(long minutos) {\nlong horasCompletas = minutos / MINUTOS_POR_HORA;\nPagina 3 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751\nlong minutosDaFracao = minutos % MINUTOS_POR_HORA;\nif (minutosDaFracao > 0) {\nreturn horasCompletas + 1;\n}\nreturn horasCompletas;\n}\nprivate BigDecimal aplicarFatorDoVeiculo(BigDecimal valor, TipoVeiculo tipo) {\nBigDecimal fatorDoVeiculo = BigDecimal.valueOf(tipo.getFatorMultiplicador());\nreturn valor.multiply(fatorDoVeiculo);\n}\nprivate BigDecimal aplicarConvenio(BigDecimal valor, boolean possuiConvenio) {\nif (possuiConvenio) {\nreturn valor.multiply(FATOR_DESCONTO_CONVENIO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\n// === TipoVeiculo.java ===\npackage br.ufc.lab02.estacionamento;\npublic enum TipoVeiculo {\nMOTO(0.50),\nCARRO_PASSEIO(1.00),\nCAMINHONETE(1.25);\nprivate final double fatorMultiplicador;\nTipoVeiculo(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 4 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751"
+        },
+        {
+          "name": "TarifadorEstacionamento.java",
+          "content": "package br.ufc.lab02.estacionamento;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.Duration;\nimport java.time.LocalDateTime;\npublic class TarifadorEstacionamento {\nprivate static final long MINUTOS_FRANQUIA = 15;\nprivate static final long MINUTOS_PRIMEIRA_HORA = 60;\nprivate static final long MINUTOS_POR_HORA = 60;\nprivate static final long MINUTOS_POR_DIA = 24 * MINUTOS_POR_HORA;\nprivate static final BigDecimal TARIFA_PRIMEIRA_HORA = BigDecimal.valueOf(12.00);\nprivate static final BigDecimal TARIFA_HORA_ADICIONAL = BigDecimal.valueOf(6.00);\nprivate static final BigDecimal TETO_DIARIA = BigDecimal.valueOf(60.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.85);\npublic BigDecimal calcularTarifa(\nLocalDateTime entrada,\nLocalDateTime saida,\nTipoVeiculo tipo,\nboolean possuiConvenio) {\nvalidarDadosDaPermanencia(entrada, saida, tipo);\nlong minutosTotais = calcularMinutosTotais(entrada, saida);\nif (estaDentroDaFranquia(minutosTotais)) {\nreturn formatarValor(BigDecimal.ZERO);\n}\nBigDecimal valorDaPermanencia = calcularValorDaPermanencia(minutosTotais);\nBigDecimal valorComTipoDeVeiculo = aplicarFatorDoVeiculo(valorDaPermanencia,\ntipo);\nBigDecimal valorComConvenio = aplicarConvenio(valorComTipoDeVeiculo,\npossuiConvenio);\nreturn formatarValor(valorComConvenio);\n}\nprivate void validarDadosDaPermanencia(\nLocalDateTime entrada,\nLocalDateTime saida,\nTipoVeiculo tipo) {\nif (entrada == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida == null) {\nthrow new IllegalArgumentException(\"Entrada e saida nao podem ser nulas.\");\n}\nif (saida.isBefore(entrada)) {\nthrow new IllegalArgumentException(\"Saida nao pode ser anterior a entrada.\");\n}\nif (tipo == null) {\nPagina 5 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751\nthrow new IllegalArgumentException(\"Tipo de veiculo obrigatorio.\");\n}\n}\nprivate long calcularMinutosTotais(LocalDateTime entrada, LocalDateTime saida) {\nDuration tempoDePermanencia = Duration.between(entrada, saida);\nreturn tempoDePermanencia.toMinutes();\n}\nprivate boolean estaDentroDaFranquia(long minutosTotais) {\nreturn minutosTotais <= MINUTOS_FRANQUIA;\n}\nprivate BigDecimal calcularValorDaPermanencia(long minutosTotais) {\nlong diasCompletos = minutosTotais / MINUTOS_POR_DIA;\nlong minutosRestantes = minutosTotais % MINUTOS_POR_DIA;\nBigDecimal valorDosDiasCompletos = calcularValorDosDiasCompletos(diasCompletos);\nBigDecimal valorDoPeriodoRestante =\ncalcularValorDoPeriodoRestante(minutosRestantes);\nreturn valorDosDiasCompletos.add(valorDoPeriodoRestante);\n}\nprivate BigDecimal calcularValorDosDiasCompletos(long diasCompletos) {\nBigDecimal quantidadeDeDias = BigDecimal.valueOf(diasCompletos);\nreturn TETO_DIARIA.multiply(quantidadeDeDias);\n}\nprivate BigDecimal calcularValorDoPeriodoRestante(long minutosRestantes) {\nif (minutosRestantes == 0) {\nreturn BigDecimal.ZERO;\n}\nif (minutosRestantes <= MINUTOS_PRIMEIRA_HORA) {\nreturn TARIFA_PRIMEIRA_HORA;\n}\nlong minutosAdicionais = minutosRestantes - MINUTOS_PRIMEIRA_HORA;\nlong horasAdicionais = arredondarHorasParaCima(minutosAdicionais);\nBigDecimal quantidadeDeHoras = BigDecimal.valueOf(horasAdicionais);\nBigDecimal custoAdicional = TARIFA_HORA_ADICIONAL.multiply(quantidadeDeHoras);\nBigDecimal valorCalculado = TARIFA_PRIMEIRA_HORA.add(custoAdicional);\nif (valorCalculado.compareTo(TETO_DIARIA) > 0) {\nreturn TETO_DIARIA;\n}\nreturn valorCalculado;\n}\nprivate long arredondarHorasParaCima(long minutos) {\nlong horasCompletas = minutos / MINUTOS_POR_HORA;\nlong minutosDaFracao = minutos % MINUTOS_POR_HORA;\nif (minutosDaFracao > 0) {\nreturn horasCompletas + 1;\n}\nreturn horasCompletas;\n}\nPagina 6 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751\nprivate BigDecimal aplicarFatorDoVeiculo(BigDecimal valor, TipoVeiculo tipo) {\nBigDecimal fatorDoVeiculo = BigDecimal.valueOf(tipo.getFatorMultiplicador());\nreturn valor.multiply(fatorDoVeiculo);\n}\nprivate BigDecimal aplicarConvenio(BigDecimal valor, boolean possuiConvenio) {\nif (possuiConvenio) {\nreturn valor.multiply(FATOR_DESCONTO_CONVENIO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 7 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751"
+        },
+        {
+          "name": "TipoVeiculo.java",
+          "content": "package br.ufc.lab02.estacionamento;\npublic enum TipoVeiculo {\nMOTO(0.50),\nCARRO_PASSEIO(1.00),\nCAMINHONETE(1.25);\nprivate final double fatorMultiplicador;\nTipoVeiculo(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 8 de 8\nRegistro 719d1caf-6de8-4533-bc0e-c27455671751"
+        }
+      ]
+    },
+    {
+      "id": "0dd35fea-2348-4d06-84cb-74652c00a742",
+      "pdf_filename": "Kata 2 - IA - Isabella.pdf",
+      "participante": "Isabella Luiza Dias dos Santos",
+      "participante_curto": "Isabella",
+      "kata_id": "kata02",
+      "kata_nome": "EcoFrete · Tarifador de Logística",
+      "classe": "TarifadorLogistica",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 58,
+      "tempo_formatado": "00:58",
+      "tempo_esgotado": false,
+      "inicio": "15/09/2026, 17:03:26",
+      "fim": "15/09/2026, 17:04:24",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 50,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.2,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "import java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\nprivate static final BigDecimal TARIFA_BASE_CURTA = BigDecimal.valueOf(10.00); // Até\n15km\nprivate static final BigDecimal TARIFA_BASE_MEDIA = BigDecimal.valueOf(25.00); // De\n15.01km a 50km\nprivate static final BigDecimal VALOR_KM_EXCEDENTE = BigDecimal.valueOf(1.50); //\nAcima de 50km\nprivate static final BigDecimal VALOR_KG_EXCEDENTE = BigDecimal.valueOf(3.00); //\nAcima de 5kg\nprivate static final BigDecimal FATOR_DESCONTO_FIDELIDADE =\nBigDecimal.valueOf(0.90); // 10% off\npublic BigDecimal calcularFrete(double distanciaKm, double pesoKg, ModalidadeEntrega\nmodalidade, TipoCarga tipoCarga, boolean clienteFidelidade) {\n// 1. Validações iniciais\nif (distanciaKm <= 0) {\nthrow new IllegalArgumentException(\"Distancia deve ser maior que zero.\");\n}\nif (pesoKg <= 0 || pesoKg > 50.0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (modalidade == null || tipoCarga == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\n// 2. Tarifa base por distância\nBigDecimal custoDistancia;\nif (distanciaKm <= 15.0) {\ncustoDistancia = TARIFA_BASE_CURTA;\n} else if (distanciaKm <= 50.0) {\ncustoDistancia = TARIFA_BASE_MEDIA;\n} else {\n// Paga 25.00 + 1.50 por cada km que exceder os 50 km originais\ndouble kmExcedente = distanciaKm - 50.0;\ncustoDistancia = TARIFA_BASE_MEDIA.add(\nVALOR_KM_EXCEDENTE.multiply(BigDecimal.valueOf(kmExcedente))\n);\n}\n// 3. Adicional por peso (acima de 5 kg)\nBigDecimal custoPeso = BigDecimal.ZERO;\nif (pesoKg > 5.0) {\n// \"ou fração\" -> Math.ceil arredonda o excesso para o próximo inteiro\ndouble kgExcedente = Math.ceil(pesoKg - 5.0);\ncustoPeso = VALOR_KG_EXCEDENTE.multiply(BigDecimal.valueOf(kgExcedente));\n}\n// 4. Subtotal e multiplicador da Modalidade de Entrega\nBigDecimal subtotalTransporte = custoDistancia.add(custoPeso);\nBigDecimal transporteComModalidade = subtotalTransporte.multiply(\nBigDecimal.valueOf(modalidade.getFatorMultiplicador())\nPagina 2 de 3\nRegistro 0dd35fea-2348-4d06-84cb-74652c00a742\n);\n// 5. Taxa Fixa de Manuseio Especial (Normal, Frágil, Perecível)\nBigDecimal totalComManuseio =\ntransporteComModalidade.add(tipoCarga.getTaxaManuseio());\n// 6. Desconto do Programa de Fidelidade (10%)\nBigDecimal totalFinal = clienteFidelidade\n? totalComManuseio.multiply(FATOR_DESCONTO_FIDELIDADE)\n: totalComManuseio;\n// 7. Retorno com arredondamento\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 3\nRegistro 0dd35fea-2348-4d06-84cb-74652c00a742"
+        }
+      ]
+    },
+    {
+      "id": "24af224a-8e77-430e-b1de-e81536da4421",
+      "pdf_filename": "Kata 2 - IA - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata02",
+      "kata_nome": "EcoFrete · Tarifador de Logística",
+      "classe": "TarifadorLogistica",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 52,
+      "tempo_formatado": "00:52",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:06:19",
+      "fim": "16/09/2026, 13:07:11",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%).",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 43,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.233,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "TarifadorLogistica.java",
+          "content": "package br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\nprivate static final BigDecimal TARIFA_BASE_CURTA = BigDecimal.valueOf(10.00);\nprivate static final BigDecimal TARIFA_BASE_MEDIA = BigDecimal.valueOf(25.00);\nprivate static final BigDecimal VALOR_KM_EXCEDENTE = BigDecimal.valueOf(1.50);\nprivate static final BigDecimal VALOR_KG_EXCEDENTE = BigDecimal.valueOf(3.00);\nprivate static final BigDecimal FATOR_DESCONTO_FIDELIDADE = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularFrete(double distanciaKm, double pesoKg, ModalidadeEntrega\nmodalidade, TipoCarga tipoCarga, boolean clienteFidelidade) {\nif (distanciaKm <= 0) {\nthrow new IllegalArgumentException(\"Distancia deve ser maior que zero.\");\n}\nif (pesoKg <= 0 || pesoKg > 50.0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (modalidade == null || tipoCarga == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\n// 1. Tarifa base por distância\nBigDecimal custoDistancia;\nif (distanciaKm <= 15.0) {\ncustoDistancia = TARIFA_BASE_CURTA;\n} else if (distanciaKm <= 50.0) {\ncustoDistancia = TARIFA_BASE_MEDIA;\n} else {\ndouble kmExcedente = distanciaKm - 50.0;\ncustoDistancia =\nTARIFA_BASE_MEDIA.add(VALOR_KM_EXCEDENTE.multiply(BigDecimal.valueOf(kmExcedente)));\n}\n// 2. Adicional por peso (acima de 5 kg)\nBigDecimal custoPeso = BigDecimal.ZERO;\nif (pesoKg > 5.0) {\ndouble kgExcedente = pesoKg - 5.0;\ncustoPeso = VALOR_KG_EXCEDENTE.multiply(BigDecimal.valueOf(kgExcedente));\n}\n// 3. Subtotal e multiplicador de modalidade\nBigDecimal subtotalTransporte = custoDistancia.add(custoPeso);\nBigDecimal transporteComModalidade =\nsubtotalTransporte.multiply(BigDecimal.valueOf(modalidade.getFatorMultiplicador()));\n// 4. Taxa de manuseio especial\nBigDecimal totalComManuseio =\ntransporteComModalidade.add(tipoCarga.getTaxaManuseio());\n// 5. Desconto de fidelidade\nBigDecimal totalFinal = clienteFidelidade\n? totalComManuseio.multiply(FATOR_DESCONTO_FIDELIDADE)\nPagina 2 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421\n: totalComManuseio;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421"
+        },
+        {
+          "name": "ModalidadeEntrega.java",
+          "content": "package br.ufc.lab02.logistica;\npublic enum ModalidadeEntrega {\nPADRAO(1.00),\nEXPRESSA(1.40),\nMESMO_DIA(1.80);\nprivate final double fatorMultiplicador;\nModalidadeEntrega(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 4 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421"
+        },
+        {
+          "name": "TipoCarga.java",
+          "content": "package br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\npublic enum TipoCarga {\nNORMAL(BigDecimal.valueOf(0.00)),\nFRAGIL(BigDecimal.valueOf(15.00)),\nPERECIVEL(BigDecimal.valueOf(25.00));\nprivate final BigDecimal taxaManuseio;\nTipoCarga(BigDecimal taxaManuseio) {\nthis.taxaManuseio = taxaManuseio;\n}\npublic BigDecimal getTaxaManuseio() {\nreturn taxaManuseio;\n}\n}\n\nPagina 5 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421"
+        },
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\nprivate static final BigDecimal TARIFA_BASE_CURTA = BigDecimal.valueOf(10.00);\nprivate static final BigDecimal TARIFA_BASE_MEDIA = BigDecimal.valueOf(25.00);\nprivate static final BigDecimal VALOR_KM_EXCEDENTE = BigDecimal.valueOf(1.50);\nprivate static final BigDecimal VALOR_KG_EXCEDENTE = BigDecimal.valueOf(3.00);\nprivate static final BigDecimal FATOR_DESCONTO_FIDELIDADE = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularFrete(double distanciaKm, double pesoKg, ModalidadeEntrega\nmodalidade, TipoCarga tipoCarga, boolean clienteFidelidade) {\nif (distanciaKm <= 0) {\nthrow new IllegalArgumentException(\"Distancia deve ser maior que zero.\");\n}\nif (pesoKg <= 0 || pesoKg > 50.0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (modalidade == null || tipoCarga == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\n// 1. Tarifa base por distância\nBigDecimal custoDistancia;\nif (distanciaKm <= 15.0) {\ncustoDistancia = TARIFA_BASE_CURTA;\n} else if (distanciaKm <= 50.0) {\ncustoDistancia = TARIFA_BASE_MEDIA;\n} else {\ndouble kmExcedente = distanciaKm - 50.0;\ncustoDistancia =\nTARIFA_BASE_MEDIA.add(VALOR_KM_EXCEDENTE.multiply(BigDecimal.valueOf(kmExcedente)));\n}\n// 2. Adicional por peso (acima de 5 kg)\nBigDecimal custoPeso = BigDecimal.ZERO;\nif (pesoKg > 5.0) {\ndouble kgExcedente = pesoKg - 5.0;\ncustoPeso = VALOR_KG_EXCEDENTE.multiply(BigDecimal.valueOf(kgExcedente));\n}\n// 3. Subtotal e multiplicador de modalidade\nBigDecimal subtotalTransporte = custoDistancia.add(custoPeso);\nBigDecimal transporteComModalidade =\nsubtotalTransporte.multiply(BigDecimal.valueOf(modalidade.getFatorMultiplicador()));\n// 4. Taxa de manuseio especial\nBigDecimal totalComManuseio =\ntransporteComModalidade.add(tipoCarga.getTaxaManuseio());\n// 5. Desconto de fidelidade\nBigDecimal totalFinal = clienteFidelidade\n? totalComManuseio.multiply(FATOR_DESCONTO_FIDELIDADE)\nPagina 6 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421\n: totalComManuseio;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 7 de 7\nRegistro 24af224a-8e77-430e-b1de-e81536da4421"
+        }
+      ]
+    },
+    {
+      "id": "b90dbfc9-ea70-482d-98db-e84c74b38cd5",
+      "pdf_filename": "Kata 2 - Manual - Leandro.pdf",
+      "participante": "Leandro Alencar Pereira Clemente",
+      "participante_curto": "Leandro",
+      "kata_id": "kata02",
+      "kata_nome": "EcoFrete · Tarifador de Logística",
+      "classe": "TarifadorLogistica",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1366,
+      "tempo_formatado": "22:46",
+      "tempo_esgotado": false,
+      "inicio": "13/09/2026, 21:13:56",
+      "fim": "13/09/2026, 21:36:42",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 31,
+      "wmc": 15,
+      "densidade_wmc_loc": 0.484,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "import java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\npublic BigDecimal calcularFrete(double distanciaKm, double pesoKg, ModalidadeEntrega\nmodalidade,\nTipoCarga tipoCarga, boolean clienteFidelidade) {\nBigDecimal tarifa = BigDecimal.valueOf(0);\nif (distanciaKm <= 0 || pesoKg <= 0 || pesoKg > 50 || modalidade == null ||\ntipoCarga == null)\nthrow new IllegalArgumentException();\nif (distanciaKm <= 15){\ntarifa = tarifa.add(BigDecimal.valueOf(10));\n} else if (distanciaKm > 15 && distanciaKm <= 50){\ntarifa = tarifa.add(BigDecimal.valueOf(25));\n}else {\ntarifa =\ntarifa.add(BigDecimal.valueOf(25)).add(BigDecimal.valueOf((distanciaKm - 50) * 1.5));\n}\nif (pesoKg > 5)\ntarifa = tarifa.add(BigDecimal.valueOf((pesoKg - 5) * 3));\nswitch (modalidade) {\ncase EXPRESSA -> tarifa = tarifa.multiply(BigDecimal.valueOf(1.4));\ncase MESMO_DIA -> tarifa = tarifa.multiply(BigDecimal.valueOf(1.8));\n}\nswitch (tipoCarga) {\ncase FRAGIL -> tarifa = tarifa.add(BigDecimal.valueOf(15));\ncase PERECIVEL -> tarifa = tarifa.add(BigDecimal.valueOf(25));\n}\nif (clienteFidelidade)\ntarifa = tarifa.multiply(BigDecimal.valueOf(0.9));\nreturn tarifa.setScale(2, RoundingMode.HALF_UP);\n}\n}\n\nPagina 2 de 2\nRegistro b90dbfc9-ea70-482d-98db-e84c74b38cd5"
+        }
+      ]
+    },
+    {
+      "id": "cd8c80fd-a62b-403e-80d2-46cbf303fdd9",
+      "pdf_filename": "Kata 2 - Manual - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata02",
+      "kata_nome": "EcoFrete · Tarifador de Logística",
+      "classe": "TarifadorLogistica",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1130,
+      "tempo_formatado": "18:50",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 14:05:14",
+      "fim": "16/09/2026, 14:24:04",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%). Codificação manual.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 88,
+      "wmc": 17,
+      "densidade_wmc_loc": 0.193,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "Participante: Luis Henrique Gonçalves Barbosa\nKata: Tarifador de Logística Urbana\nTratamento: SEM_IA\nTempo: 18:50\nCódigo implementado:\n// === ModalidadeEntrega.java ===\npackage br.ufc.lab02.logistica;\npublic enum ModalidadeEntrega {\nPADRAO(1.00),\nEXPRESSA(1.40),\nMESMO_DIA(1.80);\nprivate final double fatorMultiplicador;\nModalidadeEntrega(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\n// === TarifadorLogistica.java ===\npackage br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\nprivate static final BigDecimal TARIFA_BASE_CURTA = BigDecimal.valueOf(10.00);\nprivate static final BigDecimal TARIFA_BASE_MEDIA = BigDecimal.valueOf(25.00);\nprivate static final BigDecimal VALOR_KM_EXCEDENTE = BigDecimal.valueOf(1.50);\nprivate static final BigDecimal VALOR_KG_EXCEDENTE = BigDecimal.valueOf(3.00);\nprivate static final BigDecimal FATOR_DESCONTO_FIDELIDADE = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularFrete(\ndouble distanciaKm,\ndouble pesoKg,\nModalidadeEntrega modalidade,\nTipoCarga tipoCarga,\nboolean clienteFidelidade) {\nvalidarDadosDaEntrega(distanciaKm, pesoKg, modalidade, tipoCarga);\nBigDecimal custoDaDistancia = calcularCustoDaDistancia(distanciaKm);\nBigDecimal custoDoPeso = calcularCustoDoPeso(pesoKg);\nBigDecimal subtotalDoTransporte = custoDaDistancia.add(custoDoPeso);\nBigDecimal totalComModalidade = aplicarModalidade(subtotalDoTransporte,\nmodalidade);\nBigDecimal totalComManuseio = adicionarTaxaDeManuseio(totalComModalidade,\ntipoCarga);\nBigDecimal totalComFidelidade = aplicarDescontoDeFidelidade(\nPagina 2 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9\ntotalComManuseio,\nclienteFidelidade\n);\nreturn formatarValor(totalComFidelidade);\n}\nprivate void validarDadosDaEntrega(\ndouble distanciaKm,\ndouble pesoKg,\nModalidadeEntrega modalidade,\nTipoCarga tipoCarga) {\nif (distanciaKm <= 0) {\nthrow new IllegalArgumentException(\"Distancia deve ser maior que zero.\");\n}\nif (pesoKg <= 0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (pesoKg > 50.0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (modalidade == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\nif (tipoCarga == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\n}\nprivate BigDecimal calcularCustoDaDistancia(double distanciaKm) {\nif (distanciaKm <= 15.0) {\nreturn TARIFA_BASE_CURTA;\n}\nif (distanciaKm <= 50.0) {\nreturn TARIFA_BASE_MEDIA;\n}\ndouble quilometrosExcedentes = distanciaKm - 50.0;\nBigDecimal quantidadeExcedente = BigDecimal.valueOf(quilometrosExcedentes);\nBigDecimal custoDoExcedente = VALOR_KM_EXCEDENTE.multiply(quantidadeExcedente);\nreturn TARIFA_BASE_MEDIA.add(custoDoExcedente);\n}\nprivate BigDecimal calcularCustoDoPeso(double pesoKg) {\nif (pesoKg <= 5.0) {\nreturn BigDecimal.ZERO;\n}\ndouble quilogramasExcedentes = pesoKg - 5.0;\nBigDecimal quantidadeExcedente = BigDecimal.valueOf(quilogramasExcedentes);\nPagina 3 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9\nreturn VALOR_KG_EXCEDENTE.multiply(quantidadeExcedente);\n}\nprivate BigDecimal aplicarModalidade(BigDecimal subtotal, ModalidadeEntrega\nmodalidade) {\nBigDecimal fatorDaModalidade =\nBigDecimal.valueOf(modalidade.getFatorMultiplicador());\nreturn subtotal.multiply(fatorDaModalidade);\n}\nprivate BigDecimal adicionarTaxaDeManuseio(BigDecimal subtotal, TipoCarga tipoCarga) {\nBigDecimal taxaDeManuseio = tipoCarga.getTaxaManuseio();\nreturn subtotal.add(taxaDeManuseio);\n}\nprivate BigDecimal aplicarDescontoDeFidelidade(BigDecimal valor, boolean\nclienteFidelidade) {\nif (clienteFidelidade) {\nreturn valor.multiply(FATOR_DESCONTO_FIDELIDADE);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\n// === TipoCarga.java ===\npackage br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\npublic enum TipoCarga {\nNORMAL(BigDecimal.valueOf(0.00)),\nFRAGIL(BigDecimal.valueOf(15.00)),\nPERECIVEL(BigDecimal.valueOf(25.00));\nprivate final BigDecimal taxaManuseio;\nTipoCarga(BigDecimal taxaManuseio) {\nthis.taxaManuseio = taxaManuseio;\n}\npublic BigDecimal getTaxaManuseio() {\nreturn taxaManuseio;\n}\n}\n\nPagina 4 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9"
+        },
+        {
+          "name": "TarifadorLogistica.java",
+          "content": "package br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorLogistica {\nprivate static final BigDecimal TARIFA_BASE_CURTA = BigDecimal.valueOf(10.00);\nprivate static final BigDecimal TARIFA_BASE_MEDIA = BigDecimal.valueOf(25.00);\nprivate static final BigDecimal VALOR_KM_EXCEDENTE = BigDecimal.valueOf(1.50);\nprivate static final BigDecimal VALOR_KG_EXCEDENTE = BigDecimal.valueOf(3.00);\nprivate static final BigDecimal FATOR_DESCONTO_FIDELIDADE = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularFrete(\ndouble distanciaKm,\ndouble pesoKg,\nModalidadeEntrega modalidade,\nTipoCarga tipoCarga,\nboolean clienteFidelidade) {\nvalidarDadosDaEntrega(distanciaKm, pesoKg, modalidade, tipoCarga);\nBigDecimal custoDaDistancia = calcularCustoDaDistancia(distanciaKm);\nBigDecimal custoDoPeso = calcularCustoDoPeso(pesoKg);\nBigDecimal subtotalDoTransporte = custoDaDistancia.add(custoDoPeso);\nBigDecimal totalComModalidade = aplicarModalidade(subtotalDoTransporte,\nmodalidade);\nBigDecimal totalComManuseio = adicionarTaxaDeManuseio(totalComModalidade,\ntipoCarga);\nBigDecimal totalComFidelidade = aplicarDescontoDeFidelidade(\ntotalComManuseio,\nclienteFidelidade\n);\nreturn formatarValor(totalComFidelidade);\n}\nprivate void validarDadosDaEntrega(\ndouble distanciaKm,\ndouble pesoKg,\nModalidadeEntrega modalidade,\nTipoCarga tipoCarga) {\nif (distanciaKm <= 0) {\nthrow new IllegalArgumentException(\"Distancia deve ser maior que zero.\");\n}\nif (pesoKg <= 0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (pesoKg > 50.0) {\nthrow new IllegalArgumentException(\"Peso deve ser maior que zero e de no\nmaximo 50 kg.\");\n}\nif (modalidade == null) {\nPagina 5 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\nif (tipoCarga == null) {\nthrow new IllegalArgumentException(\"Modalidade e tipo de carga sao\nobrigatorios.\");\n}\n}\nprivate BigDecimal calcularCustoDaDistancia(double distanciaKm) {\nif (distanciaKm <= 15.0) {\nreturn TARIFA_BASE_CURTA;\n}\nif (distanciaKm <= 50.0) {\nreturn TARIFA_BASE_MEDIA;\n}\ndouble quilometrosExcedentes = distanciaKm - 50.0;\nBigDecimal quantidadeExcedente = BigDecimal.valueOf(quilometrosExcedentes);\nBigDecimal custoDoExcedente = VALOR_KM_EXCEDENTE.multiply(quantidadeExcedente);\nreturn TARIFA_BASE_MEDIA.add(custoDoExcedente);\n}\nprivate BigDecimal calcularCustoDoPeso(double pesoKg) {\nif (pesoKg <= 5.0) {\nreturn BigDecimal.ZERO;\n}\ndouble quilogramasExcedentes = pesoKg - 5.0;\nBigDecimal quantidadeExcedente = BigDecimal.valueOf(quilogramasExcedentes);\nreturn VALOR_KG_EXCEDENTE.multiply(quantidadeExcedente);\n}\nprivate BigDecimal aplicarModalidade(BigDecimal subtotal, ModalidadeEntrega\nmodalidade) {\nBigDecimal fatorDaModalidade =\nBigDecimal.valueOf(modalidade.getFatorMultiplicador());\nreturn subtotal.multiply(fatorDaModalidade);\n}\nprivate BigDecimal adicionarTaxaDeManuseio(BigDecimal subtotal, TipoCarga tipoCarga) {\nBigDecimal taxaDeManuseio = tipoCarga.getTaxaManuseio();\nreturn subtotal.add(taxaDeManuseio);\n}\nprivate BigDecimal aplicarDescontoDeFidelidade(BigDecimal valor, boolean\nclienteFidelidade) {\nif (clienteFidelidade) {\nreturn valor.multiply(FATOR_DESCONTO_FIDELIDADE);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\nPagina 6 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9\n}\n\nPagina 7 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9"
+        },
+        {
+          "name": "ModalidadeEntrega.java",
+          "content": "package br.ufc.lab02.logistica;\npublic enum ModalidadeEntrega {\nPADRAO(1.00),\nEXPRESSA(1.40),\nMESMO_DIA(1.80);\nprivate final double fatorMultiplicador;\nModalidadeEntrega(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 8 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9"
+        },
+        {
+          "name": "TipoCarga.java",
+          "content": "package br.ufc.lab02.logistica;\nimport java.math.BigDecimal;\npublic enum TipoCarga {\nNORMAL(BigDecimal.valueOf(0.00)),\nFRAGIL(BigDecimal.valueOf(15.00)),\nPERECIVEL(BigDecimal.valueOf(25.00));\nprivate final BigDecimal taxaManuseio;\nTipoCarga(BigDecimal taxaManuseio) {\nthis.taxaManuseio = taxaManuseio;\n}\npublic BigDecimal getTaxaManuseio() {\nreturn taxaManuseio;\n}\n}\n\nPagina 9 de 9\nRegistro cd8c80fd-a62b-403e-80d2-46cbf303fdd9"
+        }
+      ]
+    },
+    {
+      "id": "35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d",
+      "pdf_filename": "Kata 3 - IA - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata03",
+      "kata_nome": "BellaVista · Tarifador de Hospedagem",
+      "classe": "TarifadorHospedagem",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 65,
+      "tempo_formatado": "01:05",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:03:14",
+      "fim": "16/09/2026, 13:04:19",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%).",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 49,
+      "wmc": 11,
+      "densidade_wmc_loc": 0.224,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "TarifadorHospedagem.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\npublic class TarifadorHospedagem {\nprivate static final BigDecimal TARIFA_CURTA = BigDecimal.valueOf(160.00);\nprivate static final BigDecimal TARIFA_MEDIA = BigDecimal.valueOf(130.00);\nprivate static final BigDecimal TARIFA_LONGA = BigDecimal.valueOf(100.00);\nprivate static final BigDecimal VALOR_HOSPEDE_EXTRA = BigDecimal.valueOf(40.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularHospedagem(LocalDate checkIn, LocalDate checkOut, int\nnumeroHospedes, CategoriaQuarto categoria, boolean possuiConvenio) {\nif (checkIn == null || checkOut == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (!checkOut.isAfter(checkIn)) {\nthrow new IllegalArgumentException(\"A data de check-out deve ser posterior ao\ncheck-in.\");\n}\nif (numeroHospedes <= 0 || numeroHospedes > 5) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do quarto e obrigatoria.\");\n}\nlong totalDiarias = ChronoUnit.DAYS.between(checkIn, checkOut);\n// 1. Tarifa base escalonada por diária\nBigDecimal tarifaDiaria;\nif (totalDiarias <= 3) {\ntarifaDiaria = TARIFA_CURTA;\n} else if (totalDiarias <= 7) {\ntarifaDiaria = TARIFA_MEDIA;\n} else {\ntarifaDiaria = TARIFA_LONGA;\n}\nBigDecimal custoBaseDiarias =\ntarifaDiaria.multiply(BigDecimal.valueOf(totalDiarias));\n// 2. Adicional por hóspedes extras (acima de 2 hóspedes)\nBigDecimal custoHospedesExtras = BigDecimal.ZERO;\nif (numeroHospedes > 2) {\nint extras = numeroHospedes - 2;\ncustoHospedesExtras = VALOR_HOSPEDE_EXTRA\n.multiply(BigDecimal.valueOf(extras))\n.multiply(BigDecimal.valueOf(totalDiarias));\n}\n// 3. Subtotal das diárias com multiplicador de categoria\nBigDecimal subtotalDiarias = custoBaseDiarias.add(custoHospedesExtras);\nPagina 2 de 6\nRegistro 35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d\nBigDecimal subtotalComCategoria =\nsubtotalDiarias.multiply(BigDecimal.valueOf(categoria.getFatorMultiplicador()));\n// 4. Taxa fixa de higienização\nBigDecimal totalComHigienizacao =\nsubtotalComCategoria.add(categoria.getTaxaLimpeza());\n// 5. Desconto de convênio\nBigDecimal totalFinal = possuiConvenio\n? totalComHigienizacao.multiply(FATOR_DESCONTO_CONVENIO)\n: totalComHigienizacao;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 6\nRegistro 35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d"
+        },
+        {
+          "name": "CategoriaQuarto.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\npublic enum CategoriaQuarto {\nSTANDARD(1.00, BigDecimal.valueOf(50.00)),\nLUXO(1.30, BigDecimal.valueOf(80.00)),\nPRESIDENCIAL(1.70, BigDecimal.valueOf(120.00));\nprivate final double fatorMultiplicador;\nprivate final BigDecimal taxaLimpeza;\nCategoriaQuarto(double fatorMultiplicador, BigDecimal taxaLimpeza) {\nthis.fatorMultiplicador = fatorMultiplicador;\nthis.taxaLimpeza = taxaLimpeza;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\npublic BigDecimal getTaxaLimpeza() {\nreturn taxaLimpeza;\n}\n}\n\nPagina 4 de 6\nRegistro 35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d"
+        },
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\npublic class TarifadorHospedagem {\nprivate static final BigDecimal TARIFA_CURTA = BigDecimal.valueOf(160.00);\nprivate static final BigDecimal TARIFA_MEDIA = BigDecimal.valueOf(130.00);\nprivate static final BigDecimal TARIFA_LONGA = BigDecimal.valueOf(100.00);\nprivate static final BigDecimal VALOR_HOSPEDE_EXTRA = BigDecimal.valueOf(40.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularHospedagem(LocalDate checkIn, LocalDate checkOut, int\nnumeroHospedes, CategoriaQuarto categoria, boolean possuiConvenio) {\nif (checkIn == null || checkOut == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (!checkOut.isAfter(checkIn)) {\nthrow new IllegalArgumentException(\"A data de check-out deve ser posterior ao\ncheck-in.\");\n}\nif (numeroHospedes <= 0 || numeroHospedes > 5) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do quarto e obrigatoria.\");\n}\nlong totalDiarias = ChronoUnit.DAYS.between(checkIn, checkOut);\n// 1. Tarifa base escalonada por diária\nBigDecimal tarifaDiaria;\nif (totalDiarias <= 3) {\ntarifaDiaria = TARIFA_CURTA;\n} else if (totalDiarias <= 7) {\ntarifaDiaria = TARIFA_MEDIA;\n} else {\ntarifaDiaria = TARIFA_LONGA;\n}\nBigDecimal custoBaseDiarias =\ntarifaDiaria.multiply(BigDecimal.valueOf(totalDiarias));\n// 2. Adicional por hóspedes extras (acima de 2 hóspedes)\nBigDecimal custoHospedesExtras = BigDecimal.ZERO;\nif (numeroHospedes > 2) {\nint extras = numeroHospedes - 2;\ncustoHospedesExtras = VALOR_HOSPEDE_EXTRA\n.multiply(BigDecimal.valueOf(extras))\n.multiply(BigDecimal.valueOf(totalDiarias));\n}\n// 3. Subtotal das diárias com multiplicador de categoria\nBigDecimal subtotalDiarias = custoBaseDiarias.add(custoHospedesExtras);\nPagina 5 de 6\nRegistro 35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d\nBigDecimal subtotalComCategoria =\nsubtotalDiarias.multiply(BigDecimal.valueOf(categoria.getFatorMultiplicador()));\n// 4. Taxa fixa de higienização\nBigDecimal totalComHigienizacao =\nsubtotalComCategoria.add(categoria.getTaxaLimpeza());\n// 5. Desconto de convênio\nBigDecimal totalFinal = possuiConvenio\n? totalComHigienizacao.multiply(FATOR_DESCONTO_CONVENIO)\n: totalComHigienizacao;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 6 de 6\nRegistro 35aa7dc0-5bb2-4a7c-9b91-2fe0c7499f4d"
+        }
+      ]
+    },
+    {
+      "id": "07f9d65b-0f27-46ea-a03f-92435e4f194b",
+      "pdf_filename": "Kata 3 - IA- Leandro.pdf",
+      "participante": "Leandro Alencar Pereira Clemente",
+      "participante_curto": "Leandro",
+      "kata_id": "kata03",
+      "kata_nome": "BellaVista · Tarifador de Hospedagem",
+      "classe": "TarifadorHospedagem",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 47,
+      "tempo_formatado": "00:47",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:30:00",
+      "fim": "16/09/2026, 13:30:47",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 18,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.556,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "CategoriaQuarto.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\npublic enum CategoriaQuarto {\nSTANDARD(\"1.00\", \"50.00\"),\nLUXO(\"1.30\", \"80.00\"),\nPRESIDENCIAL(\"1.70\", \"120.00\");\nprivate final BigDecimal fator;\nprivate final BigDecimal taxaHigienizacao;\nCategoriaQuarto(String fator, String taxaHigienizacao) {\nthis.fator = new BigDecimal(fator);\nthis.taxaHigienizacao = new BigDecimal(taxaHigienizacao);\n}\npublic BigDecimal getFator() { return fator; }\npublic BigDecimal getTaxaHigienizacao() { return taxaHigienizacao; }\n}\n\nPagina 2 de 3\nRegistro 07f9d65b-0f27-46ea-a03f-92435e4f194b"
+        },
+        {
+          "name": "TarifadorHospedagem.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\npublic class TarifadorHospedagem {\npublic BigDecimal calcularHospedagem(LocalDate checkIn, LocalDate checkOut,\nint numeroHospedes, CategoriaQuarto categoria, boolean possuiConvenio) {\nif (checkIn == null || checkOut == null || !checkOut.isAfter(checkIn)\n|| numeroHospedes < 1 || numeroHospedes > 5 || categoria == null) {\nthrow new IllegalArgumentException(\"Dados da hospedagem invalidos.\");\n}\nlong diarias = ChronoUnit.DAYS.between(checkIn, checkOut);\nint tarifaDiaria = diarias <= 3 ? 160 : diarias <= 7 ? 130 : 100;\nint adicionalDiario = Math.max(0, numeroHospedes - 2) * 40;\nBigDecimal total = BigDecimal.valueOf(tarifaDiaria + adicionalDiario)\n.multiply(BigDecimal.valueOf(diarias))\n.multiply(categoria.getFator())\n.add(categoria.getTaxaHigienizacao());\nif (possuiConvenio) total = total.multiply(new BigDecimal(\"0.90\"));\nreturn total.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 3\nRegistro 07f9d65b-0f27-46ea-a03f-92435e4f194b"
+        }
+      ]
+    },
+    {
+      "id": "aab8d0da-3bc2-4296-a5a7-b0fd5d63beaa",
+      "pdf_filename": "Kata 3 - Manual - Isabella.pdf",
+      "participante": "Isabella Luiza Dias dos Santos",
+      "participante_curto": "Isabella",
+      "kata_id": "kata03",
+      "kata_nome": "BellaVista · Tarifador de Hospedagem",
+      "classe": "TarifadorHospedagem",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1732,
+      "tempo_formatado": "28:52",
+      "tempo_esgotado": false,
+      "inicio": "15/09/2026, 16:20:11",
+      "fim": "15/09/2026, 16:49:03",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 68,
+      "wmc": 17,
+      "densidade_wmc_loc": 0.25,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\npublic class TarifadorHospedagem {\npublic BigDecimal calcularHospedagem(LocalDate checkIn, LocalDate checkOut, int\nnumeroHospedes, CategoriaQuarto categoria, boolean possuiConvenio) {\nBigDecimal valorRetorno = null;\nif (checkIn == null) {\nthrow new IllegalArgumentException(\"Data de entrada nao pode ser nula\");\n} else if (checkOut == null) {\nthrow new IllegalArgumentException(\"Data de saida nao pode ser nula\");\n} else if (checkOut.isBefore(checkIn)) {\nthrow new IllegalArgumentException(\"Data de saida antes da entrada\");\n} else if (checkOut.isEqual(checkIn)) {\nthrow new IllegalArgumentException(\"Nao pode sair no mesmo dia\");\n} else if (numeroHospedes <= 0) {\nthrow new IllegalArgumentException(\"Tem que ter pelo menos 1 hospede\");\n} else if (numeroHospedes > 5) {\nthrow new IllegalArgumentException(\"Passou do limite de 5 hospedes\");\n} else if (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria nao informada\");\n} else {\nlong diasDeHospedagem = 0;\nBigDecimal valorDaDiaria = new BigDecimal(\"0.00\");\nint hospedesPassandoDoLimite = 0;\nBigDecimal valorHospedesExtras = new BigDecimal(\"0.00\");\nBigDecimal subtotalSemMultiplicador = new BigDecimal(\"0.00\");\nBigDecimal multiplicadorDoQuarto = new BigDecimal(\"0.00\");\nBigDecimal taxaDeLimpeza = new BigDecimal(\"0.00\");\nBigDecimal valorComQuarto = new BigDecimal(\"0.00\");\nBigDecimal valorFinalSemDesconto = new BigDecimal(\"0.00\");\ndiasDeHospedagem = java.time.temporal.ChronoUnit.DAYS.between(checkIn,\ncheckOut);\nif (diasDeHospedagem <= 3) {\nvalorDaDiaria = new BigDecimal(\"160.00\");\n} else if (diasDeHospedagem >= 4 && diasDeHospedagem <= 7) {\nvalorDaDiaria = new BigDecimal(\"130.00\");\n} else if (diasDeHospedagem >= 8) {\nvalorDaDiaria = new BigDecimal(\"100.00\");\n}\nif (numeroHospedes > 2) {\nhospedesPassandoDoLimite = numeroHospedes - 2;\ndouble matematicaDeHospede = hospedesPassandoDoLimite * 40.0 *\ndiasDeHospedagem;\nvalorHospedesExtras = new BigDecimal(String.valueOf(matematicaDeHospede));\n}\ndouble matematicaBase = diasDeHospedagem * valorDaDiaria.doubleValue();\nPagina 2 de 3\nRegistro aab8d0da-3bc2-4296-a5a7-b0fd5d63beaa\nsubtotalSemMultiplicador = new\nBigDecimal(String.valueOf(matematicaBase)).add(valorHospedesExtras);\nif (categoria.name().equals(\"STANDARD\")) {\nmultiplicadorDoQuarto = new BigDecimal(\"1.00\");\ntaxaDeLimpeza = new BigDecimal(\"50.00\");\n} else if (categoria.name().equals(\"LUXO\")) {\nmultiplicadorDoQuarto = new BigDecimal(\"1.30\");\ntaxaDeLimpeza = new BigDecimal(\"80.00\");\n} else if (categoria.name().equals(\"PRESIDENCIAL\")) {\nmultiplicadorDoQuarto = new BigDecimal(\"1.70\");\ntaxaDeLimpeza = new BigDecimal(\"120.00\");\n}\nvalorComQuarto = subtotalSemMultiplicador.multiply(multiplicadorDoQuarto);\nvalorFinalSemDesconto = valorComQuarto.add(taxaDeLimpeza);\nif (possuiConvenio == true) {\nvalorRetorno = valorFinalSemDesconto.multiply(new BigDecimal(\"0.90\"));\n} else {\nvalorRetorno = valorFinalSemDesconto;\n}\nvalorRetorno = valorRetorno.setScale(2, RoundingMode.HALF_EVEN);\n}\nreturn valorRetorno;\n}\n}\n\nPagina 3 de 3\nRegistro aab8d0da-3bc2-4296-a5a7-b0fd5d63beaa"
+        }
+      ]
+    },
+    {
+      "id": "d6521d18-c063-4e49-9113-5c14fd931e6d",
+      "pdf_filename": "Kata 3 - Manual - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata03",
+      "kata_nome": "BellaVista · Tarifador de Hospedagem",
+      "classe": "TarifadorHospedagem",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1530,
+      "tempo_formatado": "25:30",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:37:44",
+      "fim": "16/09/2026, 14:03:14",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%). Codificação manual.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 99,
+      "wmc": 20,
+      "densidade_wmc_loc": 0.202,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "Participante: Luis Henrique Gonçalves Barbosa\nKata: Tarifador de Hospedagem e Pousada\nTratamento: SEM_IA\nTempo: 25:30\nCódigo implementado:\n// === CategoriaQuarto.java ===\npackage br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\npublic enum CategoriaQuarto {\nSTANDARD(1.00, BigDecimal.valueOf(50.00)),\nLUXO(1.30, BigDecimal.valueOf(80.00)),\nPRESIDENCIAL(1.70, BigDecimal.valueOf(120.00));\nprivate final double fatorMultiplicador;\nprivate final BigDecimal taxaLimpeza;\nCategoriaQuarto(double fatorMultiplicador, BigDecimal taxaLimpeza) {\nthis.fatorMultiplicador = fatorMultiplicador;\nthis.taxaLimpeza = taxaLimpeza;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\npublic BigDecimal getTaxaLimpeza() {\nreturn taxaLimpeza;\n}\n}\n\n// === TarifadorHospedagem.java ===\npackage br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\npublic class TarifadorHospedagem {\nprivate static final BigDecimal TARIFA_CURTA = BigDecimal.valueOf(160.00);\nprivate static final BigDecimal TARIFA_MEDIA = BigDecimal.valueOf(130.00);\nprivate static final BigDecimal TARIFA_LONGA = BigDecimal.valueOf(100.00);\nprivate static final BigDecimal VALOR_HOSPEDE_EXTRA = BigDecimal.valueOf(40.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularHospedagem(\nLocalDate checkIn,\nLocalDate checkOut,\nint numeroHospedes,\nCategoriaQuarto categoria,\nboolean possuiConvenio) {\n\nPagina 2 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d\nvalidarReserva(checkIn, checkOut, numeroHospedes, categoria);\nlong totalDiarias = calcularQuantidadeDeDiarias(checkIn, checkOut);\nBigDecimal tarifaDiaria = selecionarTarifaDiaria(totalDiarias);\nBigDecimal custoDasDiarias = calcularCustoDasDiarias(tarifaDiaria, totalDiarias);\nBigDecimal custoDosHospedesExtras = calcularCustoDosHospedesExtras(\nnumeroHospedes,\ntotalDiarias\n);\nBigDecimal subtotal = custoDasDiarias.add(custoDosHospedesExtras);\nBigDecimal subtotalComCategoria = aplicarCategoria(subtotal, categoria);\nBigDecimal totalComLimpeza = adicionarTaxaDeLimpeza(subtotalComCategoria,\ncategoria);\nBigDecimal totalComConvenio = aplicarConvenio(totalComLimpeza, possuiConvenio);\nreturn formatarValor(totalComConvenio);\n}\nprivate void validarReserva(\nLocalDate checkIn,\nLocalDate checkOut,\nint numeroHospedes,\nCategoriaQuarto categoria) {\nif (checkIn == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (checkOut == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (!checkOut.isAfter(checkIn)) {\nthrow new IllegalArgumentException(\"A data de check-out deve ser posterior ao\ncheck-in.\");\n}\nif (numeroHospedes <= 0) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (numeroHospedes > 5) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do quarto e obrigatoria.\");\n}\n}\nprivate long calcularQuantidadeDeDiarias(LocalDate checkIn, LocalDate checkOut) {\nreturn ChronoUnit.DAYS.between(checkIn, checkOut);\n}\nprivate BigDecimal selecionarTarifaDiaria(long totalDiarias) {\nif (totalDiarias <= 3) {\nPagina 3 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d\nreturn TARIFA_CURTA;\n}\nif (totalDiarias <= 7) {\nreturn TARIFA_MEDIA;\n}\nreturn TARIFA_LONGA;\n}\nprivate BigDecimal calcularCustoDasDiarias(BigDecimal tarifaDiaria, long\ntotalDiarias) {\nBigDecimal quantidadeDeDiarias = BigDecimal.valueOf(totalDiarias);\nreturn tarifaDiaria.multiply(quantidadeDeDiarias);\n}\nprivate BigDecimal calcularCustoDosHospedesExtras(int numeroHospedes, long\ntotalDiarias) {\nif (numeroHospedes <= 2) {\nreturn BigDecimal.ZERO;\n}\nint quantidadeDeHospedesExtras = numeroHospedes - 2;\nBigDecimal quantidadeDeExtras = BigDecimal.valueOf(quantidadeDeHospedesExtras);\nBigDecimal quantidadeDeDiarias = BigDecimal.valueOf(totalDiarias);\nBigDecimal adicionalPorDiaria = VALOR_HOSPEDE_EXTRA.multiply(quantidadeDeExtras);\nreturn adicionalPorDiaria.multiply(quantidadeDeDiarias);\n}\nprivate BigDecimal aplicarCategoria(BigDecimal subtotal, CategoriaQuarto categoria) {\nBigDecimal fatorDaCategoria =\nBigDecimal.valueOf(categoria.getFatorMultiplicador());\nreturn subtotal.multiply(fatorDaCategoria);\n}\nprivate BigDecimal adicionarTaxaDeLimpeza(BigDecimal subtotal, CategoriaQuarto\ncategoria) {\nBigDecimal taxaDeLimpeza = categoria.getTaxaLimpeza();\nreturn subtotal.add(taxaDeLimpeza);\n}\nprivate BigDecimal aplicarConvenio(BigDecimal valor, boolean possuiConvenio) {\nif (possuiConvenio) {\nreturn valor.multiply(FATOR_DESCONTO_CONVENIO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 4 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d"
+        },
+        {
+          "name": "TarifadorHospedagem.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.time.LocalDate;\nimport java.time.temporal.ChronoUnit;\npublic class TarifadorHospedagem {\nprivate static final BigDecimal TARIFA_CURTA = BigDecimal.valueOf(160.00);\nprivate static final BigDecimal TARIFA_MEDIA = BigDecimal.valueOf(130.00);\nprivate static final BigDecimal TARIFA_LONGA = BigDecimal.valueOf(100.00);\nprivate static final BigDecimal VALOR_HOSPEDE_EXTRA = BigDecimal.valueOf(40.00);\nprivate static final BigDecimal FATOR_DESCONTO_CONVENIO = BigDecimal.valueOf(0.90);\npublic BigDecimal calcularHospedagem(\nLocalDate checkIn,\nLocalDate checkOut,\nint numeroHospedes,\nCategoriaQuarto categoria,\nboolean possuiConvenio) {\nvalidarReserva(checkIn, checkOut, numeroHospedes, categoria);\nlong totalDiarias = calcularQuantidadeDeDiarias(checkIn, checkOut);\nBigDecimal tarifaDiaria = selecionarTarifaDiaria(totalDiarias);\nBigDecimal custoDasDiarias = calcularCustoDasDiarias(tarifaDiaria, totalDiarias);\nBigDecimal custoDosHospedesExtras = calcularCustoDosHospedesExtras(\nnumeroHospedes,\ntotalDiarias\n);\nBigDecimal subtotal = custoDasDiarias.add(custoDosHospedesExtras);\nBigDecimal subtotalComCategoria = aplicarCategoria(subtotal, categoria);\nBigDecimal totalComLimpeza = adicionarTaxaDeLimpeza(subtotalComCategoria,\ncategoria);\nBigDecimal totalComConvenio = aplicarConvenio(totalComLimpeza, possuiConvenio);\nreturn formatarValor(totalComConvenio);\n}\nprivate void validarReserva(\nLocalDate checkIn,\nLocalDate checkOut,\nint numeroHospedes,\nCategoriaQuarto categoria) {\nif (checkIn == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (checkOut == null) {\nthrow new IllegalArgumentException(\"Datas de check-in e check-out sao\nobrigatorias.\");\n}\nif (!checkOut.isAfter(checkIn)) {\nPagina 5 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d\nthrow new IllegalArgumentException(\"A data de check-out deve ser posterior ao\ncheck-in.\");\n}\nif (numeroHospedes <= 0) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (numeroHospedes > 5) {\nthrow new IllegalArgumentException(\"Numero de hospedes deve ser entre 1 e\n5.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do quarto e obrigatoria.\");\n}\n}\nprivate long calcularQuantidadeDeDiarias(LocalDate checkIn, LocalDate checkOut) {\nreturn ChronoUnit.DAYS.between(checkIn, checkOut);\n}\nprivate BigDecimal selecionarTarifaDiaria(long totalDiarias) {\nif (totalDiarias <= 3) {\nreturn TARIFA_CURTA;\n}\nif (totalDiarias <= 7) {\nreturn TARIFA_MEDIA;\n}\nreturn TARIFA_LONGA;\n}\nprivate BigDecimal calcularCustoDasDiarias(BigDecimal tarifaDiaria, long\ntotalDiarias) {\nBigDecimal quantidadeDeDiarias = BigDecimal.valueOf(totalDiarias);\nreturn tarifaDiaria.multiply(quantidadeDeDiarias);\n}\nprivate BigDecimal calcularCustoDosHospedesExtras(int numeroHospedes, long\ntotalDiarias) {\nif (numeroHospedes <= 2) {\nreturn BigDecimal.ZERO;\n}\nint quantidadeDeHospedesExtras = numeroHospedes - 2;\nBigDecimal quantidadeDeExtras = BigDecimal.valueOf(quantidadeDeHospedesExtras);\nBigDecimal quantidadeDeDiarias = BigDecimal.valueOf(totalDiarias);\nBigDecimal adicionalPorDiaria = VALOR_HOSPEDE_EXTRA.multiply(quantidadeDeExtras);\nreturn adicionalPorDiaria.multiply(quantidadeDeDiarias);\n}\nprivate BigDecimal aplicarCategoria(BigDecimal subtotal, CategoriaQuarto categoria) {\nBigDecimal fatorDaCategoria =\nBigDecimal.valueOf(categoria.getFatorMultiplicador());\nreturn subtotal.multiply(fatorDaCategoria);\n}\n\nPagina 6 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d\nprivate BigDecimal adicionarTaxaDeLimpeza(BigDecimal subtotal, CategoriaQuarto\ncategoria) {\nBigDecimal taxaDeLimpeza = categoria.getTaxaLimpeza();\nreturn subtotal.add(taxaDeLimpeza);\n}\nprivate BigDecimal aplicarConvenio(BigDecimal valor, boolean possuiConvenio) {\nif (possuiConvenio) {\nreturn valor.multiply(FATOR_DESCONTO_CONVENIO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 7 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d"
+        },
+        {
+          "name": "CategoriaQuarto.java",
+          "content": "package br.ufc.lab02.hospedagem;\nimport java.math.BigDecimal;\npublic enum CategoriaQuarto {\nSTANDARD(1.00, BigDecimal.valueOf(50.00)),\nLUXO(1.30, BigDecimal.valueOf(80.00)),\nPRESIDENCIAL(1.70, BigDecimal.valueOf(120.00));\nprivate final double fatorMultiplicador;\nprivate final BigDecimal taxaLimpeza;\nCategoriaQuarto(double fatorMultiplicador, BigDecimal taxaLimpeza) {\nthis.fatorMultiplicador = fatorMultiplicador;\nthis.taxaLimpeza = taxaLimpeza;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\npublic BigDecimal getTaxaLimpeza() {\nreturn taxaLimpeza;\n}\n}\n\nPagina 8 de 8\nRegistro d6521d18-c063-4e49-9113-5c14fd931e6d"
+        }
+      ]
+    },
+    {
+      "id": "c2a3da3e-c206-4d0b-9142-83b25884a2b4",
+      "pdf_filename": "Kata 4 - IA - Isabella.pdf",
+      "participante": "Isabella Luiza Dias dos Santos",
+      "participante_curto": "Isabella",
+      "kata_id": "kata04",
+      "kata_nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "classe": "TarifadorPlanoSaude",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 19,
+      "tempo_formatado": "00:19",
+      "tempo_esgotado": false,
+      "inicio": "15/09/2026, 17:06:29",
+      "fim": "15/09/2026, 17:06:48",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 40,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.25,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "import java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\n// Tarifas base por faixa etária\nprivate static final BigDecimal TARIFA_FAIXA_0_17 = BigDecimal.valueOf(150.00);\nprivate static final BigDecimal TARIFA_FAIXA_18_39 = BigDecimal.valueOf(260.00);\nprivate static final BigDecimal TARIFA_FAIXA_40_59 = BigDecimal.valueOf(420.00);\nprivate static final BigDecimal TARIFA_FAIXA_60_MAIS = BigDecimal.valueOf(720.00);\n// Taxa extra e Desconto\nprivate static final BigDecimal TAXA_ODONTOLOGIA = BigDecimal.valueOf(45.00);\nprivate static final BigDecimal FATOR_DESCONTO_COPARTICIPACAO =\nBigDecimal.valueOf(0.85);\npublic BigDecimal calcularMensalidade(int idade, CategoriaPlano categoria,\nTipoAcomodacao acomodacao, boolean incluiOdontologia, boolean possuiCoparticipacao) {\n// 1. Validações iniciais\nif (idade < 0 || idade > 120) {\nthrow new IllegalArgumentException(\"Idade invalida. Deve estar entre 0 e 120\nanos.\");\n}\nif (categoria == null || acomodacao == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e tipo de acomodacao\nsao obrigatorios.\");\n}\n// 2. Mensalidade base por faixa etária\nBigDecimal mensalidadeBase;\nif (idade <= 17) {\nmensalidadeBase = TARIFA_FAIXA_0_17;\n} else if (idade <= 39) {\nmensalidadeBase = TARIFA_FAIXA_18_39;\n} else if (idade <= 59) {\nmensalidadeBase = TARIFA_FAIXA_40_59;\n} else {\nmensalidadeBase = TARIFA_FAIXA_60_MAIS;\n}\n// 3. Multiplicador da Categoria do Plano\nBigDecimal mensalidadeComCategoria = mensalidadeBase.multiply(\nBigDecimal.valueOf(categoria.getFatorMultiplicador())\n);\n// 4. Adicional por Tipo de Acomodação\nBigDecimal totalParcial =\nmensalidadeComCategoria.add(acomodacao.getTaxaAcomodacao());\n// 5. Adicional de Cobertura Odontológica\nif (incluiOdontologia) {\ntotalParcial = totalParcial.add(TAXA_ODONTOLOGIA);\n}\n// 6. Desconto de Coparticipação (15%)\nBigDecimal totalFinal = possuiCoparticipacao\n? totalParcial.multiply(FATOR_DESCONTO_COPARTICIPACAO)\nPagina 2 de 3\nRegistro c2a3da3e-c206-4d0b-9142-83b25884a2b4\n: totalParcial;\n// 7. Retorno formatado (2 casas decimais)\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 3\nRegistro c2a3da3e-c206-4d0b-9142-83b25884a2b4"
+        }
+      ]
+    },
+    {
+      "id": "0a1d9c3a-3936-4937-8a99-2b1709c0f590",
+      "pdf_filename": "Kata 4 - IA - Leandro.pdf",
+      "participante": "Leandro Alencar Pereira Clemente",
+      "participante_curto": "Leandro",
+      "kata_id": "kata04",
+      "kata_nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "classe": "TarifadorPlanoSaude",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 58,
+      "tempo_formatado": "00:58",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:00:00",
+      "fim": "16/09/2026, 13:00:58",
+      "observacoes": "Nao informado.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 15,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.667,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "CategoriaPlano.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\npublic enum CategoriaPlano {\nBASICO(\"1.00\"), ESPECIAL(\"1.30\"), PREMIUM(\"1.60\");\nprivate final BigDecimal fator;\nCategoriaPlano(String fator) { this.fator = new BigDecimal(fator); }\npublic BigDecimal getFator() { return fator; }\n}\n\nPagina 2 de 4\nRegistro 0a1d9c3a-3936-4937-8a99-2b1709c0f590"
+        },
+        {
+          "name": "TarifadorPlanoSaude.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\npublic BigDecimal calcularMensalidade(int idade, CategoriaPlano categoria,\nTipoAcomodacao acomodacao, boolean incluiOdontologia, boolean\npossuiCoparticipacao) {\nif (idade < 0 || idade > 120 || categoria == null || acomodacao == null) {\nthrow new IllegalArgumentException(\"Dados do plano invalidos.\");\n}\nint tarifaBase = idade <= 17 ? 150 : idade <= 39 ? 260 : idade <= 59 ? 420 : 720;\nBigDecimal total = BigDecimal.valueOf(tarifaBase).multiply(categoria.getFator())\n.add(acomodacao.getAdicional());\nif (incluiOdontologia) total = total.add(new BigDecimal(\"45.00\"));\nif (possuiCoparticipacao) total = total.multiply(new BigDecimal(\"0.85\"));\nreturn total.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 3 de 4\nRegistro 0a1d9c3a-3936-4937-8a99-2b1709c0f590"
+        },
+        {
+          "name": "TipoAcomodacao.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\npublic enum TipoAcomodacao {\nENFERMARIA(\"0.00\"), APARTAMENTO(\"90.00\");\nprivate final BigDecimal adicional;\nTipoAcomodacao(String adicional) { this.adicional = new BigDecimal(adicional); }\npublic BigDecimal getAdicional() { return adicional; }\n}\n\nPagina 4 de 4\nRegistro 0a1d9c3a-3936-4937-8a99-2b1709c0f590"
+        }
+      ]
+    },
+    {
+      "id": "af097a6b-e44e-41d8-91b1-013954393c82",
+      "pdf_filename": "Kata 4 - IA - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata04",
+      "kata_nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "classe": "TarifadorPlanoSaude",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 48,
+      "tempo_formatado": "00:48",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 13:09:11",
+      "fim": "16/09/2026, 13:09:59",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%).",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 39,
+      "wmc": 10,
+      "densidade_wmc_loc": 0.256,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "TarifadorPlanoSaude.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\nprivate static final BigDecimal FAIXA_JOVEM = BigDecimal.valueOf(150.00);\nprivate static final BigDecimal FAIXA_ADULTO_1 = BigDecimal.valueOf(260.00);\nprivate static final BigDecimal FAIXA_ADULTO_2 = BigDecimal.valueOf(420.00);\nprivate static final BigDecimal FAIXA_IDOSO = BigDecimal.valueOf(720.00);\nprivate static final BigDecimal TAXA_ODONTOLOGIA = BigDecimal.valueOf(45.00);\nprivate static final BigDecimal FATOR_DESCONTO_COPARTICIPACAO =\nBigDecimal.valueOf(0.85);\npublic BigDecimal calcularMensalidade(int idade, CategoriaPlano categoria,\nTipoAcomodacao acomodacao, boolean incluiOdontologia, boolean possuiCoparticipacao) {\nif (idade < 0 || idade > 120) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (categoria == null || acomodacao == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\n}\n// 1. Mensalidade base por faixa etária\nBigDecimal valorBaseIdade;\nif (idade <= 17) {\nvalorBaseIdade = FAIXA_JOVEM;\n} else if (idade <= 39) {\nvalorBaseIdade = FAIXA_ADULTO_1;\n} else if (idade <= 59) {\nvalorBaseIdade = FAIXA_ADULTO_2;\n} else {\nvalorBaseIdade = FAIXA_IDOSO;\n}\n// 2. Multiplicador da categoria do plano\nBigDecimal valorComCategoria =\nvalorBaseIdade.multiply(BigDecimal.valueOf(categoria.getFatorMultiplicador()));\n// 3. Adicional de acomodação hospitalar\nBigDecimal valorComAcomodacao =\nvalorComCategoria.add(acomodacao.getTaxaAcomodacao());\n// 4. Adicional opcional de cobertura odontológica\nBigDecimal subtotal = incluiOdontologia\n? valorComAcomodacao.add(TAXA_ODONTOLOGIA)\n: valorComAcomodacao;\n// 5. Desconto de coparticipação\nBigDecimal totalFinal = possuiCoparticipacao\n? subtotal.multiply(FATOR_DESCONTO_COPARTICIPACAO)\n: subtotal;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\nPagina 2 de 5\nRegistro af097a6b-e44e-41d8-91b1-013954393c82"
+        },
+        {
+          "name": "CategoriaPlano.java",
+          "content": "package br.ufc.lab02.saude;\npublic enum CategoriaPlano {\nBASICO(1.00),\nESPECIAL(1.30),\nPREMIUM(1.60);\nprivate final double fatorMultiplicador;\nCategoriaPlano(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 3 de 5\nRegistro af097a6b-e44e-41d8-91b1-013954393c82"
+        },
+        {
+          "name": "TipoAcomodacao.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\npublic enum TipoAcomodacao {\nENFERMARIA(BigDecimal.valueOf(0.00)),\nAPARTAMENTO(BigDecimal.valueOf(90.00));\nprivate final BigDecimal taxaAcomodacao;\nTipoAcomodacao(BigDecimal taxaAcomodacao) {\nthis.taxaAcomodacao = taxaAcomodacao;\n}\npublic BigDecimal getTaxaAcomodacao() {\nreturn taxaAcomodacao;\n}\n}\n\nPagina 4 de 5\nRegistro af097a6b-e44e-41d8-91b1-013954393c82"
+        },
+        {
+          "name": "texto-do-trial.txt",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\nprivate static final BigDecimal FAIXA_JOVEM = BigDecimal.valueOf(150.00);\nprivate static final BigDecimal FAIXA_ADULTO_1 = BigDecimal.valueOf(260.00);\nprivate static final BigDecimal FAIXA_ADULTO_2 = BigDecimal.valueOf(420.00);\nprivate static final BigDecimal FAIXA_IDOSO = BigDecimal.valueOf(720.00);\nprivate static final BigDecimal TAXA_ODONTOLOGIA = BigDecimal.valueOf(45.00);\nprivate static final BigDecimal FATOR_DESCONTO_COPARTICIPACAO =\nBigDecimal.valueOf(0.85);\npublic BigDecimal calcularMensalidade(int idade, CategoriaPlano categoria,\nTipoAcomodacao acomodacao, boolean incluiOdontologia, boolean possuiCoparticipacao) {\nif (idade < 0 || idade > 120) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (categoria == null || acomodacao == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\n}\n// 1. Mensalidade base por faixa etária\nBigDecimal valorBaseIdade;\nif (idade <= 17) {\nvalorBaseIdade = FAIXA_JOVEM;\n} else if (idade <= 39) {\nvalorBaseIdade = FAIXA_ADULTO_1;\n} else if (idade <= 59) {\nvalorBaseIdade = FAIXA_ADULTO_2;\n} else {\nvalorBaseIdade = FAIXA_IDOSO;\n}\n// 2. Multiplicador da categoria do plano\nBigDecimal valorComCategoria =\nvalorBaseIdade.multiply(BigDecimal.valueOf(categoria.getFatorMultiplicador()));\n// 3. Adicional de acomodação hospitalar\nBigDecimal valorComAcomodacao =\nvalorComCategoria.add(acomodacao.getTaxaAcomodacao());\n// 4. Adicional opcional de cobertura odontológica\nBigDecimal subtotal = incluiOdontologia\n? valorComAcomodacao.add(TAXA_ODONTOLOGIA)\n: valorComAcomodacao;\n// 5. Desconto de coparticipação\nBigDecimal totalFinal = possuiCoparticipacao\n? subtotal.multiply(FATOR_DESCONTO_COPARTICIPACAO)\n: subtotal;\nreturn totalFinal.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\nPagina 5 de 5\nRegistro af097a6b-e44e-41d8-91b1-013954393c82"
+        }
+      ]
+    },
+    {
+      "id": "7b443101-7e5a-4808-84ec-88d60f6ec13e",
+      "pdf_filename": "Kata 4 - Manual - Luis.pdf",
+      "participante": "Luis Henrique Gonçalves Barbosa",
+      "participante_curto": "Luis",
+      "kata_id": "kata04",
+      "kata_nome": "VidaPlus · Tarifador de Plano de Saúde",
+      "classe": "TarifadorPlanoSaude",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1240,
+      "tempo_formatado": "20:40",
+      "tempo_esgotado": false,
+      "inicio": "16/09/2026, 17:10:00",
+      "fim": "16/09/2026, 17:30:40",
+      "observacoes": "8 de 8 testes unitários de aceitação passaram com sucesso (100%). Codificação manual.",
+      "testes_total": 8,
+      "testes_aprovados": 8,
+      "taxa_sucesso": 100.0,
+      "loc": 87,
+      "wmc": 17,
+      "densidade_wmc_loc": 0.195,
+      "duplicacao_cpd_pct": 0.0,
+      "arquivos": [
+        {
+          "name": "texto-do-trial.txt",
+          "content": "Participante: Luis Henrique Gonçalves Barbosa\nKata: Tarifador de Plano de Saúde\nTratamento: SEM_IA\nTempo: 20:40\nCódigo implementado:\n// === CategoriaPlano.java ===\npackage br.ufc.lab02.saude;\npublic enum CategoriaPlano {\nBASICO(1.00),\nESPECIAL(1.30),\nPREMIUM(1.60);\nprivate final double fatorMultiplicador;\nCategoriaPlano(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\n// === TarifadorPlanoSaude.java ===\npackage br.ufc.lab02.saude;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\nprivate static final BigDecimal FAIXA_JOVEM = BigDecimal.valueOf(150.00);\nprivate static final BigDecimal FAIXA_ADULTO_1 = BigDecimal.valueOf(260.00);\nprivate static final BigDecimal FAIXA_ADULTO_2 = BigDecimal.valueOf(420.00);\nprivate static final BigDecimal FAIXA_IDOSO = BigDecimal.valueOf(720.00);\nprivate static final BigDecimal TAXA_ODONTOLOGIA = BigDecimal.valueOf(45.00);\nprivate static final BigDecimal FATOR_DESCONTO_COPARTICIPACAO =\nBigDecimal.valueOf(0.85);\npublic BigDecimal calcularMensalidade(\nint idade,\nCategoriaPlano categoria,\nTipoAcomodacao acomodacao,\nboolean incluiOdontologia,\nboolean possuiCoparticipacao) {\nvalidarDadosDoPlano(idade, categoria, acomodacao);\nBigDecimal mensalidadePorIdade = selecionarMensalidadePorIdade(idade);\nBigDecimal mensalidadeComCategoria = aplicarCategoria(mensalidadePorIdade,\ncategoria);\nBigDecimal mensalidadeComAcomodacao = adicionarAcomodacao(\nmensalidadeComCategoria,\nacomodacao\nPagina 2 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e\n);\nBigDecimal mensalidadeComOdontologia = adicionarOdontologia(\nmensalidadeComAcomodacao,\nincluiOdontologia\n);\nBigDecimal mensalidadeFinal = aplicarCoparticipacao(\nmensalidadeComOdontologia,\npossuiCoparticipacao\n);\nreturn formatarValor(mensalidadeFinal);\n}\nprivate void validarDadosDoPlano(\nint idade,\nCategoriaPlano categoria,\nTipoAcomodacao acomodacao) {\nif (idade < 0) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (idade > 120) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\n}\nif (acomodacao == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\n}\n}\nprivate BigDecimal selecionarMensalidadePorIdade(int idade) {\nif (idade <= 17) {\nreturn FAIXA_JOVEM;\n}\nif (idade <= 39) {\nreturn FAIXA_ADULTO_1;\n}\nif (idade <= 59) {\nreturn FAIXA_ADULTO_2;\n}\nreturn FAIXA_IDOSO;\n}\nprivate BigDecimal aplicarCategoria(BigDecimal valor, CategoriaPlano categoria) {\nBigDecimal fatorDaCategoria =\nBigDecimal.valueOf(categoria.getFatorMultiplicador());\nreturn valor.multiply(fatorDaCategoria);\n}\nprivate BigDecimal adicionarAcomodacao(BigDecimal valor, TipoAcomodacao acomodacao) {\nBigDecimal taxaDaAcomodacao = acomodacao.getTaxaAcomodacao();\nPagina 3 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e\nreturn valor.add(taxaDaAcomodacao);\n}\nprivate BigDecimal adicionarOdontologia(BigDecimal valor, boolean incluiOdontologia) {\nif (incluiOdontologia) {\nreturn valor.add(TAXA_ODONTOLOGIA);\n}\nreturn valor;\n}\nprivate BigDecimal aplicarCoparticipacao(BigDecimal valor, boolean\npossuiCoparticipacao) {\nif (possuiCoparticipacao) {\nreturn valor.multiply(FATOR_DESCONTO_COPARTICIPACAO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\n// === TipoAcomodacao.java ===\npackage br.ufc.lab02.saude;\nimport java.math.BigDecimal;\npublic enum TipoAcomodacao {\nENFERMARIA(BigDecimal.valueOf(0.00)),\nAPARTAMENTO(BigDecimal.valueOf(90.00));\nprivate final BigDecimal taxaAcomodacao;\nTipoAcomodacao(BigDecimal taxaAcomodacao) {\nthis.taxaAcomodacao = taxaAcomodacao;\n}\npublic BigDecimal getTaxaAcomodacao() {\nreturn taxaAcomodacao;\n}\n}\n\nPagina 4 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e"
+        },
+        {
+          "name": "TarifadorPlanoSaude.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\nimport java.math.RoundingMode;\npublic class TarifadorPlanoSaude {\nprivate static final BigDecimal FAIXA_JOVEM = BigDecimal.valueOf(150.00);\nprivate static final BigDecimal FAIXA_ADULTO_1 = BigDecimal.valueOf(260.00);\nprivate static final BigDecimal FAIXA_ADULTO_2 = BigDecimal.valueOf(420.00);\nprivate static final BigDecimal FAIXA_IDOSO = BigDecimal.valueOf(720.00);\nprivate static final BigDecimal TAXA_ODONTOLOGIA = BigDecimal.valueOf(45.00);\nprivate static final BigDecimal FATOR_DESCONTO_COPARTICIPACAO =\nBigDecimal.valueOf(0.85);\npublic BigDecimal calcularMensalidade(\nint idade,\nCategoriaPlano categoria,\nTipoAcomodacao acomodacao,\nboolean incluiOdontologia,\nboolean possuiCoparticipacao) {\nvalidarDadosDoPlano(idade, categoria, acomodacao);\nBigDecimal mensalidadePorIdade = selecionarMensalidadePorIdade(idade);\nBigDecimal mensalidadeComCategoria = aplicarCategoria(mensalidadePorIdade,\ncategoria);\nBigDecimal mensalidadeComAcomodacao = adicionarAcomodacao(\nmensalidadeComCategoria,\nacomodacao\n);\nBigDecimal mensalidadeComOdontologia = adicionarOdontologia(\nmensalidadeComAcomodacao,\nincluiOdontologia\n);\nBigDecimal mensalidadeFinal = aplicarCoparticipacao(\nmensalidadeComOdontologia,\npossuiCoparticipacao\n);\nreturn formatarValor(mensalidadeFinal);\n}\nprivate void validarDadosDoPlano(\nint idade,\nCategoriaPlano categoria,\nTipoAcomodacao acomodacao) {\nif (idade < 0) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (idade > 120) {\nthrow new IllegalArgumentException(\"Idade deve estar entre 0 e 120 anos.\");\n}\nif (categoria == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\nPagina 5 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e\n}\nif (acomodacao == null) {\nthrow new IllegalArgumentException(\"Categoria do plano e acomodacao sao\nobrigatorias.\");\n}\n}\nprivate BigDecimal selecionarMensalidadePorIdade(int idade) {\nif (idade <= 17) {\nreturn FAIXA_JOVEM;\n}\nif (idade <= 39) {\nreturn FAIXA_ADULTO_1;\n}\nif (idade <= 59) {\nreturn FAIXA_ADULTO_2;\n}\nreturn FAIXA_IDOSO;\n}\nprivate BigDecimal aplicarCategoria(BigDecimal valor, CategoriaPlano categoria) {\nBigDecimal fatorDaCategoria =\nBigDecimal.valueOf(categoria.getFatorMultiplicador());\nreturn valor.multiply(fatorDaCategoria);\n}\nprivate BigDecimal adicionarAcomodacao(BigDecimal valor, TipoAcomodacao acomodacao) {\nBigDecimal taxaDaAcomodacao = acomodacao.getTaxaAcomodacao();\nreturn valor.add(taxaDaAcomodacao);\n}\nprivate BigDecimal adicionarOdontologia(BigDecimal valor, boolean incluiOdontologia) {\nif (incluiOdontologia) {\nreturn valor.add(TAXA_ODONTOLOGIA);\n}\nreturn valor;\n}\nprivate BigDecimal aplicarCoparticipacao(BigDecimal valor, boolean\npossuiCoparticipacao) {\nif (possuiCoparticipacao) {\nreturn valor.multiply(FATOR_DESCONTO_COPARTICIPACAO);\n}\nreturn valor;\n}\nprivate BigDecimal formatarValor(BigDecimal valor) {\nreturn valor.setScale(2, RoundingMode.HALF_EVEN);\n}\n}\n\nPagina 6 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e"
+        },
+        {
+          "name": "CategoriaPlano.java",
+          "content": "package br.ufc.lab02.saude;\npublic enum CategoriaPlano {\nBASICO(1.00),\nESPECIAL(1.30),\nPREMIUM(1.60);\nprivate final double fatorMultiplicador;\nCategoriaPlano(double fatorMultiplicador) {\nthis.fatorMultiplicador = fatorMultiplicador;\n}\npublic double getFatorMultiplicador() {\nreturn fatorMultiplicador;\n}\n}\n\nPagina 7 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e"
+        },
+        {
+          "name": "TipoAcomodacao.java",
+          "content": "package br.ufc.lab02.saude;\nimport java.math.BigDecimal;\npublic enum TipoAcomodacao {\nENFERMARIA(BigDecimal.valueOf(0.00)),\nAPARTAMENTO(BigDecimal.valueOf(90.00));\nprivate final BigDecimal taxaAcomodacao;\nTipoAcomodacao(BigDecimal taxaAcomodacao) {\nthis.taxaAcomodacao = taxaAcomodacao;\n}\npublic BigDecimal getTaxaAcomodacao() {\nreturn taxaAcomodacao;\n}\n}\n\nPagina 8 de 8\nRegistro 7b443101-7e5a-4808-84ec-88d60f6ec13e"
+        }
+      ]
+    }
+  ]
+}

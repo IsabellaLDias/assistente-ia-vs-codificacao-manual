@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node web/server.mjs",
     "test:web": "node --test web/server.test.mjs",
-    "build": "node --check web/server.mjs && node --check web/public/app.js && node --check web/public/shell.js && node --check cronometro/script.js",
+    "build": "node --check web/server.mjs && node --check web/public/app.js && node --check web/public/shell.js && node --check web/public/dashboard.js && node --check cronometro/script.js",
+    "data:dashboard": "python3 scripts/generate-dashboard-data.py",
+    "plots": ".venv/bin/python scripts/generate_plots.py",
     "docker:build": "docker build -t lab02-metricas .",
     "docker:run": "docker run -p 3010:3010 lab02-metricas"
   },

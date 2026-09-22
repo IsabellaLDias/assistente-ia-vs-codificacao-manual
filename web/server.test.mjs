@@ -98,15 +98,17 @@ test('HTTP: real analysis, downloads, invalid compilation and origin protections
   const base=`http://127.0.0.1:${server.address().port}`;
   const home = await fetch(base);
   assert.equal(home.status,200);
-  assert.match(await home.text(), /href="#cronometro"/);
-  for (const route of ['/shell.js', '/shell.css', '/metricas/', '/cronometro/', '/cronometro/script.js', '/cronometro/style.css']) {
+  const homeHtml = await home.text();
+  assert.match(homeHtml, /href="#cronometro"/);
+  assert.match(homeHtml, /href="#dashboard"/);
+  for (const route of ['/shell.js', '/shell.css', '/metricas/', '/cronometro/', '/cronometro/script.js', '/cronometro/style.css', '/dashboard/', '/dashboard.js', '/dashboard.css']) {
     const page = await fetch(`${base}${route}`);
     assert.equal(page.status, 200, route);
     assert.match(page.headers.get('content-security-policy'), /frame-ancestors 'self'/);
   }
   assert.equal((await fetch(`${base}/cronometro/missing.js`)).status, 404);
   const {token,ready}=await (await fetch(`${base}/api/config`)).json();
-  assert.equal(ready,true,'Run setup-metrics.ps1 before integration tests');
+  if (!ready) { t.skip('Run setup-metrics.ps1 before integration tests'); return; }
   const headers={'Content-Type':'application/json','X-Lab-Token':token};
   assert.equal((await fetch(`${base}/api/analyze`,{method:'POST',body:JSON.stringify(sample),headers:{'Content-Type':'application/json'}})).status,403);
   assert.equal((await fetch(`${base}/api/analyze`,{method:'POST',body:JSON.stringify(sample),headers:{...headers,Origin:'https://example.com'}})).status,403);
@@ -126,4 +128,19 @@ test('HTTP: real analysis, downloads, invalid compilation and origin protections
   assert.equal(broken.status,422);assert.match(error.error,/compilam/);
   assert.equal((await fetch(`${base}/api/jobs/${error.id}/metrics.csv`)).status,404);
   assert.equal((await fetch(`${base}/api/jobs/${error.id}/execution.log`)).status,200);
+});
+
+test('HTTP: dashboard endpoint serves consolidated metrics and trials', async t => {
+  const server = createServer();
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise(resolve => {server.closeAllConnections(); server.close(resolve);}));
+  const base = `http://127.0.0.1:${server.address().port}`;
+  const response = await fetch(`${base}/api/dashboard`);
+  assert.equal(response.status, 200);
+  const data = await response.json();
+  assert.equal(data.kpis.total_trials, 16);
+  assert.equal(data.kpis.total_testes_junit, 128);
+  assert.equal(data.kpis.taxa_sucesso_testes_pct, 100);
+  assert.equal(data.trials.length, 16);
+  assert.equal(data.comparativo_katas.length, 4);
 });

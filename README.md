@@ -10,6 +10,7 @@ para comparar trials **com IA** e **sem IA**.
 
 - [Cronômetro](https://arsenal.dev.br/lab02/#cronometro): tempo e resultados dos trials.
 - [Métricas de código](https://arsenal.dev.br/lab02/#metricas): envio de classes Java e relatórios.
+- [Dashboard analítico](https://arsenal.dev.br/lab02/#dashboard): indicadores empíricos, gráficos comparativos e inspeção dos códigos testados.
 
 A disponibilidade depende do computador hospedeiro, do A.R.S.E.N.A.L e do túnel
 Cloudflare estarem em execução. Quem acessa o site não precisa instalar Java.
@@ -55,6 +56,15 @@ dos katas continuam separados:** a análise estrutural não comprova correção 
 Cada envio gera um relatório independente e é registrado no PostgreSQL, junto com
 as métricas, métodos e fontes enviados. Arquivos CSV, JSON e logs também permanecem
 no computador hospedeiro como cópia de auditoria e são ignorados pelo Git.
+
+### Dashboard analítico
+
+Aba integrada que consolida os resultados quantitativos de todos os **16 trials testados** e dos **128 testes de aceitação JUnit**:
+- **KPIs executivos:** comparativos diretos de produtividade (redução de 95,8% no tempo mediano com IA), taxa de sucesso nos testes (100%), redução de volume de código (-50,6% LOC) e complexidade ciclomática (-41,2% WMC).
+- **Filtros interativos:** exploração dinâmica por kata (problema), tratamento (Com IA × Manual) e participante.
+- **Gráficos estatísticos:** produtividade por integrante, qualidade estrutural por kata, eficiência computacional (latência de CPU e alocação de Heap) e deltas pareados do teste de Wilcoxon.
+- **Inspeção de código-fonte:** visualização direta do código Java de cada solução avaliada no experimento.
+- **Exportação:** download dos dados consolidados em CSV e JSON.
 
 ### Anexos e relatório do cronômetro
 

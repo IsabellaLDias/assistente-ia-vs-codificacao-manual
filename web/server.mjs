@@ -132,6 +132,20 @@ export function createServer(options = {}) {
         ])).every(Boolean);
         return json(200, {token, ready, database:database.enabled});
       }
+      if (req.method === 'GET' && url.pathname === '/api/dashboard') {
+        try {
+          const dashboardFile = path.join(root, 'data/dashboard-data.json');
+          if (!await exists(dashboardFile)) return json(404, {error:'Dataset do dashboard não encontrado.'});
+          const content = JSON.parse(await readFile(dashboardFile, 'utf8'));
+          if (database.enabled) {
+            try {
+              const liveTrials = await database.listTrials();
+              content.live_trials_count = liveTrials.length;
+            } catch {}
+          }
+          return json(200, content);
+        } catch { return json(500, {error:'Não foi possível carregar os dados do dashboard.'}); }
+      }
       if (req.method === 'GET' && url.pathname === '/api/trials') {
         if (!database.enabled) return json(503, {error:'O banco de dados do LAB02 não está configurado.'});
         return json(200, {trials:await database.listTrials()});
@@ -201,7 +215,7 @@ export function createServer(options = {}) {
         res.writeHead(200, {'Content-Type':download[2].endsWith('.csv')?'text/csv; charset=utf-8':'text/plain; charset=utf-8', 'Content-Disposition':`attachment; filename="${download[2]}"`});
         return res.end(await readFile(file));
       }
-      const staticFiles = {'/':['shell.html','text/html'], '/shell.js':['shell.js','text/javascript'], '/shell.css':['shell.css','text/css'], '/metricas/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css'], '/cronometro/':['../../cronometro/index.html','text/html'], '/cronometro/script.js':['../../cronometro/script.js','text/javascript'], '/cronometro/style.css':['../../cronometro/style.css','text/css']};
+      const staticFiles = {'/':['shell.html','text/html'], '/shell.js':['shell.js','text/javascript'], '/shell.css':['shell.css','text/css'], '/metricas/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css'], '/cronometro/':['../../cronometro/index.html','text/html'], '/cronometro/script.js':['../../cronometro/script.js','text/javascript'], '/cronometro/style.css':['../../cronometro/style.css','text/css'], '/dashboard/':['dashboard.html','text/html'], '/dashboard.js':['dashboard.js','text/javascript'], '/dashboard.css':['dashboard.css','text/css']};
       if (req.method === 'GET' && staticFiles[url.pathname]) {
         const [file,type] = staticFiles[url.pathname];
         let content = await readFile(path.join(assets,file));

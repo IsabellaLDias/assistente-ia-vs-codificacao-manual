@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAB02 · Dashboard Analítico</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script defer src="/dashboard.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- Top Header -->
+    <header class="dashboard-header">
+      <div class="header-title-group">
+        <h1>Dashboard Analítico · Códigos Testados</h1>
+        <p>Análise empírica e quantitativa dos 16 trials (COM IA × SEM IA) e 128 testes de aceitação JUnit nos 4 katas de negócio.</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-export-csv" class="btn" title="Baixar planilha dos trials em CSV">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Exportar CSV
+        </button>
+        <button id="btn-export-json" class="btn" title="Baixar dataset completo em JSON">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Exportar JSON
+        </button>
+        <button id="btn-reload" class="btn btn-primary" title="Recarregar dados do servidor">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Atualizar
+        </button>
+      </div>
+    </header>
+
+    <!-- Filters Bar -->
+    <section class="filter-card">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="filter-kata">Kata / Problema</label>
+          <select id="filter-kata">
+            <option value="all">Todos os Katas (4)</option>
+            <option value="kata01">Kata 01 · SmartPark (Estacionamento)</option>
+            <option value="kata02">Kata 02 · EcoFrete (Logística)</option>
+            <option value="kata03">Kata 03 · BellaVista (Hospedagem)</option>
+            <option value="kata04">Kata 04 · VidaPlus (Saúde)</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-treatment">Tratamento</label>
+          <select id="filter-treatment">
+            <option value="all">Todos os Tratamentos</option>
+            <option value="COM_IA">Com Assistente de IA</option>
+            <option value="SEM_IA">Codificação Manual (Sem IA)</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filter-participant">Participante</label>
+          <select id="filter-participant">
+            <option value="all">Todos os Participantes (3)</option>
+            <option value="Isabella">Isabella Dias</option>
+            <option value="Leandro">Leandro Alencar</option>
+            <option value="Luis">Luis Barbosa</option>
+          </select>
+        </div>
+
+        <div class="filter-summary" id="filter-counter">
+          Exibindo 16 de 16 trials testados
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI Grid -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Tempo de Conclusão (RQ1)</span>
+          <span class="kpi-badge highlight" id="kpi-time-diff">-95.9%</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-time-com">00:58</span>
+          <span class="kpi-unit">COM IA</span>
+        </div>
+        <div class="kpi-subtext" id="kpi-time-sub">
+          Mediana manual: <strong>23:45</strong> (economia de 22 min)
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Testes de Aceitação (RQ2)</span>
+          <span class="kpi-badge highlight">100% OK</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-junit-rate">100%</span>
+          <span class="kpi-unit">aprovação</span>
+        </div>
+        <div class="kpi-subtext" id="kpi-junit-sub">
+          <strong>128 de 128</strong> casos de teste JUnit 5 aprovados
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Volume de Código (LOC)</span>
+          <span class="kpi-badge highlight" id="kpi-loc-diff">-50.6%</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-loc-com">43</span>
+          <span class="kpi-unit">linhas (IA)</span>
+        </div>
+        <div class="kpi-subtext" id="kpi-loc-sub">
+          Mediana manual: <strong>87</strong> linhas físicas
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Complexidade McCabe (WMC)</span>
+          <span class="kpi-badge highlight" id="kpi-wmc-diff">-41.2%</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-wmc-com">10.0</span>
+          <span class="kpi-unit">WMC (IA)</span>
+        </div>
+        <div class="kpi-subtext" id="kpi-wmc-sub">
+          Mediana manual: <strong>17.0</strong> WMC absoluto
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Densidade Lógica (WMC/LOC)</span>
+          <span class="kpi-badge">Eficiência</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" id="kpi-density-com">0.23</span>
+          <span class="kpi-unit">lógica/linha</span>
+        </div>
+        <div class="kpi-subtext" id="kpi-density-sub">
+          Manual: <strong>0.20</strong> (código IA é mais concentrado)
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Duplicação (PMD CPD)</span>
+          <span class="kpi-badge highlight">0.0%</span>
+        </div>
+        <div class="kpi-value-row">
+          <span class="kpi-value">0.0%</span>
+          <span class="kpi-unit">repetição</span>
+        </div>
+        <div class="kpi-subtext">
+          Limiar de 50 tokens — nenhuma redundância espúria
+        </div>
+      </div>
+    </section>
+
+    <!-- Waffle Matrix Section (RQ2) -->
+    <section class="waffle-section">
+      <div class="waffle-header">
+        <div>
+          <h3>Waffle Matrix: Matriz de 128 Testes Unitários de Aceitação (JUnit 5)</h3>
+          <p>Validação auditável e tátil de cada asserção executada contra os códigos dos 16 trials. Passe o mouse sobre qualquer célula para inspecionar a regra de negócio verificada.</p>
+        </div>
+        <div class="waffle-stats-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          128/128 Testes Aprovados (100% Taxa de Sucesso)
+        </div>
+      </div>
+      <div class="waffle-matrix-container">
+        <div class="waffle-columns-label">
+          <span>Trial / Solução Submetida</span>
+          <span>Caso 1</span>
+          <span>Caso 2</span>
+          <span>Caso 3</span>
+          <span>Caso 4</span>
+          <span>Caso 5</span>
+          <span>Caso 6</span>
+          <span>Caso 7</span>
+          <span>Caso 8</span>
+        </div>
+        <div class="waffle-grid" id="waffle-grid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Specialized Charts Grid -->
+    <section class="charts-grid">
+      <!-- Chart 1: Slopegraph Pareado -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>Slopegraph Pareado: Trajetória Temporal Individual (RQ1)</h3>
+            <p>Conexão direta da condição Manual (Sem IA) para Com IA (em minutos)</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color" style="background:#4f46e5"></span>Isabella</span>
+            <span class="legend-item"><span class="legend-color" style="background:#0284c7"></span>Leandro</span>
+            <span class="legend-item"><span class="legend-color" style="background:#10b981"></span>Luis</span>
+          </div>
+        </div>
+        <div class="chart-body" id="chart-slopegraph">
+          <!-- Rendered via JS SVG -->
+        </div>
+      </div>
+
+      <!-- Chart 2: Matriz de Quadrantes LOC x WMC -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>Dispersão em Quadrantes com Iso-linhas de Densidade (RQ3)</h3>
+            <p>Linhas de Código (LOC) × Complexidade Ciclomática (WMC) nos 16 trials</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color" style="background:#0284c7"></span>Com IA</span>
+            <span class="legend-item"><span class="legend-color" style="background:#d97706"></span>Manual (Sem IA)</span>
+            <span class="legend-item"><span class="legend-color" style="background:#94a3b8"></span>Iso-densidade (WMC/LOC)</span>
+          </div>
+        </div>
+        <div class="chart-body" id="chart-quadrants">
+          <!-- Rendered via JS SVG -->
+        </div>
+      </div>
+
+      <!-- Chart 3: Bullet Graphs de Performance -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>Bullet Graphs de Eficiência em Execução (Stephen Few / RQ4)</h3>
+            <p>Latência média de CPU (µs) e Heap contextualizados em faixas de desempenho</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color" style="background:#059669"></span>Excelente (&lt;0.05µs)</span>
+            <span class="legend-item"><span class="legend-color" style="background:#6ee7b7"></span>Ideal (&lt;0.10µs)</span>
+            <span class="legend-item"><span class="legend-color" style="background:#cbd5e1"></span>Aceitável</span>
+            <span class="legend-item"><span class="legend-color" style="background:#0f172a"></span>Medido</span>
+          </div>
+        </div>
+        <div class="chart-body" id="chart-bullet">
+          <!-- Rendered via JS SVG -->
+        </div>
+      </div>
+
+      <!-- Chart 4: Waterfall Divergente de Wilcoxon -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <h3>Waterfall Divergente: Postos Sinalizados de Wilcoxon</h3>
+            <p>Empilhamento dos postos pareados e demonstração do teste não-paramétrico</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-color" style="background:#059669"></span>Postos W⁻ (Redução COM IA)</span>
+            <span class="legend-item"><span class="legend-color" style="background:#ef4444"></span>Limiar Crítico (α = 0.05)</span>
+          </div>
+        </div>
+        <div class="chart-body" id="chart-waterfall">
+          <!-- Rendered via JS SVG -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistical Insight Card -->
+    <section class="stat-summary-card">
+      <div class="stat-content">
+        <h4>Evidência Estatística: Teste de Postos Sinalizados de Wilcoxon</h4>
+        <p>
+          Comparação pareada intra-sujeito (n=3 participantes) para o tempo de conclusão (RQ1). Os três participantes demonstraram redução uniforme de tempo com IA, resultando em correlação rank-biserial de <strong>−1,00</strong>. Devido à amostra reduzida ($n=3$), o p-valor exato é $p = 2^{-3} = 0,1250$ (não rejeita $H_0$ a $\alpha = 0,05$), embora o efeito prático médio observado seja de <strong>95,8% de aceleração</strong>.
+        </p>
+      </div>
+      <div class="stat-pills">
+        <div class="stat-pill">
+          <div class="stat-pill-label">Estatística W</div>
+          <div class="stat-pill-val" id="stat-w">W = 0</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">P-Valor Exato</div>
+          <div class="stat-pill-val" id="stat-p">p = 0.125</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Rank-Biserial</div>
+          <div class="stat-pill-val" id="stat-r">-1.00</div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-pill-label">Sucesso Testes</div>
+          <div class="stat-pill-val">128/128</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Table of Tested Trials -->
+    <section class="table-card">
+      <div class="table-header">
+        <div>
+          <h3>Inventário dos 16 Códigos-Fonte Avaliados e Testados</h3>
+          <p>Soluções reais dos participantes auditadas pelo cronômetro e pelas suítes JUnit 5.</p>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table id="table-trials">
+          <thead>
+            <tr>
+              <th>Participante</th>
+              <th>Kata / Domínio</th>
+              <th>Tratamento</th>
+              <th>Classe Tarifadora</th>
+              <th>LOC</th>
+              <th>WMC</th>
+              <th>Densidade</th>
+              <th>Tempo</th>
+              <th>Testes JUnit</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-trials">
+            <!-- Rendered via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Modal for Code Inspection -->
+  <div id="modal-inspector" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-trial-title">TarifadorEstacionamento.java</h3>
+          <p id="modal-trial-subtitle">Leandro · Kata 01 (SmartPark) · COM IA</p>
+        </div>
+        <button id="modal-close" class="modal-close" aria-label="Fechar modal">&times;</button>
+      </div>
+      <div class="modal-metrics-bar" id="modal-metrics-bar">
+        <!-- Rendered via JS -->
+      </div>
+      <div class="modal-file-tabs" id="modal-file-tabs">
+        <!-- File tabs rendered via JS -->
+      </div>
+      <div class="modal-code-body">
+        <pre class="code-pre"><code id="modal-code-content">// Código Java</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Tooltip element for charts -->
+  <div id="chart-tooltip" class="chart-tooltip"></div>
+</body>
+</html>
